@@ -125,6 +125,19 @@ function spawnRemoteModal(url,data){
 	}
 }
 
+function json2html(json) {
+	var i, ret = "";
+	ret += "<ul>";
+	for( i in json) {
+		ret += "<li>"+i+": ";
+		if( typeof json[i] === "object") ret += json2html(json[i]);
+		else ret += json[i];
+		ret += "</li>";
+	}
+	ret += "</ul>";
+	return ret;
+}
+
 function removeModal(){
 	if($("#modal").length>=1){
 		$('#modal').modal('hide');
