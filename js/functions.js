@@ -42,7 +42,7 @@ function isNullData(id){
 	}
 }
 
-function spawnModal(title,body){
+function spawnModal(title,body,btnlabel){
 	if($("#modal").length==0){
 		
 		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
@@ -54,8 +54,7 @@ function spawnModal(title,body){
 					'</div>'+
 					'<div class="modal-body">'+body+'</div>'+
 					'<div class="modal-footer">'+
-						'<button type="button" class="btn btn-default" data-dismiss="modal">Aceptar</button>'+
-						//'<button type="button" class="btn btn-primary disabled">Sí</button>'+
+						'<button type="button" class="btn btn-default" data-dismiss="modal">'+btnlabel+'</button>'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
@@ -66,13 +65,11 @@ function spawnModal(title,body){
 		$('#modal').on( 'hidden.bs.modal', function ( e ){
 			$('#modal').remove();
 			$('body').removeClass("modal-open");
-			
 		} );
 	} else {
 		console.error("Ya existe un modal popup.");
 	}
 }
-
 function spawnRemoteModal(url,data){
 	if($("#modal").length==0){
 		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+ //tabindex="-1"
@@ -90,7 +87,7 @@ function spawnRemoteModal(url,data){
 		
 		$.ajax({
 			type: 'POST',
-			url: './'+url+'.php?s='+$(uuid).find("user").attr("uuid")+"&i="+$(uuid).find("user").attr("id"),
+			url: url,
 			data: data,
 			timeout: 10000,
 			beforeSend: function() {
@@ -109,10 +106,8 @@ function spawnRemoteModal(url,data){
 			error: function(request, status, error) {
 				console.log(request.responseText);
 				alert("Se ha producido un error de comuniación. Vuelva a intentarlo o contacte con Surf the Web.");
-				//$("#spinner").remove();
 			},
 			complete: function(jqXHR, textStatus) {
-				//console.log(textStatus);
 				removeSpinner();
 			}
 		});
@@ -134,16 +129,20 @@ function json2html(json) {
 	return ret;
 }
 
-function removeModal(){
-	if($("#modal").length>=1){
-		$('#modal').modal('hide');
-	} else {
-		console.error("No existe un modal.");
-	}
+function spawnCalendar(cal){
+	//$(".datetimepicker").remove();
+	
+	$(cal).datetimepicker({
+        format: "dd-mm-yyyy",
+		autoclose:true,
+		minView: 2,
+		todayHighlight: true,
+		language:'es',
+		weekStart:1
+    });
 }
-
 function spawnCalendars(cal1,cal2){
-	$(".datetimepicker").remove();
+	//$(".datetimepicker").remove();
 	
 	var antes = new Date();
 	antes.setFullYear(antes.getFullYear()-1);
@@ -177,7 +176,6 @@ function spawnAlert(text,cssclass,showBefore){
 			});
 		},2000);
 	});
-	//$(cssalert)
 }
 
 function print(elem) {
