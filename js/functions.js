@@ -7,7 +7,6 @@ function spawnSpinner(){
 		$(spinner).appendTo("body");
 	}
 }
-
 function removeSpinner(){
 	$("#spinner").fadeOut("fast",function(){
 		$(this).remove();
@@ -21,7 +20,6 @@ function setData(id,data){
 		Cookies.set(id,data);
 	}
 }
-
 function getData(id){
 	if(typeof(Storage) !== "undefined") {
 		return localStorage.getItem(id);
@@ -29,7 +27,6 @@ function getData(id){
 		return Cookies.get(id);
 	}
 }
-
 function removeData(id){
 	if(typeof(Storage) !== "undefined") {
 		localStorage.removeItem(id);
@@ -37,7 +34,6 @@ function removeData(id){
 		Cookies.remove(id);
 	}
 }
-
 function isNullData(id){
 	if(typeof(Storage) !== "undefined") {
 		return (localStorage.getItem(id) === null);
