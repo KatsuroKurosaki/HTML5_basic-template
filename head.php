@@ -4,6 +4,7 @@
 		<meta name="viewport" content="initial-scale=1,user-scalable=no,width=device-width"/>
         <meta name="format-detection" content="telephone=no"/>
         <meta name="msapplication-tap-highlight" content="no"/>
+		<meta name="msapplication-config" content="none"/>
 		<meta name="description" content="Basic jQuery + BootStrap + FontAwesome + themes to start from scratch">
 		<meta name="author" content="Katsuro Kurosaki">
 		
