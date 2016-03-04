@@ -72,18 +72,12 @@ function spawnModal(title,body,btnlabel){
 }
 function spawnRemoteModal(url,data){
 	if($("#modal").length==0){
-		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+ //tabindex="-1"
+		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
 				'</div>'+
 			'</div>'+
 		'</div>';
-		
-		try {
-			var uuid = $.parseXML(getData("userinfo"));
-		} catch (err) {
-			logout();
-		}
 		
 		$.ajax({
 			type: 'POST',
@@ -105,7 +99,7 @@ function spawnRemoteModal(url,data){
 			},
 			error: function(request, status, error) {
 				console.log(request.responseText);
-				alert("Se ha producido un error de comuniación. Vuelva a intentarlo o contacte con Surf the Web.");
+				spawnModal("Error de comunicaci?n","Se ha producido un error de comuniaci?n. Vuelva a intentarlo o contacte con Surf the Web.","Cerrar");
 			},
 			complete: function(jqXHR, textStatus) {
 				removeSpinner();
@@ -127,39 +121,6 @@ function json2html(json) {
 	}
 	ret += "</ul>";
 	return ret;
-}
-
-function spawnCalendar(cal){
-	//$(".datetimepicker").remove();
-	
-	$(cal).datetimepicker({
-        format: "dd-mm-yyyy",
-		autoclose:true,
-		minView: 2,
-		todayHighlight: true,
-		language:'es',
-		weekStart:1
-    });
-}
-function spawnCalendars(cal1,cal2){
-	//$(".datetimepicker").remove();
-	
-	var antes = new Date();
-	antes.setFullYear(antes.getFullYear()-1);
-	
-	var despues = new Date();
-	//despues.setFullYear(despues.getFullYear()+1);
-	
-	$(cal1+", "+cal2).datetimepicker({
-        format: "dd-mm-yyyy",
-		autoclose:true,
-		minView: 2,
-		todayHighlight: true,
-		language:'es',
-		weekStart:1,
-		startDate:antes,
-		endDate:despues
-    });
 }
 
 function spawnAlert(text,cssclass,showBefore){

@@ -8,3 +8,7 @@
 	background-color:#f5f5f5;
 	padding:1em 0;
 }
+
+.jumbotron {
+	background:url(../img/jumbotron.jpg) no-repeat center center fixed;
+}
