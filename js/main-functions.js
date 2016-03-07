@@ -110,6 +110,12 @@ function spawnRemoteModal(url,data){
 	}
 }
 
+function qs(key) {
+    key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
+    var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
+    return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+}
+
 function json2html(json) {
 	var i, ret = "";
 	ret += "<ul>";
