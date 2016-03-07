@@ -10,8 +10,8 @@
 				</div>
 				<div class="navbar-collapse collapse navbar-responsive-collapse">
 					<ul class="nav navbar-nav">
-						<li class="active"><a href="#">Inicio</a></li>
-						<li><a href="#">Section</a></li>
+						<li<?php if(_FILE == "main"){echo ' class="active"';} ?>><a href="#">Inicio</a></li>
+						<li<?php if(_FILE == "section"){echo ' class="active"';} ?>><a href="#">Section</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <i class="caret"></i></a>
 							<ul class="dropdown-menu">

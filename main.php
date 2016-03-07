@@ -2,7 +2,7 @@
 <html lang="en">
     <?php require 'header.php'; ?>
     <body>
-        <?php require 'navbar.php'; ?>
+        <?php define("_FILE",basename(__FILE__, '.php')); require 'navbar.php'; ?>
 		
 		<div class="jumbotron">
 			<div class="container">
