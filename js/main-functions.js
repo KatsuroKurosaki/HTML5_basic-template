@@ -109,6 +109,13 @@ function spawnRemoteModal(url,data){
 		console.error("Ya existe un modal popup.");
 	}
 }
+function removeModal(){
+	if($("#modal").length>=1){
+		$('#modal').modal('hide');
+	} else {
+		console.error("No existe un modal.");
+	}
+}
 
 function qs(key) {
     key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
