@@ -1,0 +1,66 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'UbuntuB';
+	src: url('../fonts/Ubuntu-B.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuBI';
+	src: url('../fonts/Ubuntu-BI.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuC';
+	src: url('../fonts/Ubuntu-C.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuL';
+	src: url('../fonts/Ubuntu-L.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuLI';
+	src: url('../fonts/Ubuntu-LI.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuM';
+	src: url('../fonts/Ubuntu-M.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuMI';
+	src: url('../fonts/Ubuntu-MI.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuMonoB';
+	src: url('../fonts/UbuntuMono-B.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuMonoBI';
+	src: url('../fonts/UbuntuMono-BI.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuMonoR';
+	src: url('../fonts/UbuntuMono-R.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuMonoRI';
+	src: url('../fonts/UbuntuMono-RI.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuR';
+	src: url('../fonts/Ubuntu-R.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'UbuntuRI';
+	src: url('../fonts/Ubuntu-RI.ttf') format('truetype');
+}
