@@ -32,3 +32,8 @@ function spawnCalendars(cal1,cal2){
 		endDate:despues
     });
 }
+
+function passwordKeyDownEvent(e){
+	keyCode = ('which' in e) ? e.which : e.keyCode;
+	if (keyCode==13) alert("Intro pressed");
+}

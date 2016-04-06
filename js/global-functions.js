@@ -99,7 +99,7 @@ function spawnRemoteModal(url,data){
 			},
 			error: function(request, status, error) {
 				console.log(request.responseText);
-				spawnModal("Error de comunicaci?n","Se ha producido un error de comuniaci?n. Vuelva a intentarlo o contacte con Surf the Web.","Cerrar");
+				spawnModal("Error de comunicación","Se ha producido un error de comuniación. Vuelva a intentarlo o contacte con el administrador.","Cerrar");
 			},
 			complete: function(jqXHR, textStatus) {
 				removeSpinner();
