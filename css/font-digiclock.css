@@ -4,3 +4,4 @@
 	font-family: 'DigiClock';
 	src: url('../fonts/DigiClock.ttf') format('truetype');
 }
+.DigiClock{font-family:DigiClock;}
