@@ -15,10 +15,10 @@ if(isset($_POST['op'])){
 			);
 			$stmt->execute();
 			if($stmt === false){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));}
-			$data = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+			$out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 			$stmt->close();
 			$conn->close();
-			$out['data'] = $data;
+			
 			$out['status']="ok";
 		break;
 		
