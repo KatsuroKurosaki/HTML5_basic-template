@@ -33,6 +33,29 @@ function spawnCalendars(cal1,cal2){
     });
 }
 
+function perfectAjaxQuery(){
+	$.ajax({
+		method: 'POST',
+		url: 'api.php',
+		data: {
+			op:'hello'
+		},
+		timeout: 10000,
+		beforeSend: function(jqXHR, settings) {
+			console.log(settings);
+		},
+		success: function (data, textStatus, jqXHR) {
+			console.log(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.log(jqXHR.responseText);	
+		},
+		complete: function(jqXHR, textStatus) {
+			console.log(textStatus);
+		}
+	});
+}
+
 function passwordKeyDownEvent(e){
 	keyCode = ('which' in e) ? e.which : e.keyCode;
 	if (keyCode==13) alert("Intro pressed");
