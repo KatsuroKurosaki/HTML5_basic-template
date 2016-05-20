@@ -1,4 +1,4 @@
-// Other functions, specific to the project.
+// Other functions, specific to the file.
 
 function spawnCalendar(cal){
 	//$(".datetimepicker").remove();
