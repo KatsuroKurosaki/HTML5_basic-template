@@ -20,7 +20,7 @@
 		<!--<![endif]-->
 		<script type="text/javascript" src="./js/bootstrap-3.3.6.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="./js/js-cookie-2.1.1.js" charset="UTF-8"></script>
-        <script type="text/javascript" src="./js/global-functions.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="./js/global-functions-1.0.2.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
         
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.6.css"/>
@@ -31,7 +31,7 @@
 			<link rel="stylesheet" type="text/css" href="./css/font-awesome-3.2.1.css"/>
 			<link rel="stylesheet" type="text/css" href="./css/font-awesome-ie7-3.2.1.css"/>
 		<![endif]-->
-		<link rel="stylesheet" type="text/css" href="./css/global-style.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/global-style-1.0.1.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/main-style.css"/>
 		
         <title>Main page</title>

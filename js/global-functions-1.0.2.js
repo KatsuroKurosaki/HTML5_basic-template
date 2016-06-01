@@ -1,9 +1,10 @@
 function spawnSpinner(){
 	if($("#spinner").length==0){
-		var spinner = '<div id="spinner" style="border:1px solid gray;background-color:lightgray;width:120px;height:60px;border-radius:.5em;text-align:center;position:fixed;top:50%;left:50%;margin-left:-60px;margin-top:-30px;z-index:1111;">';
+		var spinner = '<div id="spinner" style="position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:1110;background-color:rgba(255,255,255,.5);">';
+			spinner += '<div style="border:1px solid gray;background-color:lightgray;width:120px;height:60px;border-radius:.5em;text-align:center;position:fixed;top:50%;left:50%;margin-left:-60px;margin-top:-30px;z-index:1111;">';
 			spinner += '<span style="display:block;margin-top:6px;"><i class="fa fa-2x fa-cog fa-spin"></i></span>';
 			spinner += '<span style="display:block;">Cargando...</span>';
-			spinner += '</div>';
+			spinner += '</div></div>';
 		$(spinner).appendTo("body");
 	}
 }
