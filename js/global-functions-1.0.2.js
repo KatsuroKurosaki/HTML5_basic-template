@@ -110,31 +110,41 @@ function spawnRemoteModal(url,data){
 		console.error("Ya existe un modal popup.");
 	}
 }
+function spawnConfirmModal(title,body,btnOK,btnCanc,funcOk,funcCanc){
+	if($("#modal").length==0){
+		
+		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
+			'<div class="modal-dialog" role="document">'+
+				'<div class="modal-content">'+
+					'<div class="modal-header">'+
+						'<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>'+
+						'<h4 class="modal-title">'+title+'</h4>'+
+					'</div>'+
+					'<div class="modal-body">'+body+'</div>'+
+					'<div class="modal-footer">'+
+						'<button type="button" class="btn btn-default" data-dismiss="modal">'+btnlabel+'</button>'+
+						'<button type="button" class="btn btn-default" data-dismiss="modal">'+btnlabel+'</button>'+
+					'</div>'+
+				'</div>'+
+			'</div>'+
+		'</div>';
+		
+		$(modal).appendTo('body');
+		$('#modal').modal('show');
+		$('#modal').on( 'hidden.bs.modal', function ( e ){
+			$('#modal').remove();
+			$('body').removeClass("modal-open");
+		} );
+	} else {
+		console.error("Ya existe un modal popup.");
+	}
+}
 function removeModal(){
 	if($("#modal").length>=1){
 		$('#modal').modal('hide');
 	} else {
 		console.error("No existe un modal.");
 	}
-}
-
-function qs(key) {
-    key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
-    var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
-    return match && decodeURIComponent(match[1].replace(/\+/g, " "));
-}
-
-function json2html(json) {
-	var i, ret = "";
-	ret += "<ul>";
-	for( i in json) {
-		ret += "<li>"+i+": ";
-		if( typeof json[i] === "object") ret += json2html(json[i]);
-		else ret += json[i];
-		ret += "</li>";
-	}
-	ret += "</ul>";
-	return ret;
 }
 
 function spawnAlert(text,cssclass,showBefore){
@@ -153,16 +163,15 @@ function spawnAlert(text,cssclass,showBefore){
 	});
 }
 
-function print(elem) {
-	var winprint = window.open('', 'Print', 'width=1024,height=768');
-	winprint.document.write('<html><head><title></title>');
-	winprint.document.write('<style> * { font-family: sans-serif; } </style>');
-	winprint.document.write('</head><body>');
-	winprint.document.write($(elem).html());
-	winprint.document.write('</body></html>');
-	winprint.print();
-	winprint.close();
-	return true;
+function qs(key) {
+    key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
+    var match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
+    return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+}
+
+function isValidDate(d,m,y) {
+	var date = new Date(y, m - 1, d);
+	return ( date.getFullYear() == y && (date.getMonth() + 1) == m && date.getDate() == d );
 }
 
 function runNumber(container, from, to, decimalpos, duration){
@@ -177,4 +186,29 @@ function runNumber(container, from, to, decimalpos, duration){
 			$(container).text( this.someValue );
 		}
 	});
+}
+
+function print(elem) {
+	var winprint = window.open('', 'Print', 'width=1024,height=768');
+	winprint.document.write('<html><head><title></title>');
+	winprint.document.write('<style> * { font-family: sans-serif; } </style>');
+	winprint.document.write('</head><body>');
+	winprint.document.write($(elem).html());
+	winprint.document.write('</body></html>');
+	winprint.print();
+	winprint.close();
+	return true;
+}
+
+function json2html(json) {
+	var i, ret = "";
+	ret += "<ul>";
+	for( i in json) {
+		ret += "<li>"+i+": ";
+		if( typeof json[i] === "object") ret += json2html(json[i]);
+		else ret += json[i];
+		ret += "</li>";
+	}
+	ret += "</ul>";
+	return ret;
 }
