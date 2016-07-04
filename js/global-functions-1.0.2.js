@@ -1,6 +1,6 @@
 function spawnSpinner(){
 	if($("#spinner").length==0){
-		var spinner = '<div id="spinner" style="position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:1110;background-color:rgba(255,255,255,.5);">';
+		var spinner = '<div id="spinner" style="position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:1110;background-color:rgba(0,0,0,.7);">';
 			spinner += '<div style="border:1px solid gray;background-color:lightgray;width:120px;height:60px;border-radius:.5em;text-align:center;position:fixed;top:50%;left:50%;margin-left:-60px;margin-top:-30px;z-index:1111;">';
 			spinner += '<span style="display:block;margin-top:6px;"><i class="fa fa-2x fa-cog fa-spin"></i></span>';
 			spinner += '<span style="display:block;">Cargando...</span>';
@@ -45,7 +45,7 @@ function isNullData(id){
 
 function spawnModal(title,body,btnlabel){
 	if($("#modal").length==0){
-		
+		if(btnlabel==undefined){btnlabel="Aceptar";}
 		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
@@ -110,9 +110,10 @@ function spawnRemoteModal(url,data){
 		console.error("Ya existe un modal popup.");
 	}
 }
-function spawnConfirmModal(title,body,btnOK,btnCanc,funcOk,funcCanc){
+function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 	if($("#modal").length==0){
-		
+		if(btnOk==undefined){btnOk="Aceptar";}
+		if(btnCanc==undefined){btnCanc="Cancelar";}
 		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
@@ -122,8 +123,8 @@ function spawnConfirmModal(title,body,btnOK,btnCanc,funcOk,funcCanc){
 					'</div>'+
 					'<div class="modal-body">'+body+'</div>'+
 					'<div class="modal-footer">'+
-						'<button type="button" class="btn btn-default" data-dismiss="modal">'+btnlabel+'</button>'+
-						'<button type="button" class="btn btn-default" data-dismiss="modal">'+btnlabel+'</button>'+
+						'<button type="button" class="btn btn-warning" data-dismiss="modal" name="ko">'+btnCanc+'</button>'+
+						'<button type="button" class="btn btn-success" data-dismiss="modal" name="ok">'+btnOk+'</button>'+
 					'</div>'+
 				'</div>'+
 			'</div>'+
@@ -131,6 +132,8 @@ function spawnConfirmModal(title,body,btnOK,btnCanc,funcOk,funcCanc){
 		
 		$(modal).appendTo('body');
 		$('#modal').modal('show');
+		$("#modal button[name='ok']").on("click",funcOk);
+		$("#modal button[name='ko']").on("click",funcCanc);
 		$('#modal').on( 'hidden.bs.modal', function ( e ){
 			$('#modal').remove();
 			$('body').removeClass("modal-open");
@@ -147,20 +150,17 @@ function removeModal(){
 	}
 }
 
-function spawnAlert(text,cssclass,showBefore){
+function spawnAlert(text,cssclass,showBefore,timeout){
+	if(timeout==undefined){timeout=5000;}
 	var alertId = new Date().getTime();
-	
-	//cssclass = success, info, warning, danger
-	var cssalert = '<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="width:75%;margin:.5em auto;display:none;" role="alert">'+text+'</div>';
-	
-	$(cssalert).insertBefore(showBefore);
-	$('#alert-'+alertId).slideDown("slow",function(){
-		setTimeout(function(){
-			$('#alert-'+alertId).slideUp("slow",function(){
-				$('#alert-'+alertId).remove();
-			});
-		},2000);
-	});
+	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="margin:.5em auto;display:none;" role="alert">'+text+'</div>').insertBefore(showBefore);
+	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
+}
+function spawnTopAlert(text,cssclass,timeout){
+	if(timeout==undefined){timeout=5000;}
+	var alertId = new Date().getTime();
+	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="margin:.5em auto;display:none;position:fixed;top:2%;left:5%;right:5%;z-index:9;" role="alert">'+text+'</div>').appendTo("body");
+	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
 }
 
 function qs(key) {
@@ -170,7 +170,7 @@ function qs(key) {
 }
 
 function isValidDate(d,m,y) {
-	var date = new Date(y, m - 1, d);
+	var date = new Date(y,m-1,d);
 	return ( date.getFullYear() == y && (date.getMonth() + 1) == m && date.getDate() == d );
 }
 
@@ -189,7 +189,7 @@ function runNumber(container, from, to, decimalpos, duration){
 }
 
 function print(elem) {
-	var winprint = window.open('', 'Print', 'width=1024,height=768');
+	var winprint = window.open('', 'Print', 'width=800,height=600');
 	winprint.document.write('<html><head><title></title>');
 	winprint.document.write('<style> * { font-family: sans-serif; } </style>');
 	winprint.document.write('</head><body>');
