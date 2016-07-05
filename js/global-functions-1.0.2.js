@@ -1,9 +1,9 @@
 function spawnSpinner(){
 	if($("#spinner").length==0){
-		var spinner = '<div id="spinner" style="position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:1110;background-color:rgba(0,0,0,.7);">';
-			spinner += '<div style="border:1px solid gray;background-color:lightgray;width:120px;height:60px;border-radius:.5em;text-align:center;position:fixed;top:50%;left:50%;margin-left:-60px;margin-top:-30px;z-index:1111;">';
-			spinner += '<span style="display:block;margin-top:6px;"><i class="fa fa-2x fa-cog fa-spin"></i></span>';
-			spinner += '<span style="display:block;">Cargando...</span>';
+		var spinner = '<div id="spinner">';
+			spinner += '<div class="cog">';
+			spinner += '<div><i class="fa fa-2x fa-cog fa-spin"></i></div>';
+			spinner += '<div>Cargando...</div>';
 			spinner += '</div></div>';
 		$(spinner).appendTo("body");
 	}
@@ -71,45 +71,6 @@ function spawnModal(title,body,btnlabel){
 		console.error("Ya existe un modal popup.");
 	}
 }
-function spawnRemoteModal(url,data){
-	if($("#modal").length==0){
-		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
-			'<div class="modal-dialog" role="document">'+
-				'<div class="modal-content">'+
-				'</div>'+
-			'</div>'+
-		'</div>';
-		
-		$.ajax({
-			type: 'POST',
-			url: url,
-			data: data,
-			timeout: 10000,
-			beforeSend: function() {
-				spawnSpinner();
-			},
-			success: function (data) {
-				$(modal).appendTo('body');
-				$("#modal .modal-content").html(data);
-				$('#modal').modal('show');
-				$('#modal').on( 'hidden.bs.modal', function ( e ){
-					$('#modal').remove();
-					$('body').removeClass("modal-open");
-				} );
-				$(".navbar-collapse").collapse('hide');
-			},
-			error: function(request, status, error) {
-				console.log(request.responseText);
-				spawnModal("Error de comunicación","Se ha producido un error de comuniación. Vuelva a intentarlo o contacte con el administrador.","Cerrar");
-			},
-			complete: function(jqXHR, textStatus) {
-				removeSpinner();
-			}
-		});
-	} else {
-		console.error("Ya existe un modal popup.");
-	}
-}
 function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 	if($("#modal").length==0){
 		if(btnOk==undefined){btnOk="Aceptar";}
@@ -142,6 +103,50 @@ function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 		console.error("Ya existe un modal popup.");
 	}
 }
+function spawnRemoteModal(url,data){
+	if($("#modal").length==0){
+		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
+			'<div class="modal-dialog" role="document">'+
+				'<div class="modal-content"></div>'+
+			'</div>'+
+		'</div>';
+		/*
+		// Remaining code
+		<div class="modal-header"></div>
+		<div class="modal-body"></div>
+		<div class="modal-footer"></div>
+		*/
+		
+		$.ajax({
+			type: 'POST',
+			url: url,
+			data: data,
+			timeout: 10000,
+			beforeSend: function() {
+				spawnSpinner();
+			},
+			success: function (data) {
+				$(modal).appendTo('body');
+				$("#modal .modal-content").html(data);
+				$('#modal').modal('show');
+				$('#modal').on( 'hidden.bs.modal', function ( e ){
+					$('#modal').remove();
+					$('body').removeClass("modal-open");
+				} );
+				$(".navbar-collapse").collapse('hide');
+			},
+			error: function(request, status, error) {
+				console.log(request.responseText);
+				spawnModal("Error de comunicación","Se ha producido un error de comuniación. Vuelva a intentarlo o contacte con el administrador.","Cerrar");
+			},
+			complete: function(jqXHR, textStatus) {
+				removeSpinner();
+			}
+		});
+	} else {
+		console.error("Ya existe un modal popup.");
+	}
+}
 function removeModal(){
 	if($("#modal").length>=1){
 		$('#modal').modal('hide');
@@ -153,13 +158,13 @@ function removeModal(){
 function spawnAlert(text,cssclass,showBefore,timeout){
 	if(timeout==undefined){timeout=5000;}
 	var alertId = new Date().getTime();
-	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="margin:.5em auto;display:none;" role="alert">'+text+'</div>').insertBefore(showBefore);
+	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="display:none;" role="alert">'+text+'</div>').insertBefore(showBefore);
 	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
 }
 function spawnTopAlert(text,cssclass,timeout){
 	if(timeout==undefined){timeout=5000;}
 	var alertId = new Date().getTime();
-	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="margin:.5em auto;display:none;position:fixed;top:2%;left:5%;right:5%;z-index:9;" role="alert">'+text+'</div>').appendTo("body");
+	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+' alertclass" style="display:none;" role="alert">'+text+'</div>').appendTo("body");
 	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
 }
 

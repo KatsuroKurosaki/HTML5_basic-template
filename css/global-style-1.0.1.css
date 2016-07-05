@@ -1,81 +1,38 @@
 @charset "UTF-8";
 
-.cursor .auto {
-	cursor:auto;
+/* CSS for global-functions-*.js */
+#spinner {
+	position:fixed;top:0px;left:0px;right:0px;bottom:0px;z-index:1110;background-color:rgba(0,0,0,.7);
+}
+#spinner div.cog {
+	background-color:lightgray;width:120px;height:60px;border-radius:.5em;text-align:center;position:fixed;top:50%;left:50%;margin-left:-60px;margin-top:-30px;z-index:1111;
+}
+#spinner div.cog > div {
+	margin-top: .3em;
 }
 
-.cursor .crosshair {
-	cursor:crosshair;
+.alertclass{
+	position:fixed;top:2%;left:5%;right:5%;z-index:9;
 }
 
-.cursor .default {
-	cursor:default;
-}
-
-.cursor .e-resize {
-	cursor:e-resize;
-}
-
-.cursor .grab {
-	cursor:grab;
-}
-
-.cursor .help {
-	cursor:help;
-}
-
-.cursor .move {
-	cursor:move;
-}
-
-.cursor .n-resize {
-	cursor:n-resize;
-}
-
-.cursor .ne-resize {
-	cursor:ne-resize;
-}
-
-.cursor .nw-resize {
-	cursor:nw-resize;
-}
-
-.cursor .pointer {
-	cursor:pointer;
-}
-
-.cursor .progress {
-	cursor:progress;
-}
-
-.cursor .s-resize {
-	cursor:s-resize;
-}
-
-.cursor .se-resize {
-	cursor:se-resize;
-}
-
-.cursor .sw-resize {
-	cursor:sw-resize;
-}
-
-.cursor .text {
-	cursor:text;
-}
-
-.cursor .w-resize {
-	cursor:w-resize;
-}
-
-.cursor .wait {
-	cursor:wait;
-}
-
-.cursor .not-allowed {
-	cursor:not-allowed;
-}
-
-.cursor .no-drop {
-	cursor:no-drop;
-}
+/* Pointer forms */
+.cursor .auto { cursor:auto; }
+.cursor .crosshair { cursor:crosshair; }
+.cursor .default { cursor:default; }
+.cursor .e-resize { cursor:e-resize; }
+.cursor .grab { cursor:grab; }
+.cursor .help { cursor:help; }
+.cursor .move { cursor:move; }
+.cursor .n-resize { cursor:n-resize; }
+.cursor .ne-resize { cursor:ne-resize; }
+.cursor .nw-resize { cursor:nw-resize; }
+.cursor .pointer { cursor:pointer; }
+.cursor .progress { cursor:progress; }
+.cursor .s-resize { cursor:s-resize; }
+.cursor .se-resize { cursor:se-resize; }
+.cursor .sw-resize { cursor:sw-resize; }
+.cursor .text { cursor:text; }
+.cursor .w-resize { cursor:w-resize; }
+.cursor .wait { cursor:wait; }
+.cursor .not-allowed { cursor:not-allowed; }
+.cursor .no-drop { cursor:no-drop; }
