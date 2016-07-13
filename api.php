@@ -66,6 +66,7 @@ if(isset($_POST['op'])){
 				$out['data']=$curl;
 			}
 			curl_close($curl['curl']);
+			unset($curl['curl']);
 		break;
 		
 		case 'hello':
