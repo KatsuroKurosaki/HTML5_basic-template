@@ -48,7 +48,7 @@ function perfectAjaxQuery(){
 			console.log(data);
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			console.log(jqXHR.responseText);	
+			console.log(jqXHR.responseText);
 		},
 		complete: function(jqXHR, textStatus) {
 			console.log(textStatus);

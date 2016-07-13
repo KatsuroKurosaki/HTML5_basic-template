@@ -63,10 +63,10 @@ if(isset($_POST['op'])){
 				$curl['header'] = substr($curl['result'], 0, $curl['info']['header_size']);
 				$curl['body'] = substr($curl['result'], $curl['info']['header_size']);
 				$out['status']="ok";
-				$out['data']=$curl;
 			}
 			curl_close($curl['curl']);
 			unset($curl['curl']);
+			$out['data']=$curl;
 		break;
 		
 		case 'hello':
