@@ -174,6 +174,10 @@ function qs(key) {
     return match && decodeURIComponent(match[1].replace(/\+/g, " "));
 }
 
+function uts2dt(ts) {
+	var date = new Date(ts*1000);
+	return date.getFullYear()+"/"+(date.getMonth() + 1)+"/"+date.getDate()+" "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+}
 function isValidDate(d,m,y) {
 	var date = new Date(y,m-1,d);
 	return ( date.getFullYear() == y && (date.getMonth() + 1) == m && date.getDate() == d );
