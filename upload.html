@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="initial-scale=1,user-scalable=no,width=device-width"/>
+		<meta name="format-detection" content="telephone=no"/>
+		<meta name="msapplication-tap-highlight" content="no"/>
+		<meta name="msapplication-config" content="none"/>
+		<meta name="description" content=""/>
+		<meta name="author" content=""/>
+		<script src="./js/jquery-2.2.4.js"></script>
+		<title>Upload file</title>
+    </head>
+    <body>
+		<form id="formUpload" enctype="multipart/form-data" action="receive.php" method="post">
+			<input type="file" name="file"/> <!-- Filter file type: accept="image/*" -->
+			<div id="divProgress">Waiting...</div>
+			<div><progress></progress></div>
+			<input type="button" value="Upload via AJAX" onclick="javascript:uploadAjax();"/>
+			<input type="submit" value="Upload via FORM POST"/>
+		</form>
+		<script type="text/javascript">
+			function uploadAjax(){
+				$.ajax({
+					method: 'POST',
+					url: 'receive.php',
+					data: new FormData($("#formUpload")[0]),
+					cache: false,
+					contentType: false,
+					processData: false,
+					timeout: 60000,
+					xhr: function() {
+						var ajXhr = $.ajaxSettings.xhr();
+						if (ajXhr.upload) {
+							ajXhr.upload.addEventListener('progress',progressFunction, false);
+						}
+						return ajXhr;
+					},
+					beforeSend: function(jqXHR, settings) {
+						//console.log(settings);
+						$("#divProgress").html("Preparing upload.");
+						$("progress").attr({value:0,max:100});
+					},
+					success: function (data, textStatus, jqXHR) {
+						//console.log(data);
+						alert(data);
+					},
+					error: function(jqXHR, textStatus, errorThrown) {
+						//console.log(jqXHR.responseText);
+						alert(jqXHR.responseText);
+					},
+					complete: function(jqXHR, textStatus) {
+						//console.log(textStatus);
+						$("#divProgress").html("Upload complete.");
+						$("progress").attr({value:100,max:100});
+						$("#formUpload input[name='file']").replaceWith($("#formUpload input[name='file']").clone());
+					}
+				});
+			}
+			
+			function progressFunction(e){
+				if(e.lengthComputable){
+					$("progress").attr({value:e.loaded,max:e.total});
+					$("#divProgress").html("Uploading image... "+Math.round(e.loaded*100/e.total)+"% complete.");
+				} else {
+					$("#divProgress").html("Uploading image...");
+				}
+			}
+		</script>
+    </body>
+</html>
