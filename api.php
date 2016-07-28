@@ -1,5 +1,7 @@
 <?php
 $start_time = microtime(TRUE);
+ini_set('log_errors', true);
+ini_set('error_log', dirname(__FILE__).'/errors.log');
 header('Content-Type: application/json; charset=utf-8');
 $out=array();
 if(isset($_POST['op'])){
