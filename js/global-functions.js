@@ -156,13 +156,13 @@ function removeModal(){
 }
 
 function spawnAlert(text,cssclass,showBefore,timeout){
-	if(timeout==undefined){timeout=5000;}
+	if(timeout==undefined){timeout=7000;}
 	var alertId = new Date().getTime();
 	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="display:none;" role="alert">'+text+'</div>').insertBefore(showBefore);
 	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
 }
 function spawnTopAlert(text,cssclass,timeout){
-	if(timeout==undefined){timeout=5000;}
+	if(timeout==undefined){timeout=7000;}
 	var alertId = new Date().getTime();
 	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+' alertclass" style="display:none;" role="alert">'+text+'</div>').appendTo("body");
 	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
@@ -200,6 +200,22 @@ function runNumber(container, from, to, decimalpos, duration){
 			$(container).text( this.someValue );
 		}
 	});
+}
+
+function letterTypingEffect(element,text,duration){
+	if(duration==undefined){duration=500;}
+	$(element).text("");
+	setTimeout(function(){
+		letterTypingEffectStep(0,element,text,duration);
+	},duration);
+}
+function letterTypingEffectStep(letter,element,text,duration){
+	$(element).text( $(element).text()+text[letter] );
+	if(text[letter+1] != undefined){
+		setTimeout(function(){
+			letterTypingEffectStep(letter+1,element,text,duration);
+		},duration);
+	}
 }
 
 function print(elem) {

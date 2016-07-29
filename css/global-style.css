@@ -12,7 +12,12 @@
 }
 
 .alertclass{
-	position:fixed;top:2%;left:5%;right:5%;z-index:9;
+	position:fixed;
+	top:2%;
+	left:5%;
+	right:5%;
+	z-index:9;
+	box-shadow:0px 0px 5px 2px;
 }
 
 /* Pointer forms */
