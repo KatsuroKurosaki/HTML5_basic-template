@@ -16,7 +16,8 @@ if(isset($_POST['op'])){
 				$_POST['database']
 			);
 			$stmt->execute();
-			if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));}
+			//if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));}
+			if($stmt->errorno=!0){$out['status']="ko"; $out['msg']=$stmt->error_list; die(json_encode($out));}
 			$out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 			$stmt->close();
 			$conn->close();
