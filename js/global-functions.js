@@ -6,11 +6,13 @@ function spawnSpinner(){
 			spinner += '<div>Cargando...</div>';
 			spinner += '</div></div>';
 		$(spinner).appendTo("body");
+		$("body").addClass("cursor-wait");
 	}
 }
 function removeSpinner(){
 	$("#spinner").fadeOut("fast",function(){
 		$(this).remove();
+		$("body").removeClass("cursor-wait");
 	});
 }
 
