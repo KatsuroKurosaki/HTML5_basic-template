@@ -48,7 +48,7 @@ function isNullData(id){
 function spawnModal(title,body,btnlabel){
 	if($("#modal").length==0){
 		if(btnlabel==undefined){btnlabel="Aceptar";}
-		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
+		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
@@ -77,7 +77,7 @@ function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 	if($("#modal").length==0){
 		if(btnOk==undefined){btnOk="Aceptar";}
 		if(btnCanc==undefined){btnCanc="Cancelar";}
-		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
+		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
@@ -107,7 +107,7 @@ function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 }
 function spawnRemoteModal(url,data){
 	if($("#modal").length==0){
-		var modal = '<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="Modal Popup">'+
+		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content"></div>'+
 			'</div>'+
@@ -177,13 +177,15 @@ function qs(key) {
 }
 
 function uts2dt(ts) {
-	var date = new Date(ts*1000);
-	return date.getFullYear() + "/"
-		+ (((date.getMonth()+1)<10)	?	"0"+(date.getMonth()+1)	:	(date.getMonth()+1)) + "/"
-		+ ((date.getDate()<10)			?	"0"+date.getDate()			:	date.getDate()) + " "
-		+ ((date.getHours()<10)			?	"0"+date.getHours()			:	date.getHours()) + ":"
-		+ ((date.getMinutes()<10)		?	"0"+date.getMinutes()		:	date.getMinutes()) + ":"
-		+ ((date.getSeconds()<10)		?	"0"+date.getSeconds()		:	date.getSeconds()) ;
+	if(ts!=undefined){
+		var date = new Date(ts*1000);
+		return date.getFullYear() + "/"
+			+ (((date.getMonth()+1)<10)	?	"0"+(date.getMonth()+1)	:	(date.getMonth()+1)) + "/"
+			+ ((date.getDate()<10)			?	"0"+date.getDate()			:	date.getDate()) + " "
+			+ ((date.getHours()<10)			?	"0"+date.getHours()			:	date.getHours()) + ":"
+			+ ((date.getMinutes()<10)		?	"0"+date.getMinutes()		:	date.getMinutes()) + ":"
+			+ ((date.getSeconds()<10)		?	"0"+date.getSeconds()		:	date.getSeconds()) ;
+	} else { return ""; }
 }
 function isValidDate(d,m,y) {
 	var date = new Date(y,m-1,d);
