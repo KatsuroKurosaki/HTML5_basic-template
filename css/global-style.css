@@ -8,13 +8,12 @@
 	right:0px;
 	bottom:0px;
 	z-index:1110;
-	background-color:rgba(0,0,0,.7);
+	background-color:rgba(0,0,0,.8);
+	color:white;
 }
 #spinner div.cog {
-	background-color:lightgray;
 	width:120px;
 	height:60px;
-	border-radius:.5em;
 	text-align:center;
 	position:fixed;
 	top:50%;

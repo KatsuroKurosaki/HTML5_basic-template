@@ -45,9 +45,10 @@ function isNullData(id){
 	}
 }
 
-function spawnModal(title,body,btnlabel){
+function spawnModal(title,body,btnlabel,preventclose){
 	if($("#modal").length==0){
 		if(btnlabel==undefined){btnlabel="Aceptar";}
+		if(preventclose==undefined){preventclose=true;}
 		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
@@ -62,8 +63,13 @@ function spawnModal(title,body,btnlabel){
 				'</div>'+
 			'</div>'+
 		'</div>';
-		
 		$(modal).appendTo('body');
+		if(preventclose){
+			$('#modal').modal({
+				backdrop: 'static',
+				keyboard: false
+			});
+		}
 		$('#modal').modal('show');
 		$('#modal').on( 'hidden.bs.modal', function ( e ){
 			$('#modal').remove();
@@ -73,10 +79,11 @@ function spawnModal(title,body,btnlabel){
 		console.error("Ya existe un modal popup.");
 	}
 }
-function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
+function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc,preventclose){
 	if($("#modal").length==0){
 		if(btnOk==undefined){btnOk="Aceptar";}
 		if(btnCanc==undefined){btnCanc="Cancelar";}
+		if(preventclose==undefined){preventclose=true;}
 		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content">'+
@@ -94,6 +101,12 @@ function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 		'</div>';
 		
 		$(modal).appendTo('body');
+		if(preventclose){
+			$('#modal').modal({
+				backdrop: 'static',
+				keyboard: false
+			});
+		}
 		$('#modal').modal('show');
 		$("#modal button[name='ok']").on("click",funcOk);
 		$("#modal button[name='ko']").on("click",funcCanc);
@@ -105,8 +118,9 @@ function spawnConfirmModal(title,body,funcOk,btnOk,btnCanc,funcCanc){
 		console.error("Ya existe un modal popup.");
 	}
 }
-function spawnRemoteModal(url,data){
+function spawnRemoteModal(url,data,preventclose){
 	if($("#modal").length==0){
+		if(preventclose==undefined){preventclose=true;}
 		var modal = '<div class="modal fade" id="modal" role="dialog" aria-labelledby="Modal Popup">'+
 			'<div class="modal-dialog" role="document">'+
 				'<div class="modal-content"></div>'+
@@ -114,11 +128,13 @@ function spawnRemoteModal(url,data){
 		'</div>';
 		/*
 		// Remaining code
-		<div class="modal-header"></div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span>
+			</button><h4 class="modal-title">a</h4>
+		</div>
 		<div class="modal-body"></div>
 		<div class="modal-footer"></div>
 		*/
-		
 		$.ajax({
 			type: 'POST',
 			url: url,
@@ -130,6 +146,12 @@ function spawnRemoteModal(url,data){
 			success: function (data) {
 				$(modal).appendTo('body');
 				$("#modal .modal-content").html(data);
+				if(preventclose){
+					$('#modal').modal({
+						backdrop: 'static',
+						keyboard: false
+					});
+				}
 				$('#modal').modal('show');
 				$('#modal').on( 'hidden.bs.modal', function ( e ){
 					$('#modal').remove();
@@ -160,13 +182,13 @@ function removeModal(){
 function spawnAlert(text,cssclass,showBefore,timeout){
 	if(timeout==undefined){timeout=7000;}
 	var alertId = new Date().getTime();
-	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+'" style="display:none;" role="alert">'+text+'</div>').insertBefore(showBefore);
+	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+' alert-dismissible fade in" style="display:none;" role="alert">'+text+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>').insertBefore(showBefore);
 	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
 }
 function spawnTopAlert(text,cssclass,timeout){
 	if(timeout==undefined){timeout=7000;}
 	var alertId = new Date().getTime();
-	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+' alertclass" style="display:none;" role="alert">'+text+'</div>').appendTo("body");
+	$('<div id="alert-'+alertId+'" class="alert alert-'+cssclass+' alert-dismissible fade in alertclass" style="display:none;" role="alert">'+text+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>').appendTo("body");
 	$('#alert-'+alertId).slideDown("slow",function(){ setTimeout(function(){ $('#alert-'+alertId).slideUp("slow",function(){ $('#alert-'+alertId).remove(); }); },timeout); });
 }
 
