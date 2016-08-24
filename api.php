@@ -18,8 +18,9 @@ if(isset($_POST['op'])){
 			$stmt->execute();
 			if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));}
 			//if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error_list; die(json_encode($out));}
-			$out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-			//$insert_id = $stmt->insert_id;
+			$out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); // Get all rows
+			//$out['data'] = $stmt->get_result()->fetch_assoc(); // Get 1 row
+			//$insert_id = $stmt->insert_id; // Get inserted AUTO_INCREMENT
 			$stmt->close();
 			$conn->close();
 			
