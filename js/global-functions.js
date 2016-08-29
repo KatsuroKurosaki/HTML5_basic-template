@@ -244,16 +244,28 @@ function letterTypingEffectStep(letter,element,text,duration){
 	}
 }
 
-function print(elem) {
-	var winprint = window.open('', 'Print', 'width=800,height=600');
-	winprint.document.write('<html><head><title></title>');
-	winprint.document.write('<style> * { font-family: sans-serif; } </style>');
-	winprint.document.write('</head><body>');
-	winprint.document.write($(elem).html());
-	winprint.document.write('</body></html>');
-	winprint.print();
-	winprint.close();
-	return true;
+function spawnPrinter(elem, head) {
+	if(elem!=undefined){
+		var winprint = window.open('', 'Print', 'width=800,height=600');
+		winprint.document.open();
+		winprint.document.write('<html>');
+		if(head==undefined){
+			winprint.document.write('<head><title></title><style> * {font-family:sans-serif;} </style></head>');
+		} else {
+			winprint.document.write('<head>'+$(head).html()+'</head>');
+		}
+		winprint.document.write('<body>'+$(elem).html()+'</body>');
+		winprint.document.write('</html>');
+		winprint.document.close();
+		winprint.focus();
+		setTimeout(function(){
+			winprint.print();
+			winprint.close();
+			return true;
+		},500);
+	} else {
+		console.error("You haven't sent anything to print.");
+	}
 }
 
 function json2html(json) {
