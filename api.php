@@ -12,14 +12,14 @@ if(isset($_POST['op'])){
 			$sql = "SELECT table_schema AS 'DB Name', ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS 'DB Size in MB' FROM information_schema.tables WHERE table_schema = ? GROUP BY table_schema;";
 			$stmt = $conn->prepare($sql);
 			if($stmt === false){$out['status']="ko"; $out['msg']=$conn->error; die(json_encode($out));}
-			$stmt->bind_param( 's',
+			$stmt->bind_param('s',
 				$_POST['database']
 			);
 			$stmt->execute();
-			if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));}
-			//if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error_list; die(json_encode($out));}
+			if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));} // Return 1 error
+			//if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error_list; die(json_encode($out));} // Return all errors
 			$out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); // Get all rows
-			//$out['data'] = $stmt->get_result()->fetch_assoc(); // Get 1 row
+			//$out['data'] = $stmt->get_result()->fetch_assoc(); // Get 1 row because SQL query returned 1 row and we know it
 			//$insert_id = $stmt->insert_id; // Get inserted AUTO_INCREMENT
 			$stmt->close();
 			$conn->close();

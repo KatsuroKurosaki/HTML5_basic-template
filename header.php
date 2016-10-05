@@ -7,6 +7,10 @@
 		<meta name="msapplication-config" content="none"/>
 		<meta name="description" content="Basic jQuery + BootStrap + FontAwesome + themes to start from scratch"/>
 		<meta name="author" content="Katsuro Kurosaki"/>
+		<meta name="theme-color" content="#000000">
+		<meta name="msapplication-navbutton-color" content="#000000">
+		<meta name="apple-mobile-web-app-status-bar-style" content="#000000">
+
 		
 		<!--[if IE]><link rel="shortcut icon" href="favicon.ico"/><![endif]-->
 		<link rel="apple-touch-icon-precomposed" href="favicon.png"/>
