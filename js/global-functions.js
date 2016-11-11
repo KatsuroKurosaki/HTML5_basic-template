@@ -19,29 +19,58 @@ function removeSpinner(){
 function setData(id,data){
 	if(typeof(Storage) !== "undefined") {
 		localStorage.setItem(id,data);
-	} else {
-		Cookies.set(id,data);
+		return true;
 	}
+	return false;
 }
 function getData(id){
 	if(typeof(Storage) !== "undefined") {
 		return localStorage.getItem(id);
-	} else {
-		return Cookies.get(id);
+		return true;
 	}
+	return false;
 }
 function removeData(id){
 	if(typeof(Storage) !== "undefined") {
 		localStorage.removeItem(id);
-	} else {
-		Cookies.remove(id);
+		return true;
 	}
+	return false;
 }
 function isNullData(id){
 	if(typeof(Storage) !== "undefined") {
 		return (localStorage.getItem(id) === null);
 	} else {
-		return (Cookies.get(id)==undefined);
+		console.error("Method not available.");
+	}
+}
+
+function setSessionData(id,data){
+	if(typeof(Storage) !== "undefined") {
+		sessionStorage.setItem(id,data);
+		return true;
+	}
+	return false;
+}
+function getSessionData(id){
+	if(typeof(Storage) !== "undefined") {
+		return sessionStorage.getItem(id);
+		return true;
+	}
+	return false;
+}
+function removeSessionData(id){
+	if(typeof(Storage) !== "undefined") {
+		sessionStorage.removeItem(id);
+		return true;
+	}
+	return false;
+}
+function isSessionNullData(id){
+	if(typeof(Storage) !== "undefined") {
+		return (sessionStorage.getItem(id) === null);
+	} else {
+		console.error("Method not available.");
 	}
 }
 
@@ -127,13 +156,13 @@ function spawnRemoteModal(url,data,preventclose){
 			'</div>'+
 		'</div>';
 		/*
-		// Remaining code
+		// Base code expected to appear in response:
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span>
-			</button><h4 class="modal-title">a</h4>
+			</button><h4 class="modal-title">Title</h4>
 		</div>
-		<div class="modal-body"></div>
-		<div class="modal-footer"></div>
+		<div class="modal-body">Body</div>
+		<div class="modal-footer">Footer</div>
 		*/
 		$.ajax({
 			type: 'POST',
@@ -264,7 +293,7 @@ function spawnPrinter(elem, head) {
 			return true;
 		},500);
 	} else {
-		console.error("You haven't sent anything to print.");
+		console.error("You didn't send anything to print.");
 	}
 }
 
