@@ -8,7 +8,7 @@ if(isset($_POST['op'])){
 	switch($_POST['op']){
 		case 'mysql':
 			$conn = @new MySQLi("127.0.0.1","root","","information_schema");
-			if ($conn->connect_errno) { $out['status']="ko"; $out['msg']=$conn->connect_error; die(json_encode($out)); }
+			if ($conn->connect_errno){$out['status']="ko"; $out['msg']=$conn->connect_error; die(json_encode($out));}
 			$sql = "SELECT table_schema AS 'DB Name', ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS 'DB Size in MB' FROM information_schema.tables WHERE table_schema = ? GROUP BY table_schema;";
 			$stmt = $conn->prepare($sql);
 			if($stmt === false){$out['status']="ko"; $out['msg']=$conn->error; die(json_encode($out));}
@@ -33,7 +33,7 @@ if(isset($_POST['op'])){
 			$url = "http://127.0.0.1/test.php";
 			
 			$curl=array();
-			$curl['version'] = curl_version();
+			$curl['info'] = curl_version();
 			$curl['curl'] = curl_init();
 			curl_setopt_array($curl['curl'], array(
 				CURLOPT_VERBOSE => true,
@@ -42,7 +42,7 @@ if(isset($_POST['op'])){
 				CURLOPT_URL => $url,
 				CURLOPT_HEADER => true,
 				CURLINFO_HEADER_OUT => true,
-				CURLOPT_USERAGENT => "PHP/".PHP_VERSION." (".PHP_OS."; ".$curl['version']['host'].") cURL/".$curl['version']['version']." ".$curl['version']['ssl_version'],
+				CURLOPT_USERAGENT => "PHP/".PHP_VERSION." (".PHP_OS."; ".$curl['info']['host'].") cURL/".$curl['info']['version']." ".$curl['info']['ssl_version'],
 				/*CURLOPT_PROXY => "127.0.0.1:9050",
 				CURLOPT_PROXYTYPE => CURLPROXY_SOCKS5,*/
 				/*CURLOPT_HTTPHEADER => array(
@@ -66,9 +66,9 @@ if(isset($_POST['op'])){
 				$out['status']="ko";
 				$out['error'] = curl_error($curl['curl']);
 			} else {
-				$curl['info'] = curl_getinfo($curl['curl']);
-				$curl['header'] = substr($curl['result'], 0, $curl['info']['header_size']);
-				$curl['body'] = substr($curl['result'], $curl['info']['header_size']);
+				$curl['reqinfo'] = curl_getinfo($curl['curl']);
+				$curl['header'] = substr($curl['result'], 0, $curl['reqinfo']['header_size']);
+				$curl['body'] = substr($curl['result'], $curl['reqinfo']['header_size']);
 				$out['status']="ok";
 			}
 			curl_close($curl['curl']);
