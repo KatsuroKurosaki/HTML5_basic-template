@@ -273,7 +273,7 @@ function letterTypingEffectStep(letter,element,text,duration){
 	}
 }
 
-function spawnPrinter(elem, head) {
+function spawnPrinter(elem, head, finishFunction) {
 	if(elem!=undefined){
 		var winprint = window.open('', 'Print', 'width=800,height=600');
 		winprint.document.open();
@@ -290,6 +290,7 @@ function spawnPrinter(elem, head) {
 		setTimeout(function(){
 			winprint.print();
 			winprint.close();
+			if(finishFunction){ finishFunction(); }
 			return true;
 		},500);
 	} else {
