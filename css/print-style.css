@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+@page {
+  size: A4 portrait;
+  margin: 1cm;
+}
+
+body,html{
+	width:21cm;
+	height:29.7cm;
+}

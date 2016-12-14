@@ -31,13 +31,14 @@
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.7.css"/>
 		<!--<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme-3.3.7.css"/>-->
 		<!--<link rel="stylesheet" type="text/css" href="./css/bootstrap-cerulean.css"/>-->
-		<link rel="stylesheet" type="text/css" href="./css/font-awesome-4.6.3.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/font-awesome-4.7.0.css"/>
 		<!--[if lte IE 7]>
 			<link rel="stylesheet" type="text/css" href="./css/font-awesome-3.2.1.css"/>
 			<link rel="stylesheet" type="text/css" href="./css/font-awesome-ie7-3.2.1.css"/>
 		<![endif]-->
 		<link rel="stylesheet" type="text/css" href="./css/global-style.css"/>
 		<link rel="stylesheet" type="text/css" href="./css/main-style.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/print-style.css" media="print"/>
 		
         <title>Main page</title>
     </head>
