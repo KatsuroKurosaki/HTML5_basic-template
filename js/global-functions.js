@@ -158,8 +158,8 @@ function spawnRemoteModal(url,data,preventclose){
 		/*
 		// Base code expected to appear in response:
 		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span>
-			</button><h4 class="modal-title">Title</h4>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">Title</h4>
 		</div>
 		<div class="modal-body">Body</div>
 		<div class="modal-footer">Footer</div>
