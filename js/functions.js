@@ -43,15 +43,52 @@ function perfectAjaxQuery(){
 		timeout: 10000,
 		beforeSend: function(jqXHR, settings) {
 			console.log(settings);
+			
 		},
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
+			
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
+			
 		},
 		complete: function(jqXHR, textStatus) {
 			console.log(textStatus);
+			
+		}
+	});
+}
+
+function perfectAjaxQueryV2(){
+	/*
+	PHP backend:
+	$input = json_decode(file_get_contents("php://input"));
+	*/
+	$.ajax({
+		method: 'POST',
+		url: 'api.php',
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify({
+			type:'hello'
+		}),
+		datatype: 'json',
+		timeout: 10000,
+		beforeSend: function(jqXHR, settings) {
+			console.log(settings);
+			
+		},
+		success: function (data, textStatus, jqXHR) {
+			console.log(data);
+			
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			console.log(jqXHR.responseText);
+			
+		},
+		complete: function(jqXHR, textStatus) {
+			console.log(textStatus);
+			
 		}
 	});
 }
