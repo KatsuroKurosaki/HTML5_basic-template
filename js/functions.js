@@ -63,7 +63,7 @@ function perfectAjaxQuery(){
 function perfectAjaxQueryV2(){
 	/*
 	PHP backend:
-	$input = json_decode(file_get_contents("php://input"));
+	$input = json_decode(file_get_contents("php://input"),true);
 	*/
 	$.ajax({
 		method: 'POST',
