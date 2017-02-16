@@ -62,7 +62,15 @@ function perfectAjaxQuery(){
 
 function perfectAjaxQueryV2(){
 	/*
-	PHP backend:
+	--AJAX creating 'data' parameter:
+	datos = new Object();
+	if(datos['datos'] == undefined){
+		datos['datos'] = new Object();
+	}
+	JSON.stringify(datos);
+	delete datos;
+	
+	--PHP backend:
 	$input = json_decode(file_get_contents("php://input"),true);
 	*/
 	$.ajax({
