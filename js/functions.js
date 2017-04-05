@@ -33,6 +33,19 @@ function spawnCalendars(cal1,cal2){
     });
 }
 
+function serializeArrayWithUncheckedCheckboxes(){
+	// Get input values
+	values = $('#form').serializeArray();
+	// Add unchecked checkboxes
+	values = values.concat(
+		$("#form input[type='checkbox']:not(:checked)").map(function() {
+			return {"name": this.name, "value": "off"}
+		}).get()
+	);
+	
+	console.log( JSON.stringify(values) );
+}
+
 function perfectAjaxQuery(){
 	$.ajax({
 		method: 'POST',

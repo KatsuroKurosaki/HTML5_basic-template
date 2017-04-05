@@ -12,7 +12,6 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-		
 		<!--[if IE]><link rel="shortcut icon" href="favicon.ico"/><![endif]-->
 		<link rel="apple-touch-icon-precomposed" href="favicon.png"/>
 		<link rel="icon" href="favicon.png"/>
@@ -25,7 +24,7 @@
 		<!--<![endif]-->
 		<!--<script type="text/javascript" src="./js/jquery-3.1.1.js" charset="UTF-8"></script>-->
 		<script type="text/javascript" src="./js/bootstrap-3.3.7.js" charset="UTF-8"></script>
-        <script type="text/javascript" src="./js/global-functions.js" charset="UTF-8"></script>
+        <script type="text/javascript" src="./js/jquery-globalfunc.js" charset="UTF-8"></script>
 		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
         
 		<link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.7.css"/>
