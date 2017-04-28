@@ -60,7 +60,15 @@ function perfectAjaxQuery(){
 		},
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
-			
+			try {
+				if(data.status == "ok"){
+					spawnTopAlert("All correct.","success");
+				} else {
+					spawnTopAlert("Server error: "+data.msg,"warning");
+				}
+			} catch (e) {
+				spawnTopAlert("Malformed JSON reply.","danger");
+			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
@@ -101,7 +109,15 @@ function perfectAjaxQueryV2(){
 		},
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
-			
+			try {
+				if(data.status == "ok"){
+					spawnTopAlert("All correct.","success");
+				} else {
+					spawnTopAlert("Server error: "+data.msg,"warning");
+				}
+			} catch (e) {
+				spawnTopAlert("Malformed JSON reply.","danger");
+			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
