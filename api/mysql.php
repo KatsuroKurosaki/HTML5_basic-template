@@ -8,7 +8,7 @@ $stmt->bind_param('s',
 	$_POST['database']
 );
 $stmt->execute();
-if($stmt->err_no){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));} // Return 1 error
+if($stmt->errno){$out['status']="ko"; $out['msg']=$stmt->error; die(json_encode($out));} // Return 1 error
 //if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error_list; die(json_encode($out));} // Return all errors
 $out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); // Get all rows
 //if(count($out['data'])==0){} // Check if we have 0 rows
