@@ -2,10 +2,12 @@
 $start_time = microtime(TRUE);
 ini_set('log_errors', true);
 ini_set('error_log', dirname(__FILE__).'/errors.log');
-header('Content-Type: application/json; charset=utf-8');
-$out=array();
-if(isset($_POST['op'])){
-	switch($_POST['op']){
+
+$_in = json_decode(file_get_contents("php://input"),true);
+$_out=array();
+
+if(isset($_in['op'])){
+	switch($_in['op']){
 		case 'mysql':
 			require './api/mysql.php';
 		break;
@@ -19,17 +21,19 @@ if(isset($_POST['op'])){
 		break;
 		
 		default:
-			$out['msg']="Received operation is invalid.";
-			$out['status']="no";
+			$_out['msg']="Received operation is invalid.";
+			$_out['status']="no";
 	}
 } else {
-	$out['status']="ko";
-	$out['msg']="NO operation received.";
+	$_out['status']="ko";
+	$_out['msg']="NO operation received.";
 }
-$out['mem']['usage'] = memory_get_usage(false);
-$out['mem']['usagereal'] = memory_get_usage(true);
-$out['mem']['peakusage'] = memory_get_peak_usage(false);
-$out['mem']['peakusagereal'] = memory_get_peak_usage(true);
-$out['time'] = round(microtime(TRUE)-$start_time,4);
-echo json_encode($out);
+
+header('Content-Type: application/json; charset=utf-8');
+$_out['mem']['usage'] = memory_get_usage(false);
+$_out['mem']['usagereal'] = memory_get_usage(true);
+$_out['mem']['peakusage'] = memory_get_peak_usage(false);
+$_out['mem']['peakusagereal'] = memory_get_peak_usage(true);
+$_out['time'] = round(microtime(TRUE)-$start_time,4);
+echo json_encode($_out);
 ?>
