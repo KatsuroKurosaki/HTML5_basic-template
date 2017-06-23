@@ -30,10 +30,10 @@ if(isset($_in['op'])){
 }
 
 header('Content-Type: application/json; charset=utf-8');
-$_out['mem']['usage'] = memory_get_usage(false);
-$_out['mem']['usagereal'] = memory_get_usage(true);
-$_out['mem']['peakusage'] = memory_get_peak_usage(false);
-$_out['mem']['peakusagereal'] = memory_get_peak_usage(true);
+$_out['mem']['engine_curr'] = memory_get_usage(false);
+$_out['mem']['system_curr'] = memory_get_usage(true);
+$_out['mem']['engine_peak'] = memory_get_peak_usage(false);
+$_out['mem']['system_peak'] = memory_get_peak_usage(true);
 $_out['time'] = round(microtime(TRUE)-$start_time,4);
 echo json_encode($_out);
 ?>
