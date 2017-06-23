@@ -61,6 +61,7 @@ function perfectAjaxQuery(){
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
 			try {
+				data=JSON.parse(data);
 				if(data.status == "ok"){
 					spawnTopAlert("All correct.","success");
 				} else {
@@ -72,6 +73,7 @@ function perfectAjaxQuery(){
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
+			spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
 			
 		},
 		complete: function(jqXHR, textStatus) {
@@ -110,6 +112,7 @@ function perfectAjaxQueryV2(){
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
 			try {
+				data=JSON.parse(data);
 				if(data.status == "ok"){
 					spawnTopAlert("All correct.","success");
 				} else {
@@ -121,6 +124,7 @@ function perfectAjaxQueryV2(){
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
+			spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
 			
 		},
 		complete: function(jqXHR, textStatus) {
