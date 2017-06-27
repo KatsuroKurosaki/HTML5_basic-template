@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Inconsolata';
+	src: url('../fonts/Inconsolata-Regular.ttf') format('truetype');
+}
+.Inconsolata{font-family:Inconsolata;}

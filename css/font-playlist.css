@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Playlist';
+	src: url('../fonts/Playlist-Script.otf') format('opentype');
+}
+.Playlist{font-family:Playlist;}
