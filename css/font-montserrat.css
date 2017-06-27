@@ -5,3 +5,4 @@
 	src: url('../fonts/Montserrat-Regular.ttf') format('truetype');
 }
 .Montserrat{font-family:Montserrat;}
+.MontserratB{font-family:Montserrat;font-weight:bold;}

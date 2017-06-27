@@ -5,3 +5,4 @@
 	src: url('../fonts/WorkSans-Regular.ttf') format('truetype');
 }
 .WorkSans{font-family:WorkSans;}
+.WorkSansB{font-family:WorkSans;font-weight:bold;}

@@ -5,3 +5,4 @@
 	src: url('../fonts/DigiClock.ttf') format('truetype');
 }
 .DigiClock{font-family:DigiClock;}
+.DigiClockB{font-family:DigiClock;font-weight:bold;}

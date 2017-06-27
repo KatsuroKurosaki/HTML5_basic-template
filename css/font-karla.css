@@ -5,3 +5,4 @@
 	src: url('../fonts/Karla-Regular.ttf') format('truetype');
 }
 .Karla{font-family:Karla;}
+.KarlaB{font-family:Karla;font-weight:bold;}

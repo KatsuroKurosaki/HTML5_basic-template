@@ -5,3 +5,4 @@
 	src: url('../fonts/Inconsolata-Regular.ttf') format('truetype');
 }
 .Inconsolata{font-family:Inconsolata;}
+.InconsolataB{font-family:Inconsolata;font-weight:bold;}

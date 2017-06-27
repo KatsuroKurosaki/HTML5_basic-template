@@ -5,3 +5,4 @@
 	src: url('../fonts/CrimsonText-Regular.ttf') format('truetype');
 }
 .Crimson{font-family:Crimson;}
+.CrimsonB{font-family:Crimson;font-weight:bold;}

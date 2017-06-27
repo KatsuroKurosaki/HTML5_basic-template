@@ -5,3 +5,4 @@
 	src: url('../fonts/Cormorant-Regular.ttf') format('truetype');
 }
 .Cormorant{font-family:Cormorant;}
+.CormorantB{font-family:Cormorant;font-weight:bold;}
