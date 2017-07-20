@@ -5,7 +5,7 @@ if(version_compare(PHP_VERSION,'7.0.0','>=')){
 		if(file_exists($file) && is_readable($file)){
 			require $file;
 		} else {
-			throw new \Exception("File not found: ".$file);
+			throw new \Exception("File not found or no read permission: ".$file);
 		}
 		unset($file);
 	},true,true);
