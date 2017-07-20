@@ -15,6 +15,10 @@ class SessionDb implements \SessionHandlerInterface {
 		$this->sessionexpire = $sessionexpire;
 		$this->sessiontable = $sessiontable;
 	}
+	
+	public function create_sid(){
+		return bin2hex(random_bytes(16));
+	}
     
     public function open($savePath, $sessionName) {
 		try{
