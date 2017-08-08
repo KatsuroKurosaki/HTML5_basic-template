@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'ArchitectsDaughter';
+	src: url('../fonts/ArchitectsDaughter-Regular.ttf') format('truetype');
+}
+.ArchitectsDaughter{font-family:ArchitectsDaughter;}
+.ArchitectsDaughterB{font-family:ArchitectsDaughter;font-weight:bold;}

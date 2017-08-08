@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+@font-face {
+	font-family: 'Satisfy';
+	src: url('../fonts/Satisfy-Regular.ttf') format('truetype');
+}
+.Satisfy{font-family:Satisfy;}
+.SatisfyB{font-family:Satisfy;font-weight:bold;}
