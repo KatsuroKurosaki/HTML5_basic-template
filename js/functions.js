@@ -164,7 +164,8 @@ function imageProcess(e) {
 		$("#imagesDiv").append('<img src="'+canvas.toDataURL("image/jpeg")+'"/>');
 		
 		delete canvas, context, image, newSize;
-		$("#imgInput").replaceWith($("#imgInput").clone());
+		//$("#imgInput").replaceWith($("#imgInput").clone());
+		$("#formUpload")[0].reset();
 		removeSpinner();
 	}
 }
