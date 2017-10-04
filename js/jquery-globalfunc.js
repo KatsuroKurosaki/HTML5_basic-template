@@ -27,6 +27,20 @@
 			return match && decodeURIComponent(match[1].replace(/\+/g, " "));
 		},
 		
+		sec2dhms: function(sec) {
+			if(sec==""){return '';}else{return parseInt(sec/86400)+'d '+(new Date(sec%86400*1000)).toUTCString().replace(/.*(\d{2}):(\d{2}):(\d{2}).*/, "$1:$2:$3");}
+		},
+		
+		bytes2humanReadable: function(a,b,c,d,e) {
+			// Divide by 1024
+			if(a==""){return '';}else{return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'KMGTPEZY'[--e]+'iB':'Bytes');}
+		},
+		
+		bits2humanReadable: function(a,b,c,d,e) {
+			// Divide by 1000
+			return (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes')
+		},
+		
 		uts2dt: function(ts) {
 			if(ts!=undefined){
 				var date = new Date(ts*1000);
