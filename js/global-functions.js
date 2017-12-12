@@ -243,6 +243,18 @@ function isValidDate(d,m,y) {
 	return ( date.getFullYear() == y && (date.getMonth() + 1) == m && date.getDate() == d );
 }
 
+function formatMac(mac){
+	/*
+	formatMac(pad(Number(99999).toString(16),16))
+	function pad(num, size){ return ('000000000' + num).substr(-size); }
+	*/
+	var r = /([a-f0-9]{2})([a-f0-9]{2})/i;
+	while (r.test(mac)) {
+		mac = mac.replace(r, '$1' + ':' + '$2');
+	}
+	return mac;
+}
+
 function runNumber(container, from, to, decimalpos, duration){
 	if(duration==undefined){duration=3000;}
 	if(decimalpos==undefined){decimalpos=0;}
