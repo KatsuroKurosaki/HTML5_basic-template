@@ -1,7 +1,7 @@
 <?php
 /*****************************
  *
- * RouterOS PHP API class v1.6
+ * RouterOS PHP API class v1.7
  * Author: Denis Basta
  * Contributors:
  *    Nick Barnes
@@ -9,6 +9,7 @@
  *    Jeremy Jefferson (http://jeremyj.com)
  *    Cristian Deluxe (djcristiandeluxe [at] gmail [dot] com)
  *    Mikhail Moskalev (mmv.rus [at] gmail [dot] com)
+ *    Joaquim Sardiña (joaquimsb89 [at] gmail [dot] com)
  *
  * http://www.mikrotik.com
  * http://wiki.mikrotik.com/wiki/API_PHP_class
@@ -24,6 +25,7 @@ class RouterosAPI
     var $timeout   = 3;     //  Connection attempt timeout and data read timeout
     var $attempts  = 5;     //  Connection attempt count
     var $delay     = 3;     //  Delay between connection attempts in seconds
+	var $debugLog  = "";    //  If debug is disabled, the log is instead stored here
 
     var $socket;            //  Variable for storing socket resource
     var $error_no;          //  Variable for storing connection error number, if any
@@ -51,7 +53,9 @@ class RouterosAPI
     {
         if ($this->debug) {
             echo $text . "\n";
-        }
+        } else {
+			$this->debugLog .= $text."\n";
+		}
     }
 
 
