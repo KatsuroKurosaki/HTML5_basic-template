@@ -1,122 +1,37 @@
 // Other functions, specific to the file.
 
-function spawnCalendar(cal){
-	//$(".datetimepicker").remove();
-	
-	$(cal).datetimepicker({
-        format: "dd-mm-yyyy",
-		autoclose:true,
-		minView: 2,
-		todayHighlight: true,
-		language:'es',
-		weekStart:1
-    });
-}
-function spawnCalendars(cal1,cal2){
-	//$(".datetimepicker").remove();
-	
-	var antes = new Date();
-	antes.setFullYear(antes.getFullYear()-1);
-	
-	var despues = new Date();
-	//despues.setFullYear(despues.getFullYear()+1);
-	
-	$(cal1+", "+cal2).datetimepicker({
-        format: "dd-mm-yyyy",
-		autoclose:true,
-		minView: 2,
-		todayHighlight: true,
-		language:'es',
-		weekStart:1,
-		startDate:antes,
-		endDate:despues
-    });
-}
 
-function serializeArrayWithUncheckedCheckboxes(){
-	// Get input values
-	values = $('#form').serializeArray();
-	// Add unchecked checkboxes
-	values = values.concat(
-		$("#form input[type='checkbox']:not(:checked)").map(function() {
-			return {"name": this.name, "value": "off"}
-		}).get()
-	);
-	
-	console.log( JSON.stringify(values) );
-}
-
-function perfectAjaxQuery(){
-	$.ajax({
-		method: 'POST',
-		url: 'api.php',
-		data: {
-			op:'hello'
-		},
-		timeout: 10000,
-		beforeSend: function(jqXHR, settings) {
-			console.log(settings);
-			
-		},
-		success: function (data, textStatus, jqXHR) {
-			console.log(data);
-			try {
-				data=JSON.parse(data);
-				if(data.status == "ok"){
-					spawnTopAlert("All correct.","success");
-				} else {
-					spawnTopAlert("Server error: "+data.msg,"warning");
-				}
-			} catch (e) {
-				spawnTopAlert("Malformed JSON reply.","danger");
-			}
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			console.log(jqXHR.responseText);
-			spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
-			
-		},
-		complete: function(jqXHR, textStatus) {
-			console.log(textStatus);
-			
-		}
-	});
-}
-
-function perfectAjaxQueryV2(){
+function ajaxRequest(){
 	/*
 	--AJAX creating 'data' parameter:
-	datos = new Object();
-	if(datos['datos'] == undefined){
-		datos['datos'] = new Object();
+	data = new Object();
+	if(data['data'] == undefined){
+		data['data'] = new Object();
 	}
-	JSON.stringify(datos);
-	delete datos;
-	
-	--PHP backend:
-	$input = json_decode(file_get_contents("php://input"),true);
+	JSON.stringify(data);
+	delete data;
 	*/
 	$.ajax({
-		method: 'POST',
-		url: 'api.php',
-		contentType: "application/json; charset=utf-8",
-		data: JSON.stringify({
+		method:'POST',
+		url:'api.php',
+		contentType:"application/json; charset=utf-8",
+		data:JSON.stringify({
 			type:'hello'
 		}),
-		datatype: 'json',
-		timeout: 10000,
-		beforeSend: function(jqXHR, settings) {
+		datatype:'json',
+		timeout:10000,
+		beforeSend:function(jqXHR, settings) {
 			console.log(settings);
-			
+			$.spawnSpinner();
 		},
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
 			try {
 				data=JSON.parse(data);
 				if(data.status == "ok"){
-					spawnTopAlert("All correct.","success");
+					$.spawnTopAlert("All correct.","success");
 				} else {
-					spawnTopAlert("Server error: "+data.msg,"warning");
+					$.spawnTopAlert("Server error: "+data.msg,"warning");
 				}
 			} catch (e) {
 				spawnTopAlert("Malformed JSON reply.","danger");
@@ -124,53 +39,58 @@ function perfectAjaxQueryV2(){
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
-			spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
-			
+			$.spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
 		},
 		complete: function(jqXHR, textStatus) {
 			console.log(textStatus);
-			
+			$.removeSpinner();
 		}
 	});
 }
 
-function passwordKeyDownEvent(e){
-	keyCode = ('which' in e) ? e.which : e.keyCode;
-	if (keyCode==13) alert("Intro pressed");
+function uploadAjax(){
+	$.ajax({
+		method: 'POST',
+		url: 'receive.php',
+		data: new FormData($("#formUpload")[0]),
+		cache: false,
+		contentType: false,
+		processData: false,
+		timeout: 60000,
+		xhr: function() {
+			var ajXhr = $.ajaxSettings.xhr();
+			if (ajXhr.upload) {
+				ajXhr.upload.addEventListener('progress',progressFunction, false);
+			}
+			return ajXhr;
+		},
+		beforeSend: function(jqXHR, settings) {
+			//console.log(settings);
+			$("#divProgress").html("Preparing upload.");
+			$("progress").attr({value:0,max:100});
+		},
+		success: function (data, textStatus, jqXHR) {
+			//console.log(data);
+			alert(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown) {
+			//console.log(jqXHR.responseText);
+			alert(jqXHR.responseText);
+		},
+		complete: function(jqXHR, textStatus) {
+			//console.log(textStatus);
+			$("#divProgress").html("Upload complete.");
+			$("progress").attr({value:100,max:100});
+			$("#formUpload input[name='file']").replaceWith($("#formUpload input[name='file']").clone());
+		}
+	});
 }
 
-/*
-<form id="imgInput"><input type="file" class="form-control" accept="image/*" onchange="javascript:imageProcess(event);"></form>
-
-<div id="imagesDiv" class="form-control text-center" style="width:100%;height:175px;overflow-y:scroll;">
-	<img src="data:image/jpeg;base64,[.........]" style="display:inline-block;width:125px;margin:.5em;">
-</div>
-*/
-function imageProcess(e) {
-	spawnSpinner();
-	var width=800;
-	var height=600;
-	image = new Image();
-	image.src = URL.createObjectURL(e.target.files[0]);
-	image.onload = function() {
-		newSize = calculateAspectRatioFit(image.width,image.height,width,height)
-		canvas = document.createElement("canvas");
-		canvas.width = newSize.width;
-		canvas.height = newSize.height;
-		context = canvas.getContext("2d");
-		context.drawImage(image, 0,0,newSize.width,newSize.height);
-		//context.scale(newSize.width, newSize.height);
-		
-		$("#imagesDiv").append('<img src="'+canvas.toDataURL("image/jpeg")+'"/>');
-		
-		delete canvas, context, image, newSize;
-		//$("#imgInput").replaceWith($("#imgInput").clone());
-		$("#formUpload")[0].reset();
-		removeSpinner();
+function progressFunction(e){
+	if(e.lengthComputable){
+		$("progress").attr({value:e.loaded,max:e.total});
+		$("#divProgress").html("Uploading image... "+Math.round(e.loaded*100/e.total)+"% complete.");
+	} else {
+		$("#divProgress").html("Uploading image...");
 	}
-}
-
-function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
-	ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
-	return { width: srcWidth*ratio, height: srcHeight*ratio };
 }

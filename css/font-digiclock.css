@@ -1,8 +1,0 @@
-@charset "UTF-8";
-
-@font-face {
-	font-family: 'DigiClock';
-	src: url('../fonts/DigiClock.ttf') format('truetype');
-}
-.DigiClock{font-family:DigiClock;}
-.DigiClockB{font-family:DigiClock;font-weight:bold;}

@@ -1,6 +1,3 @@
-		<footer class="footer">
-			<div class="container text-center">
-				<span class="muted credit">&copy; Company 2016</span>
-			</div>
-		</footer>
-		
+<footer class="container">
+	<p>&copy; Company 2017-2018</p>
+</footer>

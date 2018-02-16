@@ -5,11 +5,9 @@ ini_set('error_log', __DIR__.'/errors.log');
 
 header('Content-Type: application/json; charset=utf-8');
 
-if(isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'on'){
+//if(isset($_SERVER['HTTPS'])&&$_SERVER['HTTPS']==='on'){
 	require __DIR__.'/api/autoload.php';
-	/*session_set_save_handler(new \Session\SessionDb(\Session\GlobalConf::SESSION_EXPIRE,\Session\GlobalConf::SESSION_TABLE),true);
-	session_start(['use_cookies'=>0,'use_only_cookies'=>0,'use_trans_sid'=>1,'name'=>'s']);*/
-
+	
 	$_in = json_decode(file_get_contents("php://input"),true);
 	$_out=array();
 
@@ -38,11 +36,11 @@ if(isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] === 'on'){
 		$_out['msg']="Input JSON invalid.";
 		$_out['color']="danger";
 	}
-} else {
+/*} else {
 	$_out['status']="ko";
 	$_out['msg']="Request not performed over HTTPS.";
 	$_out['color']="danger";
-}
+}*/
 
 $_out['mem']['engine_curr'] = memory_get_usage(false);
 $_out['mem']['system_curr'] = memory_get_usage(true);

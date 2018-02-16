@@ -42,7 +42,7 @@ class DbConnection extends DbClass {
 		if( !isset( $this->conn ) || $this->conn->connect_errno ){
 			throw new DbErrorConnection($this->conn);
 		}else{
-			$this->conn->query("SET collation_connection = utf8_unicode_ci; SET NAMES utf8;");
+			$this->conn->query("SET collation_connection = utf8mb4_unicode_ci; SET NAMES utf8mb4;");
 		}
 	}
 	

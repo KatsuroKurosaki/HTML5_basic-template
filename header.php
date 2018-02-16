@@ -1,44 +1,19 @@
-	<head>
-        <meta charset="utf-8"/>
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-		<meta name="viewport" content="initial-scale=1,user-scalable=no,width=device-width"/>
-        <meta name="format-detection" content="telephone=no"/>
-        <meta name="msapplication-tap-highlight" content="no"/>
-		<meta name="msapplication-config" content="none"/>
-		<meta name="description" content="Basic jQuery + BootStrap + FontAwesome + themes to start from scratch"/>
-		<meta name="author" content="Katsuro Kurosaki"/>
-		<meta name="theme-color" content="#000000">
-		<meta name="msapplication-navbutton-color" content="#000000">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="msapplication-tap-highlight" content="no"/>
+<meta name="msapplication-config" content="none"/>
+<meta name="description" content=""/>
+<meta name="author" content="Katsuro Kurosaki"/>
+<meta name="theme-color" content="#000000">
 
-		<!--[if IE]><link rel="shortcut icon" href="favicon.ico"/><![endif]-->
-		<link rel="apple-touch-icon-precomposed" href="favicon.png"/>
-		<link rel="icon" href="favicon.png"/>
-		
-		<!--[if lt IE 9]>
-			<script type="text/javascript" src="./js/jquery-1.12.4.js" charset="UTF-8"></script>
-		<![endif]-->
-		<!--[if gte IE 9]><!-->
-			<script type="text/javascript" src="./js/jquery-2.2.4.js" charset="UTF-8"></script>
-		<!--<![endif]-->
-		<!--<script type="text/javascript" src="./js/jquery-3.1.2.js" charset="UTF-8"></script>-->
-		<script type="text/javascript" src="./js/bootstrap-3.3.7.js" charset="UTF-8"></script>
-        <script type="text/javascript" src="./js/jquery-globalfunc.js" charset="UTF-8"></script>
-		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
-        
-		<link rel="stylesheet" type="text/css" href="./css/bootstrap-3.3.7.css"/>
-		<!--<link rel="stylesheet" type="text/css" href="./css/bootstrap-theme-3.3.7.css"/>-->
-		<!--<link rel="stylesheet" type="text/css" href="./css/bootstrap-cerulean.css"/>-->
-		<link rel="stylesheet" type="text/css" href="./css/font-awesome-4.7.0.css"/>
-		<!--[if lte IE 7]>
-			<link rel="stylesheet" type="text/css" href="./css/font-awesome-3.2.1.css"/>
-			<link rel="stylesheet" type="text/css" href="./css/font-awesome-ie7-3.2.1.css"/>
-		<![endif]-->
-		<link rel="stylesheet" type="text/css" href="./css/global-style.css"/>
-		<link rel="stylesheet" type="text/css" href="./css/main-style.css"/>
-		<link rel="stylesheet" type="text/css" href="./css/print-style.css" media="print"/>
-		
-        <title>Main page</title>
-    </head>
-	
+<link rel="icon" type="image/png" href="favicon.png" sizes="32x32"/>
+
+<link rel="stylesheet" type="text/css" href="./css/bootstrap.min-4.0.0.css"/>
+<link rel="stylesheet" type="text/css" href="./css/bootswatch/cerulean/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="./css/fontawesome-all.min-5.0.6.css"/>
+<link rel="stylesheet" type="text/css" href="./css/common_style.css"/>
+<link rel="stylesheet" type="text/css" href="./css/main_style.css"/>
+
+<title></title>
