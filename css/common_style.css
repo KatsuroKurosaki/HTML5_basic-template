@@ -1,5 +1,23 @@
 @charset "UTF-8";
 
+/* Loading spinner */
+#loading{
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background-color:rgba(0,0,0,.8);
+	z-index:1100;
+}
+
+/* Alerts */
+div.alert.alert-custom{
+	top:2rem;
+	left:2rem;
+	right:2rem;
+	z-index:1100;
+}
+
 /* Pointer forms */
 .cursor-auto { cursor:auto; }
 .cursor-crosshair { cursor:crosshair; }
