@@ -1,3 +1,5 @@
+"use strict";
+
 (function($){
 	
 	$.extend({
@@ -190,14 +192,12 @@
 				color: "info", //  primary, secondary, success, danger, warning, info, light, dark
 				showclose: true,
 				closetimeout: 5000,
-				opentimeout: 700
+				opentimeout: 700,
+				alertId: $.now()
 			},options);
 			
-			// An ID for every alert
-			_alertId = $.now();
-			
 			// Alert HTML
-			var _alert = '<div id="alert'+_alertId+'" class="alert alert-'+_settings.color+' alert-dismissible fade show position-absolute alert-custom" role="alert">'+
+			var _alert = '<div id="alert'+_settings.alertId+'" class="alert alert-'+_settings.color+' alert-dismissible fade show position-absolute alert-custom" role="alert">'+
 				( (_settings.title!="") ?
 					'<h4 class="alert-heading">'+_settings.title+'</h4>'
 				:
@@ -215,10 +215,10 @@
 			$("body").append(_alert);
 			
 			// Effects
-			$("#alert"+_alertId).hide().slideDown(_settings.opentimeout);
+			$("#alert"+_settings.alertId).hide().slideDown(_settings.opentimeout);
 			
 			// Remove it
-			$.removeAlert(_alertId,_settings.closetimeout);
+			$.removeAlert(_settings.alertId,_settings.closetimeout);
 		},
 		
 		removeAlert: function(alertId,closetimeout){
