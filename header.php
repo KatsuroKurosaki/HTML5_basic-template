@@ -6,6 +6,9 @@
 <meta name="msapplication-config" content="none"/>
 <meta name="description" content=""/>
 <meta name="author" content="Katsuro Kurosaki"/>
+<meta property="og:title" content="Basic Bootstrap template"/>
+<meta property="og:description" content="Basic bootstrap with themes and plugins to start from scratch."/>
+<meta property="og:image" content="favicon.png"/>
 <meta name="theme-color" content="#000000">
 
 <link rel="icon" type="image/png" href="favicon.png" sizes="32x32"/>
