@@ -2,7 +2,7 @@
 (function($){
 	$.fn.animateCss = function (options) {
 		var _settings = $.extend({
-			name: "bounce",
+			effect: "bounce",
 			duration: "1s",
 			infinite:false,
 			begin:function(){},
@@ -10,8 +10,8 @@
 		},options);
 		
 		_settings.begin();
-        this.addClass("animated "+_settings.name+((_settings.infinite)?" infinite":"")).css("animation-duration",_settings.duration).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){
-            $(this).removeClass("animated "+_settings.name).css("animation-duration","");
+        this.addClass("animated "+_settings.effect+((_settings.infinite)?" infinite":"")).css("animation-duration",_settings.duration).one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){
+            $(this).removeClass("animated "+_settings.effect).css("animation-duration","");
 			_settings.end();
         });
         return this;

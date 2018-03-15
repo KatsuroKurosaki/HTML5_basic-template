@@ -14,7 +14,7 @@
 				<p class="lead">Animatecss</p>
 				<pre>
 $("body").animateCss({
-	name:"zoomOut",
+	effect:"zoomOut",
 	duration:"3s",
 	end:function(){
 		alert("Finish!");
