@@ -16,7 +16,7 @@ function ajaxRequest(){
 		url:'api.php',
 		contentType:"application/json; charset=utf-8",
 		data:JSON.stringify({
-			type:'hello'
+			op:'hello'
 		}),
 		datatype:'json',
 		timeout:10000,
@@ -27,19 +27,18 @@ function ajaxRequest(){
 		success: function (data, textStatus, jqXHR) {
 			console.log(data);
 			try {
-				data=JSON.parse(data);
 				if(data.status == "ok"){
-					$.spawnTopAlert("All correct.","success");
+					$.spawnAlert({body:"All correct.",color:data.color});
 				} else {
-					$.spawnTopAlert("Server error: "+data.msg,"warning");
+					$.spawnAlert({body:"Server error: "+data.msg,color:data.color});
 				}
 			} catch (e) {
-				spawnTopAlert("Malformed JSON reply.","danger");
+				$.spawnAlert({body:"Malformed JSON reply.",color:data.color});
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.responseText);
-			$.spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
+			$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
 		},
 		complete: function(jqXHR, textStatus) {
 			console.log(textStatus);
