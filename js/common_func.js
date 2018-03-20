@@ -123,10 +123,11 @@
 					
 					// Append buttons to the footer
 					$("#modal div.modal-footer").append(
-						'<button type="button" class="btn btn-'+( (_button.outline)?'outline-':'' )+''+_button.color+' btn-'+_button.size+'"'+( (_button.dismiss)?' data-dismiss="modal"':'' )+'>'+
+						'<button type="button" class="btn btn-'+( (_button.outline)?'outline-':'' )+''+_button.color+' btn-'+_button.size+'"'+( (_button.dismiss)?' data-dismiss="modal"':'' )+' data-btnidx="'+idx+'">'+
 							_button.label+
 						'</button>'
 					);
+					$("#modal div.modal-footer button[data-btnidx='"+idx+"']").on("click",_button.click);
 				});
 				// Prevent modal close on keyboard ESC key and mouseclick
 				$('#modal').modal({
