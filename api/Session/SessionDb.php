@@ -6,12 +6,6 @@ class SessionDb implements \SessionHandlerInterface {
 	private $sessiontable;
 	
 	public function __construct($sessionexpire,$sessiontable) {
-		// START SESSION
-		//session_set_save_handler(new \Session\SessionDb(\Session\SessionConf::SESSION_EXPIRE,\Session\SessionConf::SESSION_TABLE),true);
-		//session_start(['use_cookies'=>0,'use_only_cookies'=>0,'use_trans_sid'=>1,'name'=>'s']);
-		//
-		// END SESSION
-		//session_destroy();
 		$this->sessionexpire = $sessionexpire;
 		$this->sessiontable = $sessiontable;
 	}
