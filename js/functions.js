@@ -30,10 +30,10 @@ function ajaxRequest(){
 				if(data.status == "ok"){
 					$.spawnAlert({body:"All correct.",color:data.color});
 				} else {
-					$.spawnAlert({body:"Server error: "+data.msg,color:data.color});
+					$.spawnAlert({body:"Server returned error string: "+data.msg,color:data.color});
 				}
 			} catch (e) {
-				$.spawnAlert({body:"Malformed JSON reply.",color:data.color});
+				$.spawnAlert({body:"Malformed JSON reply.",color:"danger"});
 			}
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
