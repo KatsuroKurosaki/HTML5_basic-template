@@ -67,12 +67,99 @@
 			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
 		},
 		
-		areq: function(){
-			console.log("Coming soon");
-		},
-		
-		preq: function(){
-			console.log("Coming soon");
+		api: function(options){
+			var _settings = $.extend({
+				title: "",
+				body: "",
+				showclose: true,
+				preventclose: true,
+				fadespawn: true,
+				verticalcenter: false,
+				size: "md", // lg, md, sm
+				buttons: []
+			},options);
+			
+			$.ajax({
+				method:'POST',
+				url:'api.php',
+				contentType:"application/json; charset=utf-8",
+				data:JSON.stringify({
+					op:'HELLO'
+				}),
+				datatype:'json',
+				timeout:10000,
+				beforeSend:function(jqXHR, settings) {
+					console.log(settings);
+					$.spawnSpinner();
+				},
+				success: function (data, textStatus, jqXHR) {
+					console.log(data);
+					try {
+						if(data.status == "ok"){
+							$.spawnAlert({body:"All correct.",color:data.color});
+						} else {
+							$.spawnAlert({body:"Server returned error string: "+data.msg,color:data.color});
+						}
+					} catch (e) {
+						$.spawnAlert({body:"Malformed JSON reply.",color:"danger"});
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR.responseText);
+					$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
+				},
+				complete: function(jqXHR, textStatus) {
+					console.log(textStatus);
+					$.removeSpinner();
+				},
+				statusCode: {
+					500: function(data){
+						$.spawnAlert({body:"Error 500: "+data,color:"danger"});
+					}
+				}
+			});
+			
+			$.ajax({
+				method: 'POST',
+				url: 'api_post.php',
+				contentType: false,
+				data: new FormData($("#formUpload").get(0)),
+				datatype: 'json',
+				timeout: 0,
+				cache: false,
+				processData: false,
+				enctype: 'multipart/form-data',
+				xhr: function() {
+					var ajXhr = $.ajaxSettings.xhr();
+					if (ajXhr.upload) {
+						ajXhr.upload.addEventListener('progress',progressFunction, false);
+					}
+					return ajXhr;
+				},
+				beforeSend: function(jqXHR, settings) {
+					console.log(settings);
+					$.spawnSpinner({text:"Uploading..."});
+					$("div.progress").css("display","");
+					$("div.progress div.progress-bar").attr("aria-valuenow",0).css("width","0%");
+				},
+				success: function (data, textStatus, jqXHR) {
+					console.log(data);
+					$.spawnAlert({body:data.msg,color:data.color});
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR.responseText);
+					$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
+				},
+				complete: function(jqXHR, textStatus) {
+					//console.log(textStatus);
+					$("label.badge").text("Waiting");
+					$("div.progress").css("display","none");
+					$("div.progress div.progress-bar").attr("aria-valuenow",0).css("width","0%");
+					$("img[name='thumb']").attr("src","");
+					$("#formUpload").get(0).reset();
+					$.removeSpinner();
+				}
+			});
 		},
 		
 		spawnModal: function(options){
