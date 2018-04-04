@@ -8,25 +8,12 @@
 
 		<!-- https://getbootstrap.com/docs/4.0/examples/ -->
 		<main role="main" class="container">
-			<div class="starter-template">
-				<h1>Bootstrap starter template</h1>
-				<hr/>
-				<p class="lead">Animatecss</p>
-				<pre>
-$("body").animateCss({
-	effect:"zoomOut",
-	duration:"3s",
-	end:function(){
-		alert("Finish!");
-	}
-});
-				</pre>
-				<hr/>
-				
-			</div>
+			
 		</main>
 
 		<?php require 'footer.php'; ?>
-		<?php require 'jsfooter.php'; ?>
+		<?php require 'footerjscss.php'; ?>
+		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
+		<link rel="stylesheet" type="text/css" href="./css/main_style.css"/>
     </body>
 </html>

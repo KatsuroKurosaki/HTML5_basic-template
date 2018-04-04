@@ -4,19 +4,27 @@
 		<?php require 'header.php'; ?>
 	</head>
     <body>
-		<form id="formUpload" enctype="multipart/form-data" action="receive.php" method="post" class="container mt-2">
-			<div class="custom-file">
-				<input type="file" class="custom-file-input" name="file"/> <!-- Filter file type: accept="image/*" -->
-				<label class="custom-file-label">Choose file...</label>
+		<form id="formUpload" class="container mt-2">
+			<div class="input-group mb-3">
+				<input type="hidden" name="op" value="UPLOAD_FILE"/>
+				<input type="file" name="file" class="custom-file-input" accept="image/*" onchange="javascript:imageSelect(event);">
+				<label class="custom-file-label">Añadir imagen...</label>
 			</div>
-			
-			<div id="divProgress" class="mb-2">Waiting...</div>
-			<div class="mb-2"><progress class="progress w-100"></progress></div>
-			<div class="text-center">
-				<input type="submit" class="btn btn-primary mb-2" value="Upload via FORM POST"/>
-				<input type="button" class="btn btn-success mb-2" value="Upload via AJAX" onclick="javascript:uploadAjax();"/>
+			<div class="text-center mb-3">
+				<div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;"></div></div>
+			</div>
+			<div class="text-center mb-3">
+				<label class="badge">Waiting</label>
+			</div>
+			<div class="text-center mb-3">
+				<button type="button" class="btn btn-lg btn-success" onclick="javascript:uploadAjax();"><i class="fas fa-upload"></i> Subir</button>
+			</div>
+			<div class="text-center mb-3">
+				<img name="thumb" class="img-thumbnail" src=""/>
 			</div>
 		</form>
-		<?php require 'jsfooter.php'; ?>
+		<?php require 'footerjscss.php'; ?>
+		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
+		<link rel="stylesheet" type="text/css" href="./css/main_style.css"/>
     </body>
 </html>

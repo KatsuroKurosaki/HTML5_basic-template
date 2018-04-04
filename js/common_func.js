@@ -67,6 +67,14 @@
 			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
 		},
 		
+		areq: function(){
+			console.log("Coming soon");
+		},
+		
+		preq: function(){
+			console.log("Coming soon");
+		},
+		
 		spawnModal: function(options){
 			if(!$("#modal").length){
 				// Modal settings
@@ -168,7 +176,7 @@
 							console.log(data);
 					},
 					error: function(jqXHR, textStatus, errorThrown) {
-						spawnTopAlert("Communication error: "+jqXHR.responseText,"danger");
+						$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
 						if(_settings.debug)
 							console.log(jqXHR.responseText);
 					},

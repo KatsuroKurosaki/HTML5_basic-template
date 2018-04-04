@@ -1,5 +1,4 @@
-// Other functions, specific to the file.
-
+"use strict";
 
 function ajaxRequest(){
 	/*
@@ -16,7 +15,7 @@ function ajaxRequest(){
 		url:'api.php',
 		contentType:"application/json; charset=utf-8",
 		data:JSON.stringify({
-			op:'hello'
+			op:'HELLO'
 		}),
 		datatype:'json',
 		timeout:10000,
@@ -43,6 +42,11 @@ function ajaxRequest(){
 		complete: function(jqXHR, textStatus) {
 			console.log(textStatus);
 			$.removeSpinner();
+		},
+		statusCode: {
+			500: function(data){
+				$.spawnAlert({body:"Error 500: "+data,color:"danger"});
+			}
 		}
 	});
 }
@@ -50,12 +54,14 @@ function ajaxRequest(){
 function uploadAjax(){
 	$.ajax({
 		method: 'POST',
-		url: 'receive.php',
-		data: new FormData($("#formUpload")[0]),
-		cache: false,
+		url: 'api_post.php',
 		contentType: false,
+		data: new FormData($("#formUpload").get(0)),
+		datatype: 'json',
+		timeout: 0,
+		cache: false,
 		processData: false,
-		timeout: 60000,
+		enctype: 'multipart/form-data',
 		xhr: function() {
 			var ajXhr = $.ajaxSettings.xhr();
 			if (ajXhr.upload) {
@@ -64,32 +70,57 @@ function uploadAjax(){
 			return ajXhr;
 		},
 		beforeSend: function(jqXHR, settings) {
-			//console.log(settings);
-			$("#divProgress").html("Preparing upload.");
-			$("progress").attr({value:0,max:100});
+			console.log(settings);
+			$.spawnSpinner({text:"Uploading..."});
+			$("div.progress").css("display","");
+			$("div.progress div.progress-bar").attr("aria-valuenow",0).css("width","0%");
 		},
 		success: function (data, textStatus, jqXHR) {
-			//console.log(data);
-			alert(data);
+			console.log(data);
+			$.spawnAlert({body:data.msg,color:data.color});
 		},
 		error: function(jqXHR, textStatus, errorThrown) {
-			//console.log(jqXHR.responseText);
-			alert(jqXHR.responseText);
+			console.log(jqXHR.responseText);
+			$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
 		},
 		complete: function(jqXHR, textStatus) {
 			//console.log(textStatus);
-			$("#divProgress").html("Upload complete.");
-			$("progress").attr({value:100,max:100});
-			$("#formUpload input[name='file']").replaceWith($("#formUpload input[name='file']").clone());
+			$("label.badge").text("Waiting");
+			$("div.progress").css("display","none");
+			$("div.progress div.progress-bar").attr("aria-valuenow",0).css("width","0%");
+			$("img[name='thumb']").attr("src","");
+			$("#formUpload").get(0).reset();
+			$.removeSpinner();
 		}
 	});
 }
 
 function progressFunction(e){
 	if(e.lengthComputable){
-		$("progress").attr({value:e.loaded,max:e.total});
-		$("#divProgress").html("Uploading image... "+Math.round(e.loaded*100/e.total)+"% complete.");
+		$("div.progress div.progress-bar").attr("aria-valuenow",Math.round(e.loaded*100/e.total)).css("width",Math.round(e.loaded*100/e.total)+"%");
+		$("label.badge").text(filesize(e.loaded)+" of "+filesize(e.total)+" transfered ("+Math.round(e.loaded*100/e.total)+"%)");
 	} else {
-		$("#divProgress").html("Uploading image...");
+		$("label.badge").text("Uploading...");
 	}
+}
+
+function imageSelect(e) {
+	var width=640;
+	var height=480;
+	var image = new Image();
+	image.src = URL.createObjectURL(e.target.files[0]);
+	image.onload = function() {
+		var newSize = calculateAspectRatioFit(image.width,image.height,width,height)
+		var canvas = document.createElement("canvas");
+		canvas.width = newSize.width;
+		canvas.height = newSize.height;
+		var context = canvas.getContext("2d");
+		context.drawImage(image, 0,0,newSize.width,newSize.height);
+		$("img[name='thumb']").attr("src",canvas.toDataURL("image/jpeg"));
+	}
+}
+
+function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
+	var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+	return { width: srcWidth*ratio, height: srcHeight*ratio };
 }

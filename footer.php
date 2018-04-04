@@ -1,3 +1,3 @@
-<footer class="container">
-	<p>&copy; Company 2017-2018</p>
+<footer class="container text-center small">
+	<p>&copy; Company <?php echo date('Y'); ?></p>
 </footer>

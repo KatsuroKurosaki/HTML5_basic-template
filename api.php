@@ -14,38 +14,55 @@ header('Content-Type: application/json; charset=utf-8');
 	if($_in!==null){
 		if(isset($_in['op'])){
 			switch($_in['op']){
-				case 'hello':
-					$_out['status']="ok";
-					$_out['msg']="Hello World!";
-					$_out['color']="success";
+				case 'HELLO':
+					$_out = \GlobalFunctions::returnOut(array(
+						"status"=>"ok",
+						"msg"=>"Hello World!",
+						"color"=>"success",
+						"code"=>0
+					));
 				break;
 				
 				default:
-					$_out['status']="no";
-					$_out['msg']="Received operation is invalid.";
-					$_out['color']="danger";
+					$_out = \GlobalFunctions::returnOut(array(
+						"status"=>"no",
+						"msg"=>"Received operation is invalid.",
+						"color"=>"warning",
+						"code"=>-1
+					));
 			}
 			
 		} else {
-			$_out['status']="ko";
-			$_out['msg']="NO operation received.";
-			$_out['color']="danger";
+			$_out = \GlobalFunctions::returnOut(array(
+				"status"=>"ko",
+				"msg"=>"NO operation received.",
+				"color"=>"danger",
+				"code"=>-1
+			));
 		}
 	} else {
-		$_out['status']="ko";
-		$_out['msg']="Input JSON invalid.";
-		$_out['color']="danger";
+		$_out = \GlobalFunctions::returnOut(array(
+			"status"=>"ko",
+			"msg"=>"Input JSON is invalid.",
+			"color"=>"warning",
+			"code"=>-1
+		));
 	}
 /*} else {
-	$_out['status']="ko";
-	$_out['msg']="Request not performed over HTTPS.";
-	$_out['color']="danger";
+	$_out = \GlobalFunctions::returnOut(array(
+		"status"=>"ko",
+		"msg"=>"Request not performed over HTTPS.",
+		"color"=>"danger",
+		"code"=>-2
+	));
 }*/
 
-$_out['mem']['engine_curr'] = memory_get_usage(false);
-$_out['mem']['system_curr'] = memory_get_usage(true);
-$_out['mem']['engine_peak'] = memory_get_peak_usage(false);
-$_out['mem']['system_peak'] = memory_get_peak_usage(true);
-$_out['time'] = round(microtime(TRUE)-$start_time,6);
+if (\GlobalConf::API_DEBUG){
+	$_out['mem']['engine_curr'] = memory_get_usage(false);
+	$_out['mem']['system_curr'] = memory_get_usage(true);
+	$_out['mem']['engine_peak'] = memory_get_peak_usage(false);
+	$_out['mem']['system_peak'] = memory_get_peak_usage(true);
+	$_out['time'] = round(microtime(TRUE)-$start_time,6);
+}
 echo json_encode($_out);
 ?>

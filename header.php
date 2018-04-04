@@ -13,11 +13,4 @@
 
 <link rel="icon" type="image/png" href="favicon.png" sizes="32x32"/>
 
-<link rel="stylesheet" type="text/css" href="./css/bootstrap.min-4.0.0.css"/>
-<link rel="stylesheet" type="text/css" href="./css/bootswatch/cerulean/bootstrap.min.css"/>
-<link rel="stylesheet" type="text/css" href="./css/fontawesome-all.min-5.0.6.css"/>
-<link rel="stylesheet" type="text/css" href="./css/animate.min-3.6.0.css"/>
-<link rel="stylesheet" type="text/css" href="./css/common_style.css"/>
-<link rel="stylesheet" type="text/css" href="./css/main_style.css"/>
-
-<title></title>
+<title>Basic Bootstrap template</title>
