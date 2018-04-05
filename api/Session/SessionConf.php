@@ -11,10 +11,10 @@ class SessionConf {
 	const SESSION_TABLE = "session";
 	// Session initialization parameters
 	const SESSION_OPTS = [
-		'use_cookies'		=> 0,
-		'use_only_cookies'	=> 0,
-		'use_trans_sid'		=> 1,
-		'name'				=> 's'
+		"use_cookies"		=> 0,
+		"use_only_cookies"	=> 0,
+		"use_trans_sid"		=> 1,
+		"name"				=> "s"
 	];
 	
 }
