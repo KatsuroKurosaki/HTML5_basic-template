@@ -3,10 +3,13 @@ namespace Session;
 
 class Manage {
 	
-	public static function start($sessionConf=array()){
+	public static function start($sessionConf=array(),$sessionOpts=array()){
 		if (session_status() == PHP_SESSION_NONE) {
 			session_set_save_handler(new SessionDb($sessionConf),true);
-			session_start(SessionConf::SESSION_OPTS);
+			$_settings = array_replace_recursive(
+				SessionConf::SESSION_OPTS
+			,$sessionOpts);
+			session_start($_settings);
 		}
 	}
 	
