@@ -2,10 +2,10 @@
 namespace Session;
 
 class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHandlerInterface {
-	private array $_sessionOptions;
+	private $_sessionOptions;
 	
 	// Constructor. I like this array procedure like jQuery plugins.
-	public function __construct(array $options=array()) {
+	public function __construct($options=array()) {
 		$_settings = array_replace_recursive(array(
 			"dbtable"=>SessionConf::SESSION_TABLE,
 			"expires"=>SessionConf::SESSION_EXPIRE,
@@ -17,12 +17,14 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	
 	// return value should be true for success or false for failure
 	public function close() {
+		echo "-close-";
 		// DB Connections are persistent
 		return true;
     }
 	
 	// return value should be true for success or false for failure
-	public function destroy(string $session_id) {
+	public function destroy($session_id) {
+		echo "-destroy-";
 		try {
 			\Db\DbConnection::execute(
 				"DELETE FROM `".$this->_sessionOptions['dbtable']."`
@@ -37,7 +39,8 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
     }
 	
 	// return value should be true for success or false for failure
-	public function gc(int $maxlifetime) {
+	public function gc($maxlifetime) {
+		echo "-gc-";
 		try {
 			\Db\DbConnection::execute(
 				"DELETE FROM `".$this->_sessionOptions['dbtable']."`
@@ -50,7 +53,8 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
     }
 	
 	// return value should be true for success or false for failure
-	public function open(string $save_path, string $session_name) {
+	public function open($save_path, $session_name) {
+		echo "-open-";
 		try {
 			 \Db\DbConnection::execute(
 				"SELECT true
@@ -64,7 +68,8 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
     }
 	
 	// return value should be the session data or an empty string
-	public function read(string $session_id) {
+	public function read($session_id) {
+		echo "-read-";
 		try {
 			$data = \Db\DbConnection::execute(
 				"SELECT `data`
@@ -81,7 +86,8 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
     }
 	
 	// return value should be true for success or false for failure
-	public function write(string $session_id, string $session_data) {
+	public function write($session_id, $session_data) {
+		echo "-write-";
 		try {
 			\Db\DbConnection::execute(
 				"INSERT INTO `".$this->_sessionOptions['dbtable']."` (`id`, `data`, `expires`)
@@ -98,19 +104,22 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	
 	// invoked internally when a new session id is needed
 	public function create_sid(){
+		echo "-create_sid-";
 		return bin2hex(random_bytes($this->_sessionOptions['sidlen']));
 	}
     
     // return value should be true if the session id is valid otherwise false
-	public function validateId(string $session_id){
+	public function validateId($session_id){
+		echo "-validateId-";
 		#WIP
 		return true;
 	}
 	
 	// return value should be true for success or false for failure
-	public function updateTimestamp(string $session_id, string $session_data){
+	public function updateTimestamp($session_id, $session_data){
+		echo "-updateTimestamp-";
 		#WIP
-		return true
+		return true;
 	}
 
 }

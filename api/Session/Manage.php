@@ -3,15 +3,15 @@ namespace Session;
 
 class Manage {
 	
-	public static function start($sessionOptions=array()){
+	public static function start($sessionConf=array()){
 		if (session_status() == PHP_SESSION_NONE) {
-			session_set_save_handler(new SessionDb($sessionOptions),true);
+			session_set_save_handler(new SessionDb($sessionConf),true);
 			session_start(SessionConf::SESSION_OPTS);
 		}
 	}
 	
 	public static function destroy(){
-		if (session_status() != PHP_SESSION_NONE) {
+		if (session_status() == PHP_SESSION_ACTIVE) {
 			session_destroy();
 		}
 	}

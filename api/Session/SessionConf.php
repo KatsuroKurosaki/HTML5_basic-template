@@ -15,7 +15,9 @@ class SessionConf {
 		"use_only_cookies"	=> 0,
 		"use_trans_sid"		=> 1,
 		"name"				=> "s",
-		"url_rewriter.tags"	=> ""
+		"url_rewriter.tags"	=> ""/*,
+		"tags"				=> "",
+		"trans_sid_tags"	=> ""*/
 	];
 	
 }
