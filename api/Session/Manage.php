@@ -3,9 +3,9 @@ namespace Session;
 
 class Manage {
 	
-	public static function start(){
+	public static function start($sessionOptions=array()){
 		if (session_status() == PHP_SESSION_NONE) {
-			session_set_save_handler(new SessionDb(SessionConf::SESSION_EXPIRE,SessionConf::SESSION_TABLE),true);
+			session_set_save_handler(new SessionDb($sessionOptions),true);
 			session_start(SessionConf::SESSION_OPTS);
 		}
 	}
