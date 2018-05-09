@@ -24,6 +24,7 @@
 })(jQuery);
 
 /*
+ TO DO: Check if an effect exists: https://stackoverflow.com/questions/983586/how-can-you-determine-if-a-css-class-exists-with-javascript
  Effect list:
 	bounce
 	flash
