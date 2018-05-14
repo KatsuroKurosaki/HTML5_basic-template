@@ -242,6 +242,7 @@
 					url: "",
 					data: {},
 					timeout: 10000,
+					verticalcenter:true,
 					debug: false
 				},options);
 				
@@ -257,7 +258,9 @@
 					},
 					success: function (data, textStatus, jqXHR) {
 						// Spawn a modal and replace contents.
-						$.spawnModal();
+						$.spawnModal({
+							verticalcenter:_settings.verticalcenter
+						});
 						$("#modal div.modal-content").html(data);
 						if(_settings.debug)
 							console.log(data);
