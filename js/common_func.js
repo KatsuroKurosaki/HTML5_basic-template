@@ -296,7 +296,7 @@
 			},options);
 			
 			// Alert HTML
-			var _alert = '<div id="alert'+_settings.alertId+'" class="alert alert-'+_settings.color+' alert-dismissible fade show position-absolute alert-custom" role="alert">'+
+			var _alert = '<div id="alert'+_settings.alertId+'" class="alert alert-'+_settings.color+' alert-dismissible fade show position-fixed alert-custom" role="alert">'+
 				( (_settings.title!="") ?
 					'<h4 class="alert-heading">'+_settings.title+'</h4>'
 				:
