@@ -68,7 +68,8 @@
 		},
 		
 		api: function(options){
-			var _settings = $.extend({
+			console.warn("Not yet implemented");
+			/*var _settings = $.extend({
 				title: "",
 				body: "",
 				showclose: true,
@@ -159,7 +160,7 @@
 					$("#formUpload").get(0).reset();
 					$.removeSpinner();
 				}
-			});
+			});*/
 		},
 		
 		spawnModal: function(options){
