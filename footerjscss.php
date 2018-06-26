@@ -13,7 +13,7 @@
 <!-- Font Awesome -->
 <link rel="stylesheet" type="text/css" href="./css/fontawesome-all.min-5.1.0.css"/>
 
-<!-- Animate.css -->
+<!-- filesizejs -->
 <script type="text/javascript" src="./js/filesize.min-3.6.1.js" charset="UTF-8"></script>
 
 <!-- Global resources -->
