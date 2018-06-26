@@ -6,7 +6,7 @@
     <body>
         <?php define("_FILE",basename(__FILE__,'.php')); require 'navbar.php'; ?>
 
-		<!-- https://getbootstrap.com/docs/4.0/examples/ -->
+		<!-- https://getbootstrap.com/docs/4.1/examples/ -->
 		<main role="main" class="container">
 			
 		</main>
