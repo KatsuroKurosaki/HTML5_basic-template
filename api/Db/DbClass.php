@@ -2,6 +2,11 @@
 
 namespace Db;
 
+/**
+*
+* Esta clase controla la conexion de bd
+*
+**/
 class DbClass{
 	public static function createDataFromBindableParams( \mysqli_stmt $stmt, string $param_type, array $a_bind_params ){
 		$a_params = array();
@@ -13,6 +18,7 @@ class DbClass{
 	}
 	
 	public static function executeSql( \Mysqli $conn, String $sql, $param_type = "", array $a_bind_params = [] ){
+		
 		$result = new DbResult();
 		
 		$stmt = $conn->prepare( $sql );
@@ -31,6 +37,20 @@ class DbClass{
 		
 		$stmt->close();
 		return $result;
+	}
+	
+	public static function executeSqlBulk( \Mysqli $conn, String $sql, $param_type = "", array $list = [] ){
+		
+		$stmt = $conn->prepare( $sql );
+		if( !$stmt ){ print_r( $conn ); throw new DbErrorConnection( $conn, $sql ); }
+		
+		foreach( $list as $value ){
+			if( $param_type != "" ){ self::createDataFromBindableParams( $stmt, $param_type, $value ); }
+			if ( !$stmt->execute() ){ throw new DbErrorStatement( $stmt, $sql ); } 
+		}
+		
+		$stmt->close();
+		return true;
 	}
 	
 }

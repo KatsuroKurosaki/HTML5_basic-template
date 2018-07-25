@@ -1,6 +1,6 @@
+"use strict";
 // jQuery function for https://github.com/daneden/animate.css
 (function($){
-	// Webpage: https://daneden.github.io/animate.css/
 	$.fn.animateCss = function (options) {
 		var _settings = $.extend({
 			effect: "bounce",	// One of the effects on the list above.
@@ -21,86 +21,11 @@
 			});
         return this;
     };
-})(jQuery);
+}(jQuery));
 
 /*
- TO DO: Check if an effect exists: https://stackoverflow.com/questions/983586/how-can-you-determine-if-a-css-class-exists-with-javascript
- Effect list:
-	bounce
-	flash
-	pulse
-	rubberBand
-	shake
-	swing
-	tada
-	wobble
-	jello
-	bounceIn
-	bounceInDown
-	bounceInLeft
-	bounceInRight
-	bounceInUp
-	bounceOut
-	bounceOutDown
-	bounceOutLeft
-	bounceOutRight
-	bounceOutUp
-	fadeIn
-	fadeInDown
-	fadeInDownBig
-	fadeInLeft
-	fadeInLeftBig
-	fadeInRight
-	fadeInRightBig
-	fadeInUp
-	fadeInUpBig
-	fadeOut
-	fadeOutDown
-	fadeOutDownBig
-	fadeOutLeft
-	fadeOutLeftBig
-	fadeOutRight
-	fadeOutRightBig
-	fadeOutUp
-	fadeOutUpBig
-	flip
-	flipInX
-	flipInY
-	flipOutX
-	flipOutY
-	lightSpeedIn
-	lightSpeedOut
-	rotateIn
-	rotateInDownLeft
-	rotateInDownRight
-	rotateInUpLeft
-	rotateInUpRight
-	rotateOut
-	rotateOutDownLeft
-	rotateOutDownRight
-	rotateOutUpLeft
-	rotateOutUpRight
-	slideInUp
-	slideInDown
-	slideInLeft
-	slideInRight
-	slideOutUp
-	slideOutDown
-	slideOutLeft
-	slideOutRight
-	zoomIn
-	zoomInDown
-	zoomInLeft
-	zoomInRight
-	zoomInUp
-	zoomOut
-	zoomOutDown
-	zoomOutLeft
-	zoomOutRight
-	zoomOutUp
-	hinge
-	jackInTheBox
-	rollIn
-	rollOut
-
+ TO DO:
+ - Check if an effect exists: https://stackoverflow.com/questions/983586/how-can-you-determine-if-a-css-class-exists-with-javascript
+ - Delay classes: delay-1s delay-2s delay-3s delay-4s delay-5s
+ - Animation classes: slow(2s) slower(3s) fast(800ms) faster(500ms)
 */
