@@ -1,13 +1,13 @@
 <?php
 
-namespace Db\db_name;
+namespace Db;
 
 /**
 *
 * Esta clase controla la conexion de bd para las metricas
 *
 **/
-class DbConnection extends \Db\DbClass
+class DbConnection extends DbClass
 {
 	//instacia
 	static $_instance;
@@ -48,7 +48,7 @@ class DbConnection extends \Db\DbClass
 			$this->conn->real_connect( DbConf::DB_SERVER, 
 											DbConf::DB_USER,
 											DbConf::DB_PASS,
-											DbConf::DB_BD,
+											null,
 											DbConf::DB_PORT);
 		}catch( DbErrorConnection $e ){ throw new \Db\DbErrorConnection( $this->conn, "" );  }
 		catch( \Error $e ){ throw new \Db\DbErrorConnection( $this->conn, "" );  }

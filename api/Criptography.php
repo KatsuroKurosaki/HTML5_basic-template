@@ -20,6 +20,18 @@ class Criptography{
 		$encrypted_data = substr($data, $ivsize);
 		return openssl_decrypt($encrypted_data, self::OPEN_SSL_METHOD, $encryption_key, 0, $iv);
 	}
+	
+	public static function hashPassword($password){
+		return password_hash($password,PASSWORD_DEFAULT);
+	}
+	
+	public static function checkPassword($password,$hash){
+		return password_verify($password,$hash);
+	}
+	
+	public static function passwordRehash($hash){
+		return password_needs_rehash($hash,PASSWORD_DEFAULT);
+	}
 
 }
 

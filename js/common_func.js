@@ -68,59 +68,81 @@
 		},
 		
 		api: function(options){
-			console.warn("Not yet implemented");
-			/*var _settings = $.extend({
-				title: "",
-				body: "",
-				showclose: true,
-				preventclose: true,
-				fadespawn: true,
-				verticalcenter: false,
-				size: "md", // lg, md, sm
-				buttons: []
+			
+			var _settings = $.extend({
+				method: 'POST',
+				url: ($.qs("s")!=null)?'api.php?s='+$.qs("s"):'api.php',
+				contentType: 'application/json; charset=utf-8',
+				data: {},
+				datatype: 'json',
+				timeout: 10000,
+				beforeSend: function(){},
+				success: function(data){},
+				error: function(jqXHR){},
+				complete: function(){},
+				statusCode: {
+					
+				},
+				spawnSpinner: true,
+				debug: false
 			},options);
 			
 			$.ajax({
-				method:'POST',
-				url:'api.php',
-				contentType:"application/json; charset=utf-8",
-				data:JSON.stringify({
-					op:'HELLO'
-				}),
-				datatype:'json',
-				timeout:10000,
+				method: _settings.method,
+				url: _settings.url,
+				contentType: _settings.contentType,
+				data: JSON.stringify( _settings.data ),
+				datatype: _settings.datatype,
+				timeout: _settings.timeout,
 				beforeSend:function(jqXHR, settings) {
-					console.log(settings);
-					$.spawnSpinner();
+					if (_settings.debug)
+						console.log(settings);
+					if (_settings.spawnSpinner)
+						$.spawnSpinner();
+					_settings.beforeSend();
 				},
 				success: function (data, textStatus, jqXHR) {
-					console.log(data);
-					try {
-						if(data.status == "ok"){
-							$.spawnAlert({body:"All correct.",color:data.color});
-						} else {
-							$.spawnAlert({body:"Server returned error string: "+data.msg,color:data.color});
-						}
-					} catch (e) {
-						$.spawnAlert({body:"Malformed JSON reply.",color:"danger"});
-					}
+					if (_settings.debug)
+						console.log(data);
+					if(data.status === 'ok')
+						_settings.success(data);
+					else
+						$.spawnAlert({body:data.msg,color:data.color});
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					console.log(jqXHR.responseText);
-					$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
+					if (_settings.debug)
+						console.log(jqXHR);
+					switch(jqXHR.status){
+						case 500: $.spawnAlert({title:"Error 500","body":"Error del servidor al procesar su solicitud.",color:"danger"}); break;
+						case 404: $.spawnAlert({title:"Error 404","body":"El recurso solicitado no se ha encontrado.",color:"danger"}); break;
+						case 403: $.spawnAlert({title:"Error 403","body":"Acceso denegado al recurso solicitado.",color:"danger"}); break;
+						case 0:
+							switch(jqXHR.statusText){
+								case 'timeout': $.spawnAlert({title:"Timeout",body:"Se ha excedido el tiempo máximo de espera en completar la petición.",color:"danger"}); break;
+								case 'error': $.spawnAlert({title:"Sin conexión",body:"No se ha detectado conexión a Internet para procesar su solicitud.",color:"danger"}); break;
+								default:
+									$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
+							}
+						break;
+						
+						default:
+							$.spawnAlert({title:"Error desconocido",body:"Error desconocido",color:"danger"});
+					}
+					_settings.error(jqXHR);
 				},
 				complete: function(jqXHR, textStatus) {
-					console.log(textStatus);
-					$.removeSpinner();
-				},
-				statusCode: {
-					500: function(data){
-						$.spawnAlert({body:"Error 500: "+data,color:"danger"});
-					}
+					if (_settings.debug)
+						console.log(textStatus);
+					if (_settings.spawnSpinner)
+						$.removeSpinner();
+					_settings.complete();
 				}
 			});
-			
-			$.ajax({
+		},
+		
+		upload: function(){
+			console.warn("Not yet implemented");
+			/*$.ajax({
 				method: 'POST',
 				url: 'api_post.php',
 				contentType: false,
@@ -341,4 +363,4 @@
 		return values;
 	};
 
-})(jQuery);
+}(jQuery));

@@ -6,10 +6,11 @@ class Manage {
 	public static function start($sessionConf=array(),$sessionOpts=array()){
 		if (session_status() == PHP_SESSION_NONE) {
 			session_set_save_handler(new SessionDb($sessionConf),true);
-			$_settings = array_replace_recursive(
+			
+			$_sessionOpts = array_replace_recursive(
 				SessionConf::SESSION_OPTS
 			,$sessionOpts);
-			session_start($_settings);
+			session_start($_sessionOpts);
 		}
 	}
 	
