@@ -182,7 +182,16 @@
 					$("#formUpload").get(0).reset();
 					$.removeSpinner();
 				}
-			});*/
+			});
+			function progressFunction(e){
+				if(e.lengthComputable){
+					$("div.progress div.progress-bar").attr("aria-valuenow",Math.round(e.loaded*100/e.total)).css("width",Math.round(e.loaded*100/e.total)+"%");
+					$("label.badge").text(filesize(e.loaded)+" of "+filesize(e.total)+" transfered ("+Math.round(e.loaded*100/e.total)+"%)");
+				} else {
+					$("label.badge").text("Uploading...");
+				}
+			}
+			*/
 		},
 		
 		spawnModal: function(options){
