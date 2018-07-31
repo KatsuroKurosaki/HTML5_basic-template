@@ -358,27 +358,6 @@
 			setTimeout(function(){
 				$('#alert'+alertId).alert("close");
 			},(closetimeout!=undefined)?closetimeout:5000);
-		},
-		
-		runNumber: function(options){
-			
-			var _settings = $.extend({
-				container: '',
-				duration: 1000,
-				decimalpos: 0,
-				fromVal: 0,
-				toVal: 100,
-			},options);
-			
-			$({someValue: _settings.fromVal}).animate({someValue: _settings.toVal}, {
-				duration: _settings.duration,
-				step: function() {
-					$(_settings.container).text( this.someValue.toFixed(_settings.decimalpos) );
-				},
-				complete: function() {
-					$(_settings.container).text( this.someValue.toFixed(_settings.decimalpos) );
-				}
-			});
 		}
 		
 	});
@@ -392,6 +371,27 @@
 			}).get()
 		);
 		return values;
+	};
+	
+	// Runs a number
+	$.fn.runNumber = function(options){
+		var _settings = $.extend({
+			duration: 1000,
+			decimalpos: 0,
+			fromVal: 0,
+			toVal: 100,
+		},options);
+		var container = this;
+		
+		$({someValue: _settings.fromVal}).animate({someValue: _settings.toVal}, {
+			duration: _settings.duration,
+			step: function() {
+				$(container).text( this.someValue.toFixed(_settings.decimalpos) );
+			},
+			complete: function() {
+				$(container).text( this.someValue.toFixed(_settings.decimalpos) );
+			}
+		});
 	};
 
 }(jQuery));
