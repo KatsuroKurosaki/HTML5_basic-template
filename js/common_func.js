@@ -116,6 +116,7 @@
 						case 500: $.spawnAlert({title:"Error 500","body":"Error del servidor al procesar su solicitud.",color:"danger"}); break;
 						case 404: $.spawnAlert({title:"Error 404","body":"El recurso solicitado no se ha encontrado.",color:"danger"}); break;
 						case 403: $.spawnAlert({title:"Error 403","body":"Acceso denegado al recurso solicitado.",color:"danger"}); break;
+						case 401: $.spawnAlert({title:"Error 401","body":"No tiene permiso para ver el recurso solicitado.",color:"danger"}); break;
 						case 0:
 							switch(jqXHR.statusText){
 								case 'timeout': $.spawnAlert({title:"Timeout",body:"Se ha excedido el tiempo máximo de espera en completar la petición.",color:"danger"}); break;
