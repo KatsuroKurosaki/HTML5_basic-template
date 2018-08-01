@@ -94,6 +94,16 @@ class DbConnection extends DbClass
 						$list );
 	}
 	
+	public static function executeLongdata( String $sql, $param_type = "", array $a_bind_params = [], String $file_path ){
+		
+		return parent::executeSqlLongdata( 
+						self::getInstance()->getConnection(),
+						 $sql, 
+						 $param_type, 
+						 $a_bind_params,
+						 $file_path );
+	}
+	
 }
 
 ?>

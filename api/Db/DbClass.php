@@ -53,6 +53,34 @@ class DbClass{
 		return true;
 	}
 	
+	public static function executeSqlLongdata( \Mysqli $conn, String $sql, $param_type = "", array $a_bind_params = [], String $file_path ){
+		
+		$result = new DbResult();
+		
+		$stmt = $conn->prepare( $sql );
+		if( !$stmt ){ throw new DbErrorConnection( $conn, $sql ); }
+		if( $param_type != "" ){ self::createDataFromBindableParams( $stmt, $param_type, $a_bind_params ); }
+		
+		$fp = fopen($file_path, "r");
+		while(!feof($fp)){
+			$stmt->send_long_data(strpos($param_type,'b'), fread($fp, 8192));
+		}
+		fclose($fp);
+		
+		if ( !$stmt->execute() ){ throw new DbErrorStatement( $stmt, $sql ); } 
+		$stmt_result = $stmt->get_result();
+		
+		if( $stmt_result ){
+			$result->checkData( $stmt_result );
+			$stmt_result->free_result();
+		}else{
+			$result->checkInsertId( $stmt );
+		}
+		
+		$stmt->close();
+		return $result;
+	}
+	
 }
 
 ?>
