@@ -377,19 +377,21 @@
 	$.fn.runNumber = function(options){
 		var _settings = $.extend({
 			duration: 1000,
-			decimalpos: 0,
+			decimalPos: 0,
 			fromVal: 0,
 			toVal: 100,
+			delayStart: 0
 		},options);
 		var container = this;
 		
-		$({someValue: _settings.fromVal}).animate({someValue: _settings.toVal}, {
+		$(container).text( _settings.fromVal.toFixed(_settings.decimalPos) );
+		$({someValue: _settings.fromVal}).delay(_settings.delayStart).animate({someValue: _settings.toVal}, {
 			duration: _settings.duration,
 			step: function() {
-				$(container).text( this.someValue.toFixed(_settings.decimalpos) );
+				$(container).text( this.someValue.toFixed(_settings.decimalPos) );
 			},
 			complete: function() {
-				$(container).text( this.someValue.toFixed(_settings.decimalpos) );
+				$(container).text( this.someValue.toFixed(_settings.decimalPos) );
 			}
 		});
 	};
