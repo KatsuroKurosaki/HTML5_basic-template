@@ -3,18 +3,18 @@
 (function($){
 	$.fn.animateCss = function (options) {
 		var _settings = $.extend({}, $.fn.animateCss.defaults, options);
-		
+
 		_settings.begin.call( this );
-        this.addClass("animated "+_settings.effect+((_settings.infinite)?" infinite":""))
+		this.addClass("animated "+_settings.effect+((_settings.infinite)?" infinite":""))
 			.css("animation-duration",_settings.duration)
 			.css("animation-delay",_settings.delay)
 			.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){
 				$(this).removeClass("animated "+_settings.effect).css("animation-duration","").css("animation-delay","");
 				_settings.end.call( this );
 			});
-        return this;
-    };
-	
+		return this;
+	};
+
 	$.fn.animateCss.defaults = {
 		effect: "bounce",		// One of the effects on the list above.
 		duration: "1s",			// Amount of seconds that the effect will be active.
