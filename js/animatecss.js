@@ -11,13 +11,13 @@
 			end: function(){}		// Function to execute when the effect ends. Won't run if infinite:true!
 		},options);
 		
-		_settings.begin();
+		_settings.begin.call( this );
         this.addClass("animated "+_settings.effect+((_settings.infinite)?" infinite":""))
 			.css("animation-duration",_settings.duration)
 			.css("animation-delay",_settings.delay)
 			.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend",function(){
 				$(this).removeClass("animated "+_settings.effect).css("animation-duration","").css("animation-delay","");
-				_settings.end();
+				_settings.end.call( this );
 			});
         return this;
     };
