@@ -380,18 +380,20 @@
 			decimalPos: 0,
 			fromVal: 0,
 			toVal: 100,
-			delayStart: 0
+			delayStart: 0,
+			prefix: '',
+			suffix: ''
 		},options);
 		var container = this;
 		
-		$(container).text( _settings.fromVal.toFixed(_settings.decimalPos) );
+		$(container).text( _settings.prefix + _settings.fromVal.toFixed(_settings.decimalPos) + _settings.suffix );
 		$({someValue: _settings.fromVal}).delay(_settings.delayStart).animate({someValue: _settings.toVal}, {
 			duration: _settings.duration,
 			step: function() {
-				$(container).text( this.someValue.toFixed(_settings.decimalPos) );
+				$(container).text( _settings.prefix + this.someValue.toFixed(_settings.decimalPos) + _settings.suffix );
 			},
 			complete: function() {
-				$(container).text( this.someValue.toFixed(_settings.decimalPos) );
+				$(container).text( _settings.prefix + this.someValue.toFixed(_settings.decimalPos) + _settings.suffix );
 			}
 		});
 	};
