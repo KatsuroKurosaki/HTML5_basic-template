@@ -68,7 +68,6 @@
 		},
 		
 		api: function(options){
-			
 			var _settings = $.extend({
 				method: 'POST',
 				url: ($.qs("s")!=null)?'api.php?s='+$.qs("s"):'api.php',
@@ -80,9 +79,6 @@
 				success: function(data){},
 				error: function(jqXHR){},
 				complete: function(){},
-				statusCode: {
-					
-				},
 				spawnSpinner: true,
 				debug: false
 			},options);
@@ -141,58 +137,90 @@
 			});
 		},
 		
-		upload: function(){
-			console.warn("Not yet implemented");
-			/*$.ajax({
+		upload: function(options){
+			var _settings = $.extend({
 				method: 'POST',
-				url: 'api_post.php',
-				contentType: false,
-				data: new FormData($("#formUpload").get(0)),
+				url: ($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
+				//data: new FormData($("form").get(0)),
+				data: {},
 				datatype: 'json',
 				timeout: 0,
+				progress: function(e){
+					if(e.lengthComputable)
+						console.log( e.loaded+"/"+e.total+" - "+Math.round(e.loaded*100/e.total)+"%" );
+				},
+				beforeSend: function(){},
+				success: function(data){},
+				error: function(jqXHR){},
+				complete: function(){},
+				
+				spawnSpinner: true,
+				debug: false
+			},options);
+			
+			$.ajax({
+				method: _settings.method,
+				url: _settings.url,
+				contentType: false,
+				data: _settings.data,
+				datatype: _settings.datatype,
+				timeout: _settings.timeout,
 				cache: false,
 				processData: false,
 				enctype: 'multipart/form-data',
 				xhr: function() {
 					var ajXhr = $.ajaxSettings.xhr();
-					if (ajXhr.upload) {
-						ajXhr.upload.addEventListener('progress',progressFunction, false);
-					}
+					if (ajXhr.upload)
+						ajXhr.upload.addEventListener('progress',_settings.progress, false);
+					else
+						console.warn("No upload progress support.");
 					return ajXhr;
 				},
 				beforeSend: function(jqXHR, settings) {
-					console.log(settings);
-					$.spawnSpinner({text:"Uploading..."});
-					$("div.progress").css("display","");
-					$("div.progress div.progress-bar").attr("aria-valuenow",0).css("width","0%");
+					if (_settings.debug)
+						console.log(settings);
+					if (_settings.spawnSpinner)
+						$.spawnSpinner();
+					_settings.beforeSend();
 				},
 				success: function (data, textStatus, jqXHR) {
-					console.log(data);
-					$.spawnAlert({body:data.msg,color:data.color});
+					if (_settings.debug)
+						console.log(data);
+					if(data.status === 'ok')
+						_settings.success(data);
+					else
+						$.spawnAlert({body:data.msg,color:data.color});
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					console.log(jqXHR.responseText);
-					$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
+					if (_settings.debug)
+						console.log(jqXHR);
+					switch(jqXHR.status){
+						case 500: $.spawnAlert({title:"Error 500","body":"Error del servidor al procesar su solicitud.",color:"danger"}); break;
+						case 404: $.spawnAlert({title:"Error 404","body":"El recurso solicitado no se ha encontrado.",color:"danger"}); break;
+						case 403: $.spawnAlert({title:"Error 403","body":"Acceso denegado al recurso solicitado.",color:"danger"}); break;
+						case 401: $.spawnAlert({title:"Error 401","body":"No tiene permiso para ver el recurso solicitado.",color:"danger"}); break;
+						case 0:
+							switch(jqXHR.statusText){
+								case 'timeout': $.spawnAlert({title:"Timeout",body:"Se ha excedido el tiempo máximo de espera en completar la petición.",color:"danger"}); break;
+								case 'error': $.spawnAlert({title:"Sin conexión",body:"No se ha detectado conexión a Internet para procesar su solicitud.",color:"danger"}); break;
+								default:
+									$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
+							}
+						break;
+						
+						default:
+							$.spawnAlert({title:"Error desconocido",body:"Error desconocido",color:"danger"});
+					}
+					_settings.error(jqXHR);
 				},
 				complete: function(jqXHR, textStatus) {
-					//console.log(textStatus);
-					$("label.badge").text("Waiting");
-					$("div.progress").css("display","none");
-					$("div.progress div.progress-bar").attr("aria-valuenow",0).css("width","0%");
-					$("img[name='thumb']").attr("src","");
-					$("#formUpload").get(0).reset();
-					$.removeSpinner();
+					if (_settings.debug)
+						console.log(textStatus);
+					if (_settings.spawnSpinner)
+						$.removeSpinner();
+					_settings.complete();
 				}
 			});
-			function progressFunction(e){
-				if(e.lengthComputable){
-					$("div.progress div.progress-bar").attr("aria-valuenow",Math.round(e.loaded*100/e.total)).css("width",Math.round(e.loaded*100/e.total)+"%");
-					$("label.badge").text(filesize(e.loaded)+" of "+filesize(e.total)+" transfered ("+Math.round(e.loaded*100/e.total)+"%)");
-				} else {
-					$("label.badge").text("Uploading...");
-				}
-			}
-			*/
 		},
 		
 		spawnModal: function(options){
