@@ -2,6 +2,7 @@
 
 (function($){
 	
+	// Spinners
 	$.extend({
 		spawnSpinner: function(options) {
 			if(!$("#loading").length){
@@ -20,14 +21,20 @@
 		
 		removeSpinner: function(action) {
 			$("#loading").remove();
-		},
-		
+		}
+	});
+	
+	// Querystring
+	$.extend({
 		qs: function(key) {
 			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
 			var _match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
 			return _match && decodeURIComponent(_match[1].replace(/\+/g, " "));
-		},
-		
+		}
+	});
+	
+	// Conversion and validation
+	$.extend({
 		sec2dhms: function(sec) {
 			return parseInt(sec/86400)+'d '+(new Date(sec%86400*1000)).toUTCString().replace(/.*(\d{2}):(\d{2}):(\d{2}).*/,"$1:$2:$3");
 		},
@@ -65,9 +72,12 @@
 		isValidDate: function(d,m,y) {
 			var _date = new Date(y,m-1,d);
 			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
-		},
-		
-		api: function(options){
+		}
+	});
+	
+	// Network communications
+	$.extend({
+		api: function(options) {
 			var _settings = $.extend({
 				method: 'POST',
 				url: ($.qs("s")!=null)?'api.php?s='+$.qs("s"):'api.php',
@@ -108,23 +118,7 @@
 				error: function(jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
 						console.log(jqXHR);
-					switch(jqXHR.status){
-						case 500: $.spawnAlert({title:"Error 500","body":"Error del servidor al procesar su solicitud.",color:"danger"}); break;
-						case 404: $.spawnAlert({title:"Error 404","body":"El recurso solicitado no se ha encontrado.",color:"danger"}); break;
-						case 403: $.spawnAlert({title:"Error 403","body":"Acceso denegado al recurso solicitado.",color:"danger"}); break;
-						case 401: $.spawnAlert({title:"Error 401","body":"No tiene permiso para ver el recurso solicitado.",color:"danger"}); break;
-						case 0:
-							switch(jqXHR.statusText){
-								case 'timeout': $.spawnAlert({title:"Timeout",body:"Se ha excedido el tiempo máximo de espera en completar la petición.",color:"danger"}); break;
-								case 'error': $.spawnAlert({title:"Sin conexión",body:"No se ha detectado conexión a Internet para procesar su solicitud.",color:"danger"}); break;
-								default:
-									$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
-							}
-						break;
-						
-						default:
-							$.spawnAlert({title:"Error desconocido",body:"Error desconocido",color:"danger"});
-					}
+					handleNetworkError(jqXHR);
 					_settings.error(jqXHR);
 				},
 				complete: function(jqXHR, textStatus) {
@@ -137,7 +131,7 @@
 			});
 		},
 		
-		upload: function(options){
+		upload: function(options) {
 			var _settings = $.extend({
 				method: 'POST',
 				url: ($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
@@ -194,23 +188,7 @@
 				error: function(jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
 						console.log(jqXHR);
-					switch(jqXHR.status){
-						case 500: $.spawnAlert({title:"Error 500","body":"Error del servidor al procesar su solicitud.",color:"danger"}); break;
-						case 404: $.spawnAlert({title:"Error 404","body":"El recurso solicitado no se ha encontrado.",color:"danger"}); break;
-						case 403: $.spawnAlert({title:"Error 403","body":"Acceso denegado al recurso solicitado.",color:"danger"}); break;
-						case 401: $.spawnAlert({title:"Error 401","body":"No tiene permiso para ver el recurso solicitado.",color:"danger"}); break;
-						case 0:
-							switch(jqXHR.statusText){
-								case 'timeout': $.spawnAlert({title:"Timeout",body:"Se ha excedido el tiempo máximo de espera en completar la petición.",color:"danger"}); break;
-								case 'error': $.spawnAlert({title:"Sin conexión",body:"No se ha detectado conexión a Internet para procesar su solicitud.",color:"danger"}); break;
-								default:
-									$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
-							}
-						break;
-						
-						default:
-							$.spawnAlert({title:"Error desconocido",body:"Error desconocido",color:"danger"});
-					}
+					handleError(jqXHR);
 					_settings.error(jqXHR);
 				},
 				complete: function(jqXHR, textStatus) {
@@ -222,42 +200,70 @@
 				}
 			});
 		},
-		
-		spawnModal: function(options){
+	});
+	
+	// Bootstrap modals
+	$.extend({
+		spawnModal: function(options) {
 			if(!$("#modal").length){
 				// Modal settings
 				var _settings = $.extend({
-					title: "",
-					body: "",
+					title: '',
+					body: '',
 					showclose: true,
 					preventclose: true,
 					fadespawn: true,
 					verticalcenter: false,
-					size: "md", // lg, md, sm
-					buttons: []
+					size: 'md', // lg, md, sm
+					buttons: [{
+						label: 'Cerrar',
+						dismiss: true
+					}],
+					customhtml: false,
+					htmlcode: '<div id="modal" class="modal fade" tabindex="-1" role="dialog">'+
+						'<div class="modal-dialog modal-md" role="document">'+
+							'<div class="modal-content">'+
+								'<div class="modal-header">'+
+									'<h5 class="modal-title"></h5>'+
+									'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
+										'<span aria-hidden="true">&times;</span>'+
+									'</button>'+
+								'</div>'+
+								'<div class="modal-body"></div>'+
+								'<div class="modal-footer">'+
+									'<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+					'</div>'
 				},options);
 				
 				// Modal HTML code
-				var _modal = '<div id="modal" class="modal'+( (_settings.fadespawn)?' fade':'' )+'" tabindex="-1" role="dialog">'+
-					'<div class="modal-dialog'+( (_settings.verticalcenter)?' modal-dialog-centered':'' )+' modal-'+_settings.size+'" role="document">'+
-						'<div class="modal-content">'+
-							'<div class="modal-header">'+
-								'<h5 class="modal-title">'+_settings.title+'</h5>'+
-								( (_settings.showclose) ?
-									'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-								:
-									''
-								)+
+				var _modal;
+				if(!_settings.customhtml){
+					_modal = '<div id="modal" class="modal'+( (_settings.fadespawn)?' fade':'' )+'" tabindex="-1" role="dialog">'+
+						'<div class="modal-dialog'+( (_settings.verticalcenter)?' modal-dialog-centered':'' )+' modal-'+_settings.size+'" role="document">'+
+							'<div class="modal-content">'+
+								'<div class="modal-header">'+
+									'<h5 class="modal-title">'+_settings.title+'</h5>'+
+									( (_settings.showclose) ?
+										'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+									:
+										''
+									)+
+								'</div>'+
+								'<div class="modal-body">'+_settings.body+'</div>'+
+									( (_settings.buttons.length) ?
+										'<div class="modal-footer"></div>'
+									:
+										''
+									)+
 							'</div>'+
-							'<div class="modal-body">'+_settings.body+'</div>'+
-								( (_settings.buttons.length) ?
-									'<div class="modal-footer"></div>'
-								:
-									''
-								)+
 						'</div>'+
-					'</div>'+
-				'</div>';
+					'</div>';
+				} else {
+					_modal = _settings.htmlcode;
+				}
 				
 				// Add the modal to the DOM
 				$("body").append(_modal);
@@ -270,7 +276,7 @@
 					// Current button settings
 					var _button = $.extend({
 						label:"",
-						color:"info", // primary, secondary, success, danger, warning, info, light, dark, link
+						color:"primary", // primary, secondary, success, danger, warning, info, light, dark, link
 						outline:false,
 						dismiss:false,
 						size:"md", // lg, md, sm
@@ -295,7 +301,7 @@
 			}
 		},
 		
-		spawnRemoteModal: function(options){
+		spawnRemoteModal: function(options) {
 			if(!$("#modal").length){
 				// Remote modal AJAX settings
 				var _settings = $.extend({
@@ -304,6 +310,7 @@
 					data: {},
 					timeout: 10000,
 					verticalcenter:true,
+					size: "md", // lg, md, sm
 					debug: false
 				},options);
 				
@@ -320,7 +327,8 @@
 					success: function (data, textStatus, jqXHR) {
 						// Spawn a modal and replace contents.
 						$.spawnModal({
-							verticalcenter:_settings.verticalcenter
+							verticalcenter:_settings.verticalcenter,
+							size: _settings.size
 						});
 						$("#modal div.modal-content").html(data);
 						if(_settings.debug)
@@ -339,12 +347,16 @@
 			}
 		},
 		
-		removeModal: function(){
+		removeModal: function() {
 			// Hides modal and the hide event removes it from DOM
 			$('#modal').modal('hide');
 		},
 		
-		spawnAlert(options){
+	});
+	
+	// Top alerts
+	$.extend({
+		spawnAlert(options) {
 			// Alert settings
 			var _settings = $.extend({
 				title: "",
@@ -381,7 +393,7 @@
 			$.removeAlert(_settings.alertId,_settings.closetimeout);
 		},
 		
-		removeAlert: function(alertId,closetimeout){
+		removeAlert: function(alertId,closetimeout) {
 			// Removes an alert after a timeout
 			setTimeout(function(){
 				$('#alert'+alertId).alert("close");
@@ -389,6 +401,28 @@
 		}
 		
 	});
+	
+	// Private functions
+	function handleNetworkError(jqXHR){
+		switch(jqXHR.status){
+			case 500: $.spawnAlert({title:"Error 500","body":"Server error when processing your request.",color:"danger"}); break;
+			case 404: $.spawnAlert({title:"Error 404","body":"The requested resource coould not be found.",color:"danger"}); break;
+			case 403: $.spawnAlert({title:"Error 403","body":"Access denied to the requested resource.",color:"danger"}); break;
+			case 401: $.spawnAlert({title:"Error 401","body":"No permissions for the requested resource.",color:"danger"}); break;
+			case 0:
+				switch(jqXHR.statusText){
+					case 'timeout': $.spawnAlert({title:"Timeout",body:"Waiting time has been exceeded.",color:"danger"}); break;
+					case 'error': $.spawnAlert({title:"No connection",body:"No Internet connection has been detected to process your request.",color:"danger"}); break;
+					default:
+						$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
+				}
+			break;
+			
+			default:
+				$.spawnAlert({title:"Unknwon error",body:"Unknown error",color:"danger"});
+		}
+	}
+	
 	
 	// Adds the unchecked checkboxes to the serializeArray funcion
 	$.fn.serializeArrayFull = function() {
