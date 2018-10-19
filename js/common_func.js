@@ -33,6 +33,62 @@
 		}
 	});
 	
+	// Storage
+	$.extend({
+		setData: function(id,data){
+			if(typeof(Storage) !== "undefined") {
+				localStorage.setItem(id,data);
+				return true;
+			}
+			return false;
+		},
+		getData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				return localStorage.getItem(id);
+			}
+			return false;
+		},
+		removeData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				localStorage.removeItem(id);
+				return true;
+			}
+			return false;
+		},
+		isNullData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				return (localStorage.getItem(id) === null);
+			}
+			return true;
+		},
+		setSessionData: function(id,data){
+			if(typeof(Storage) !== "undefined") {
+				sessionStorage.setItem(id,data);
+				return true;
+			}
+			return false;
+		},
+		getSessionData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				return sessionStorage.getItem(id);
+			}
+			return false;
+		},
+		removeSessionData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				sessionStorage.removeItem(id);
+				return true;
+			}
+			return false;
+		},
+		isSessionNullData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				return (sessionStorage.getItem(id) === null);
+			}
+			return true;
+		}
+	});
+	
 	// Conversion and validation
 	$.extend({
 		sec2dhms: function(sec) {
