@@ -89,6 +89,40 @@
 		}
 	});
 	
+	// Printing module
+	$.extend({
+		spawnPrinter: function(options, elem, head, finishFunction) {
+			var _settings = $.extend({
+				windowWidth: 800,
+				windowHeight: 600,
+				headSelector: 'head',
+				bodySelector: 'body',
+				end: function(){}
+			},options);
+			
+			var winprint = window.open('about:blank', 'Print', 'width='+_settings.windowWidth+',height='+_settings.windowHeight+'');
+			winprint.document.open();
+			winprint.document.write(
+				'<html>'+
+					'<head>'+
+						$(_settings.headSelector).html()+
+					'</head>'+
+					'<body>'+
+						$(_settings.bodySelector).html()+
+					'</body>'+
+				'</html>'
+			);
+			winprint.document.close();
+			winprint.focus();
+			setTimeout(function(){
+				winprint.print();
+				winprint.close();
+				_settings.end.call();
+				return true;
+			},500);
+		}
+	});
+	
 	// Conversion and validation
 	$.extend({
 		sec2dhms: function(sec) {
