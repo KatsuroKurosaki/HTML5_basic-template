@@ -408,7 +408,7 @@
 				$.ajax({
 					method: _settings.method,
 					url: _settings.url,
-					data: JSON.stringify(_settings.data),
+					data: _settings.data,
 					timeout: _settings.timeout,
 					beforeSend: function(jqXHR, settings) {
 						if(_settings.debug)
@@ -446,7 +446,7 @@
 	
 	// Top alerts
 	$.extend({
-		spawnAlert(options) {
+		spawnAlert: function(options) {
 			// Alert settings
 			var _settings = $.extend({
 				title: "",
