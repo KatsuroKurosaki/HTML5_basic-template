@@ -516,13 +516,11 @@
 	
 	// Adds the unchecked checkboxes to the serializeArray funcion
 	$.fn.serializeArrayFull = function() {
-		var values = this.serializeArray();
-		values = values.concat(
+		return this.serializeArray().concat(
 			this.find("input[type='checkbox']:not(:checked)").map(function() {
 				return {"name":this.name,"value":"off"}
 			}).get()
 		);
-		return values;
 	};
 	
 	// Runs a number
