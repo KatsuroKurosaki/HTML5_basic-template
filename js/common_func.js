@@ -278,7 +278,7 @@
 				error: function(jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
 						console.log(jqXHR);
-					handleError(jqXHR);
+					handleNetworkError(jqXHR);
 					_settings.error(jqXHR);
 				},
 				complete: function(jqXHR, textStatus) {
