@@ -162,6 +162,10 @@
 		isValidDate: function(d,m,y) {
 			var _date = new Date(y,m-1,d);
 			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
+		},
+		
+		htmlEntities: function(str) {
+			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /g, '&nbsp;');
 		}
 	});
 	
