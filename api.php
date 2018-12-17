@@ -11,47 +11,47 @@ $_in = json_decode(file_get_contents("php://input"), true);
 $_out = array();
 
 if ($_in !== null) {
-    if (isset($_in['op'])) {
-        switch ($_in['op']) {
-            case 'HELLO':
-                $_out = \GlobalFunctions::returnOut(array(
-                    "status" => "ok",
-                    "msg" => "Hello World!",
-                    "color" => "success",
-                    "code" => 0
-                ));
-                break;
+	if (isset($_in['op'])) {
+		switch ($_in['op']) {
+			case 'HELLO':
+				$_out = \GlobalFunctions::returnOut(array(
+					"status" => "ok",
+					"msg" => "Hello World!",
+					"color" => "success",
+					"code" => 0
+				));
+				break;
 
-            default:
-                $_out = \GlobalFunctions::returnOut(array(
-                    "status" => "no",
-                    "msg" => "Received operation is invalid.",
-                    "color" => "warning",
-                    "code" => - 1
-                ));
-        }
-    } else {
-        $_out = \GlobalFunctions::returnOut(array(
-            "status" => "ko",
-            "msg" => "NO operation received.",
-            "color" => "danger",
-            "code" => - 1
-        ));
-    }
+			default:
+				$_out = \GlobalFunctions::returnOut(array(
+					"status" => "no",
+					"msg" => "Received operation is invalid.",
+					"color" => "warning",
+					"code" => - 1
+				));
+		}
+	} else {
+		$_out = \GlobalFunctions::returnOut(array(
+			"status" => "ko",
+			"msg" => "NO operation received.",
+			"color" => "danger",
+			"code" => - 1
+		));
+	}
 } else {
-    $_out = \GlobalFunctions::returnOut(array(
-        "status" => "ko",
-        "msg" => "Input JSON is invalid.",
-        "color" => "warning",
-        "code" => - 1
-    ));
+	$_out = \GlobalFunctions::returnOut(array(
+		"status" => "ko",
+		"msg" => "Input JSON is invalid.",
+		"color" => "warning",
+		"code" => - 1
+	));
 }
 
 if (\GlobalConf::API_DEBUG) {
-    $_out['mem']['engine_curr'] = memory_get_usage(false);
-    $_out['mem']['system_curr'] = memory_get_usage(true);
-    $_out['mem']['engine_peak'] = memory_get_peak_usage(false);
-    $_out['mem']['system_peak'] = memory_get_peak_usage(true);
-    $_out['time'] = round(microtime(TRUE) - $start_time, 5);
+	$_out['mem']['engine_curr'] = memory_get_usage(false);
+	$_out['mem']['system_curr'] = memory_get_usage(true);
+	$_out['mem']['engine_peak'] = memory_get_peak_usage(false);
+	$_out['mem']['system_peak'] = memory_get_peak_usage(true);
+	$_out['time'] = round(microtime(TRUE) - $start_time, 5);
 }
 echo json_encode($_out);

@@ -3,5 +3,5 @@
 class GlobalConf
 {
 
-    const API_DEBUG = true;
+	const API_DEBUG = true;
 }

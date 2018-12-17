@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 		<?php require 'header.php'; ?>
+		<?php require 'headercss.php'; ?>
 		<link rel="stylesheet" type="text/css" href="./css/login_style.css" />
 </head>
 <body
@@ -21,8 +22,8 @@
 		</button>
 		<p class="mb-3 text-muted small">&copy; Company <?php echo date('Y'); ?></p>
 	</form>
-		<?php require 'footerjscss.php'; ?>
-		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
+	<?php require 'footerjs.php'; ?>
+	<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
 	<script type="text/javascript">
 			$(window).on("load",function(){
 				$("form").removeClass("invisible").on("submit",function(e){

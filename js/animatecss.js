@@ -29,10 +29,10 @@
 		infinite : false, // Will the effect run infinitely?
 		begin : function() {
 		}, // Function to execute before the effect starts. Doesn't care about
-			// delay.
+		// delay.
 		end : function() {
 		} // Function to execute when the effect ends. Won't run if
-			// infinite:true!
+	// infinite:true!
 	}
 }(jQuery));
 

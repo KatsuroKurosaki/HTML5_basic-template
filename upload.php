@@ -32,7 +32,7 @@
 			<img name="thumb" class="img-thumbnail" src="" />
 		</div>
 	</form>
-		<?php require 'footerjscss.php'; ?>
+		<?php require 'footerjs.php'; ?>
 		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
 </body>
 </html>

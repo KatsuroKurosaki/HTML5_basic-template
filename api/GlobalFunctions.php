@@ -3,20 +3,20 @@
 class GlobalFunctions
 {
 
-    public static function trimSeveral(string $str)
-    {
-        return trim(preg_replace('/(?:\s\s+|\n|\t)/', ' ', $str));
-    }
+	public static function trimSeveral(string $str)
+	{
+		return trim(preg_replace('/(?:\s\s+|\n|\t)/', ' ', $str));
+	}
 
-    public static function returnOut($options = array())
-    {
-        $_settings = array_replace_recursive(array(
-            "status" => "ok",
-            "msg" => "",
-            "color" => "info",
-            "code" => 0
-        ), $options);
+	public static function returnOut($options = array())
+	{
+		$_settings = array_replace_recursive(array(
+			"status" => "ok",
+			"msg" => "",
+			"color" => "info",
+			"code" => 0
+		), $options);
 
-        return $_settings;
-    }
+		return $_settings;
+	}
 }
