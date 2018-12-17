@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+<head>
 		<?php require 'header.php'; ?>
-	</head>
-    <body>
-        <?php define("_FILE",basename(__FILE__,'.php')); require 'navbar.php'; ?>
+		<link rel="stylesheet" type="text/css" href="./css/main_style.css" />
+</head>
+<body>
+	<?php define("_FILE",basename(__FILE__,'.php')); require 'navbar.php'; ?>
 
-		<!-- https://getbootstrap.com/docs/4.1/examples/ -->
-		<main role="main" class="container">
-			
-		</main>
+	<!-- https://getbootstrap.com/docs/4.1/examples/ -->
+	<div class="container"></div>
 
-		<?php require 'footer.php'; ?>
-		<?php require 'footerjscss.php'; ?>
-		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
-		<link rel="stylesheet" type="text/css" href="./css/main_style.css"/>
-    </body>
+	<?php require 'footer.php'; ?>
+	<?php require 'footerjscss.php'; ?>
+	<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
+</body>
 </html>

@@ -1,46 +1,47 @@
 @charset "UTF-8";
 
-html,body {
-	height:100%;
+html, body {
+	height: 100%;
 }
 
 body {
 	/* Thank you https://www.pexels.com/photo/background-black-blackboard-board-159770/ */
-	background-attachment:fixed;
-	background-blend-mode:overlay;
+	background-attachment: fixed;
+	background-blend-mode: overlay;
 	-webkit-background-clip: border-box;
-	   -moz-background-clip: border-box;
-	     -o-background-clip: border-box;
-	        background-clip: border-box;
-	background-color:#444;
-	background-image:url(../img/login_bg.jpg);
+	-moz-background-clip: border-box;
+	-o-background-clip: border-box;
+	background-clip: border-box;
+	background-color: #444;
+	background-image: url(../img/login_bg.jpg);
 	-webkit-background-origin: padding-box;
-	   -moz-background-origin: padding-box;
-	     -o-background-origin: padding-box;
-	        background-origin: padding-box;
-	background-position-x:center;
-	background-position-y:center;
-	background-repeat:no-repeat;
-	-webkit-background-size:cover;
-	   -moz-background-size:cover;
-	     -o-background-size:cover;
-	        background-size:cover;
+	-moz-background-origin: padding-box;
+	-o-background-origin: padding-box;
+	background-origin: padding-box;
+	background-position-x: center;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .form-signin {
-	max-width:330px;
-	background-color:rgba(255,255,255,.2);
-	border-radius:.2em;
-	padding:2em;
+	max-width: 330px;
+	background-color: rgba(255, 255, 255, .2);
+	border-radius: .2em;
+	padding: 2em;
 }
 
 .form-signin input[name='username'] {
-  margin-bottom:-1px;
-  border-bottom-right-radius:0;
-  border-bottom-left-radius:0;
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }
+
 .form-signin input[name='password'] {
-  /*margin-bottom:10px;*/
-  border-top-left-radius:0;
-  border-top-right-radius:0;
+	/*margin-bottom:10px;*/
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }

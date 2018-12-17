@@ -27,7 +27,7 @@
 	// Querystring
 	$.extend({
 		qs: function(key) {
-			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&"); // escape RegEx control chars
+			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&");
 			var _match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
 			return _match && decodeURIComponent(_match[1].replace(/\+/g, " "));
 		}
@@ -229,7 +229,7 @@
 			var _settings = $.extend({
 				method: 'POST',
 				url: ($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
-				//data: new FormData($("form").get(0)),
+				// data: new FormData($("form").get(0)),
 				data: {},
 				datatype: 'json',
 				timeout: 0,
@@ -370,7 +370,9 @@
 					// Current button settings
 					var _button = $.extend({
 						label:"",
-						color:"primary", // primary, secondary, success, danger, warning, info, light, dark, link
+						color:"primary", // primary, secondary, success,
+											// danger, warning, info, light,
+											// dark, link
 						outline:false,
 						dismiss:false,
 						size:"md", // lg, md, sm
@@ -455,7 +457,8 @@
 			var _settings = $.extend({
 				title: "",
 				body: "",
-				color: "info", //  primary, secondary, success, danger, warning, info, light, dark
+				color: "info", // primary, secondary, success, danger, warning,
+								// info, light, dark
 				showclose: true,
 				closetimeout: 5000,
 				opentimeout: 700,
@@ -477,7 +480,7 @@
 				)+
 			'</div>';
 			
-			//Append
+			// Append
 			$("body").append(_alert);
 			
 			// Effects
