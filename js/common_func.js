@@ -502,6 +502,7 @@
 	// Private functions
 	function handleNetworkError(jqXHR){
 		switch(jqXHR.status){
+			case 504: $.spawnAlert({title:"Error 504","body":"Server timeout on a remote request.",color:"danger"}); break;
 			case 500: $.spawnAlert({title:"Error 500","body":"Server error when processing your request.",color:"danger"}); break;
 			case 404: $.spawnAlert({title:"Error 404","body":"The requested resource coould not be found.",color:"danger"}); break;
 			case 403: $.spawnAlert({title:"Error 403","body":"Access denied to the requested resource.",color:"danger"}); break;
