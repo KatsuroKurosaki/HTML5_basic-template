@@ -2,34 +2,58 @@
 
 (function($){
 	
-	// Spinners
-	$.extend({
-		spawnSpinner: function(options) {
-			if(!$("#loading").length){
-				var _options = $.extend({
-					text: "Loading...",
-					icon: "fa-spinner",
-					animation:"fa-pulse", // fa-pulse, fa-spin
-					size:"fa-2x"
-				},options);
-				
-				$("body").append('<div id="loading" class="position-fixed d-flex justify-content-center align-items-center text-center txtcolor-white">'+
-					'<div><i class="fas '+_options.size+' '+_options.icon+' '+_options.animation+'"></i><br/>'+_options.text+'</div>'+
-				'</div>');
-			}
-		},
-		
-		removeSpinner: function(action) {
-			$("#loading").remove();
-		}
-	});
-	
 	// Querystring
 	$.extend({
 		qs: function(key) {
-			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g, "\\$&");
-			var _match = location.search.match(new RegExp("[?&]" + key + "=([^&]+)(&|$)"));
+			key = key.replace(/[*+?^$.\[\]{}()|\\\/]/g,"\\$&");
+			var _match = location.search.match(new RegExp("[?&]"+key+"=([^&]+)(&|$)"));
 			return _match && decodeURIComponent(_match[1].replace(/\+/g, " "));
+		}
+	});
+	
+	// Conversion and validation
+	$.extend({
+		sec2dhms: function(sec) {
+			return parseInt(sec/86400)+'d '+(new Date(sec%86400*1000)).toUTCString().replace(/.*(\d{2}):(\d{2}):(\d{2}).*/,"$1:$2:$3");
+		},
+		
+		bytes2humanReadable: function(a,b,c,d,e) {
+			// Divide by 1024
+			return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'KMGTPEZY'[--e]+'iB':'Bytes');
+		},
+		
+		bits2humanReadable: function(a,b,c,d,e) {
+			// Divide by 1000
+			return (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes');
+		},
+		
+		uts2dt: function(ts) {
+			var _date = new Date(ts*1000);
+			return _date.getFullYear()+"/"
+				+ (((_date.getMonth()+1)<10)?	"0"+(_date.getMonth()+1):	(_date.getMonth()+1)) + "/"
+				+ ((_date.getDate()<10)		?	"0"+_date.getDate()		:	_date.getDate()) + " "
+				+ ((_date.getHours()<10)	?	"0"+_date.getHours()	:	_date.getHours()) + ":"
+				+ ((_date.getMinutes()<10)	?	"0"+_date.getMinutes()	:	_date.getMinutes()) + ":"
+				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) ;
+		},
+		
+		uts2td: function(ts) {
+			var _date = new Date(ts*1000);
+			return ((_date.getHours()<10)	?	"0"+_date.getHours()	:	_date.getHours()) + ":"
+				+ ((_date.getMinutes()<10)	?	"0"+_date.getMinutes()	:	_date.getMinutes()) + ":"
+				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) + " "
+				+ ((_date.getDate()<10)		?	"0"+_date.getDate()		:	_date.getDate()) + "/"
+				+ (((_date.getMonth()+1)<10)?	"0"+(_date.getMonth()+1):	(_date.getMonth()+1)) + "/"
+				+ _date.getFullYear() ;
+		},
+		
+		isValidDate: function(d,m,y) {
+			var _date = new Date(y,m-1,d);
+			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
+		},
+		
+		htmlEntities: function(str) {
+			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /g, '&nbsp;');
 		}
 	});
 	
@@ -93,17 +117,18 @@
 	$.extend({
 		spawnPrinter: function(options, elem, head, finishFunction) {
 			var _settings = $.extend({
-				windowWidth: 800,
-				windowHeight: 600,
-				headSelector: 'head',
-				bodySelector: 'body',
-				end: function(){}
+				windowWidth:	800,
+				windowHeight:	600,
+				headSelector:	'head',
+				bodySelector:	'body',
+				end:			function(){}
 			},options);
 			
 			var winprint = window.open('about:blank', 'Print', 'width='+_settings.windowWidth+',height='+_settings.windowHeight+'');
 			winprint.document.open();
 			winprint.document.write(
-				'<html>'+
+				'<!doctype html>'+
+				'<html lang="en">'+
 					'<head>'+
 						$(_settings.headSelector).html()+
 					'</head>'+
@@ -123,78 +148,32 @@
 		}
 	});
 	
-	// Conversion and validation
-	$.extend({
-		sec2dhms: function(sec) {
-			return parseInt(sec/86400)+'d '+(new Date(sec%86400*1000)).toUTCString().replace(/.*(\d{2}):(\d{2}):(\d{2}).*/,"$1:$2:$3");
-		},
-		
-		bytes2humanReadable: function(a,b,c,d,e) {
-			// Divide by 1024
-			return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'KMGTPEZY'[--e]+'iB':'Bytes');
-		},
-		
-		bits2humanReadable: function(a,b,c,d,e) {
-			// Divide by 1000
-			return (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes');
-		},
-		
-		uts2dt: function(ts) {
-			var _date = new Date(ts*1000);
-			return _date.getFullYear() + "/"
-				+ (((_date.getMonth()+1)<10)?	"0"+(_date.getMonth()+1):	(_date.getMonth()+1)) + "/"
-				+ ((_date.getDate()<10)		?	"0"+_date.getDate()		:	_date.getDate()) + " "
-				+ ((_date.getHours()<10)	?	"0"+_date.getHours()	:	_date.getHours()) + ":"
-				+ ((_date.getMinutes()<10)	?	"0"+_date.getMinutes()	:	_date.getMinutes()) + ":"
-				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) ;
-		},
-		
-		uts2td: function(ts) {
-			var _date = new Date(ts*1000);
-			return ((_date.getHours()<10)	?	"0"+_date.getHours()	:	_date.getHours()) + ":"
-				+ ((_date.getMinutes()<10)	?	"0"+_date.getMinutes()	:	_date.getMinutes()) + ":"
-				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) + " "
-				+ ((_date.getDate()<10)		?	"0"+_date.getDate()		:	_date.getDate()) + "/"
-				+ (((_date.getMonth()+1)<10)?	"0"+(_date.getMonth()+1):	(_date.getMonth()+1)) + "/"
-				+ _date.getFullYear() ;
-		},
-		
-		isValidDate: function(d,m,y) {
-			var _date = new Date(y,m-1,d);
-			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
-		},
-		
-		htmlEntities: function(str) {
-			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /g, '&nbsp;');
-		}
-	});
-	
 	// Network communications
 	$.extend({
 		api: function(options) {
 			var _settings = $.extend({
-				method: 'POST',
-				url: ($.qs("s")!=null)?'api.php?s='+$.qs("s"):'api.php',
-				contentType: 'application/json; charset=utf-8',
-				data: {},
-				datatype: 'json',
-				timeout: 10000,
-				beforeSend: function(){},
-				success: function(data){},
-				error: function(jqXHR){},
-				complete: function(){},
-				spawnSpinner: true,
-				debug: false
+				method:			'POST',
+				url:			($.qs("s")!=null)?'api.php?s='+$.qs("s"):'api.php',
+				contentType:	'application/json; charset=utf-8',
+				data:			{},
+				datatype:		'json',
+				timeout:		10000,
+				beforeSend:		function(){},
+				success:		function(data){},
+				error:			function(jqXHR){},
+				complete:		function(){},
+				spawnSpinner:	true,
+				debug:			false
 			},options);
 			
 			$.ajax({
-				method: _settings.method,
-				url: _settings.url,
-				contentType: _settings.contentType,
-				data: JSON.stringify( _settings.data ),
-				datatype: _settings.datatype,
-				timeout: _settings.timeout,
-				beforeSend:function(jqXHR, settings) {
+				method:			_settings.method,
+				url:			_settings.url,
+				contentType:	_settings.contentType,
+				data:			JSON.stringify( _settings.data ),
+				datatype:		_settings.datatype,
+				timeout:		_settings.timeout,
+				beforeSend: function(jqXHR, settings) {
 					if (_settings.debug)
 						console.log(settings);
 					if (_settings.spawnSpinner)
@@ -227,35 +206,33 @@
 		
 		upload: function(options) {
 			var _settings = $.extend({
-				method: 'POST',
-				url: ($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
-				// data: new FormData($("form").get(0)),
-				data: {},
-				datatype: 'json',
-				timeout: 0,
-				progress: function(e){
+				method:			'POST',
+				url:			($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
+				data:			{/*new FormData($("form").get(0))*/},
+				datatype:		'json',
+				timeout:		0,
+				progress:		function(e){
 					if(e.lengthComputable)
 						console.log( e.loaded+"/"+e.total+" - "+Math.round(e.loaded*100/e.total)+"%" );
 				},
-				beforeSend: function(){},
-				success: function(data){},
-				error: function(jqXHR){},
-				complete: function(){},
-				
-				spawnSpinner: true,
-				debug: false
+				beforeSend:		function(){},
+				success:		function(data){},
+				error:			function(jqXHR){},
+				complete:		function(){},
+				spawnSpinner:	true,
+				debug:			false
 			},options);
 			
 			$.ajax({
-				method: _settings.method,
-				url: _settings.url,
-				contentType: false,
-				data: _settings.data,
-				datatype: _settings.datatype,
-				timeout: _settings.timeout,
-				cache: false,
-				processData: false,
-				enctype: 'multipart/form-data',
+				method:			_settings.method,
+				url:			_settings.url,
+				contentType:	false,
+				data:			_settings.data,
+				datatype:		_settings.datatype,
+				timeout:		_settings.timeout,
+				cache:			false,
+				processData:	false,
+				enctype:		'multipart/form-data',
 				xhr: function() {
 					var ajXhr = $.ajaxSettings.xhr();
 					if (ajXhr.upload)
@@ -294,6 +271,50 @@
 				}
 			});
 		},
+	});
+	
+	// Network error function handler
+	function handleNetworkError(jqXHR){
+		switch(jqXHR.status){
+			case 504: $.spawnAlert({title:"Error 504","body":"Server timeout on a remote request.",color:"danger"}); break;
+			case 500: $.spawnAlert({title:"Error 500","body":"Server error when processing your request.",color:"danger"}); break;
+			case 404: $.spawnAlert({title:"Error 404","body":"The requested resource coould not be found.",color:"danger"}); break;
+			case 403: $.spawnAlert({title:"Error 403","body":"Access denied to the requested resource.",color:"danger"}); break;
+			case 401: $.spawnAlert({title:"Error 401","body":"No permissions for the requested resource.",color:"danger"}); break;
+			case 0:
+				switch(jqXHR.statusText){
+					case 'timeout': $.spawnAlert({title:"Timeout",body:"Waiting time has been exceeded.",color:"danger"}); break;
+					case 'error': $.spawnAlert({title:"No connection",body:"No Internet connection has been detected to process your request.",color:"danger"}); break;
+					default:
+						$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
+				}
+			break;
+			
+			default:
+				$.spawnAlert({title:"Unknwon error",body:"Unknown error",color:"danger"});
+		}
+	}
+	
+	// Spinners
+	$.extend({
+		spawnSpinner: function(options) {
+			if(!$("#loading").length){
+				var _options = $.extend({
+					text: "Loading...",
+					icon: "fa-spinner",
+					animation:"fa-pulse", // fa-pulse, fa-spin
+					size:"fa-2x"
+				},options);
+				
+				$("body").append('<div id="loading" class="position-fixed d-flex justify-content-center align-items-center text-center txtcolor-white">'+
+					'<div><i class="fas '+_options.size+' '+_options.icon+' '+_options.animation+'"></i><br/>'+_options.text+'</div>'+
+				'</div>');
+			}
+		},
+		
+		removeSpinner: function(action) {
+			$("#loading").remove();
+		}
 	});
 	
 	// Bootstrap modals
@@ -493,33 +514,12 @@
 		removeAlert: function(alertId,closetimeout) {
 			// Removes an alert after a timeout
 			setTimeout(function(){
-				$('#alert'+alertId).alert("close");
+				//$('#alert'+alertId).alert("close");
+				$('#alert'+alertId).remove();
 			},(closetimeout!=undefined)?closetimeout:5000);
 		}
 		
 	});
-	
-	// Private functions
-	function handleNetworkError(jqXHR){
-		switch(jqXHR.status){
-			case 504: $.spawnAlert({title:"Error 504","body":"Server timeout on a remote request.",color:"danger"}); break;
-			case 500: $.spawnAlert({title:"Error 500","body":"Server error when processing your request.",color:"danger"}); break;
-			case 404: $.spawnAlert({title:"Error 404","body":"The requested resource coould not be found.",color:"danger"}); break;
-			case 403: $.spawnAlert({title:"Error 403","body":"Access denied to the requested resource.",color:"danger"}); break;
-			case 401: $.spawnAlert({title:"Error 401","body":"No permissions for the requested resource.",color:"danger"}); break;
-			case 0:
-				switch(jqXHR.statusText){
-					case 'timeout': $.spawnAlert({title:"Timeout",body:"Waiting time has been exceeded.",color:"danger"}); break;
-					case 'error': $.spawnAlert({title:"No connection",body:"No Internet connection has been detected to process your request.",color:"danger"}); break;
-					default:
-						$.spawnAlert({title:"Error",body:"Error "+jqXHR.statusText,color:"danger"});
-				}
-			break;
-			
-			default:
-				$.spawnAlert({title:"Unknwon error",body:"Unknown error",color:"danger"});
-		}
-	}
 	
 	
 	// Adds the unchecked checkboxes to the serializeArray funcion

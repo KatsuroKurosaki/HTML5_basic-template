@@ -8,22 +8,13 @@ body {
 	/* Thank you https://www.pexels.com/photo/background-black-blackboard-board-159770/ */
 	background-attachment: fixed;
 	background-blend-mode: overlay;
-	-webkit-background-clip: border-box;
-	-moz-background-clip: border-box;
-	-o-background-clip: border-box;
 	background-clip: border-box;
 	background-color: #444;
 	background-image: url(../img/login_bg.jpg);
-	-webkit-background-origin: padding-box;
-	-moz-background-origin: padding-box;
-	-o-background-origin: padding-box;
 	background-origin: padding-box;
 	background-position-x: center;
 	background-position-y: center;
 	background-repeat: no-repeat;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
 	background-size: cover;
 }
 
@@ -41,7 +32,6 @@ body {
 }
 
 .form-signin input[name='password'] {
-	/*margin-bottom:10px;*/
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }

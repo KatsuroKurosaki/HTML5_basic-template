@@ -1,5 +1,4 @@
 <?php
-
 function resizeImage($img_file, $filename, $ext = "jpg")
 {
 	$img_original = @imagecreatefromjpeg($img_file . "/" . $filename . "." . $ext);

@@ -5,3 +5,6 @@
 /images_
 /.buildpath
 /.project
+/errors.log
+/phptests/tests.php
+/upload

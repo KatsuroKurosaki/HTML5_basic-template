@@ -13,8 +13,8 @@ if (! empty($_POST)) {
 	if (isset($_POST['op'])) {
 		switch ($_POST['op']) {
 			case 'UPLOAD_FILE':
-				if (! empty($_FILES)) {
-					move_uploaded_file($_FILES['file']['tmp_name'], './phptests/' . $_FILES['file']['name']);
+				if (!empty($_FILES)) {
+					move_uploaded_file($_FILES['file']['tmp_name'], './upload/' . $_FILES['file']['name']);
 					$_out = \GlobalFunctions::returnOut(array(
 						"msg" => "File uploaded."
 					));
