@@ -22,7 +22,5 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 }
 
 function uploadAjax(){
-	$.upload({
-		data: new FormData($("form").get(0))
-	});
+	$.upload();
 }

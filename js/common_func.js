@@ -61,8 +61,12 @@
 	$.extend({
 		setData: function(id,data){
 			if(typeof(Storage) !== "undefined") {
-				localStorage.setItem(id,data);
-				return true;
+				try {
+					localStorage.setItem(id,data);
+					return true;
+				} catch (err) {
+					alert("Error: "+err.message);
+				}
 			}
 			return false;
 		},
@@ -79,16 +83,36 @@
 			}
 			return false;
 		},
+		clearData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				localStorage.clear();
+				return true;
+			}
+			return false;
+		},
 		isNullData: function(id){
 			if(typeof(Storage) !== "undefined") {
 				return (localStorage.getItem(id) === null);
 			}
 			return true;
 		},
+		getDataSize: function(){
+			var amount, total = 0;
+			for(var i=0;i<localStorage.length; i++) {
+				amount = localStorage.getItem(localStorage.key(i)).length;
+				total += amount;
+				console.log(localStorage.key(i)+" = "+$.bytes2humanReadable(amount));
+			}
+			console.log("--\nTotal: "+$.bytes2humanReadable(total));
+		},
 		setSessionData: function(id,data){
 			if(typeof(Storage) !== "undefined") {
-				sessionStorage.setItem(id,data);
-				return true;
+				try {
+					sessionStorage.setItem(id,data);
+					return true;
+				} catch (err) {
+					alert("Error: "+err.message);
+				}
 			}
 			return false;
 		},
@@ -105,11 +129,43 @@
 			}
 			return false;
 		},
+		clearSessionData: function(id){
+			if(typeof(Storage) !== "undefined") {
+				sessionStorage.clear();
+				return true;
+			}
+			return false;
+		},
 		isSessionNullData: function(id){
 			if(typeof(Storage) !== "undefined") {
 				return (sessionStorage.getItem(id) === null);
 			}
 			return true;
+		},
+		getSessionDataSize: function(){
+			var amount, total = 0;
+			for(var i=0;i<sessionStorage.length; i++) {
+				amount = sessionStorage.getItem(sessionStorage.key(i)).length;
+				total += amount;
+				console.log(sessionStorage.key(i)+" = "+$.bytes2humanReadable(amount));
+			}
+			console.log("--\nTotal: "+$.bytes2humanReadable(total));
+		}
+	});
+	
+	// Randomizers
+	$.extend({
+		randomInt: function(){
+			return parseInt(Date.now()*Math.random());
+		},
+		randomString: function(){
+			return Math.random().toString(36).substr(2);
+		},
+		randomUUID: function() {
+			var S4 = function() {
+				return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+			};
+			return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
 		}
 	});
 	
@@ -154,10 +210,14 @@
 			var _settings = $.extend({
 				method:			'POST',
 				url:			($.qs("s")!=null)?'api.php?s='+$.qs("s"):'api.php',
-				contentType:	'application/json; charset=utf-8',
 				data:			{},
-				datatype:		'json',
+				dataType:		'json',
 				timeout:		10000,
+				contentType:	'application/json; charset=UTF-8',
+				progress:		function(e){
+					if(e.lengthComputable)
+						console.log( e.loaded+"/"+e.total+" - "+Math.round(e.loaded*100/e.total)+"%" );
+				},
 				beforeSend:		function(){},
 				success:		function(data){},
 				error:			function(jqXHR){},
@@ -169,18 +229,26 @@
 			$.ajax({
 				method:			_settings.method,
 				url:			_settings.url,
-				contentType:	_settings.contentType,
 				data:			JSON.stringify( _settings.data ),
-				datatype:		_settings.datatype,
+				dataType:		_settings.dataType,
 				timeout:		_settings.timeout,
-				beforeSend: function(jqXHR, settings) {
+				contentType:	_settings.contentType,
+				xhr:			function() {
+					var ajXhr = $.ajaxSettings.xhr();
+					if (ajXhr.upload)
+						ajXhr.upload.addEventListener('progress',_settings.progress, false);
+					else
+						console.warn("No upload progress support.");
+					return ajXhr;
+				},
+				beforeSend:		function(jqXHR, settings) {
 					if (_settings.debug)
 						console.log(settings);
 					if (_settings.spawnSpinner)
 						$.spawnSpinner();
 					_settings.beforeSend();
 				},
-				success: function (data, textStatus, jqXHR) {
+				success:		function(data, textStatus, jqXHR) {
 					if (_settings.debug)
 						console.log(data);
 					if(data.status === 'ok')
@@ -188,13 +256,13 @@
 					else
 						$.spawnAlert({body:data.msg,color:data.color});
 				},
-				error: function(jqXHR, textStatus, errorThrown) {
+				error:			function(jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
 						console.log(jqXHR);
 					handleNetworkError(jqXHR);
 					_settings.error(jqXHR);
 				},
-				complete: function(jqXHR, textStatus) {
+				complete:		function(jqXHR, textStatus) {
 					if (_settings.debug)
 						console.log(textStatus);
 					if (_settings.spawnSpinner)
@@ -208,8 +276,8 @@
 			var _settings = $.extend({
 				method:			'POST',
 				url:			($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
-				data:			{/*new FormData($("form").get(0))*/},
-				datatype:		'json',
+				data:			new FormData($("form").get(0)),
+				dataType:		'json',
 				timeout:		0,
 				progress:		function(e){
 					if(e.lengthComputable)
@@ -226,11 +294,11 @@
 			$.ajax({
 				method:			_settings.method,
 				url:			_settings.url,
-				contentType:	false,
 				data:			_settings.data,
-				datatype:		_settings.datatype,
+				dataType:		_settings.dataType,
 				timeout:		_settings.timeout,
 				cache:			false,
+				contentType:	false,
 				processData:	false,
 				enctype:		'multipart/form-data',
 				xhr: function() {
@@ -291,7 +359,7 @@
 			break;
 			
 			default:
-				$.spawnAlert({title:"Unknwon error",body:"Unknown error",color:"danger"});
+				$.spawnAlert({title:"Unknwon error",body:"Unknown network error, check JS console.",color:"danger"});
 		}
 	}
 	
@@ -300,20 +368,26 @@
 		spawnSpinner: function(options) {
 			if(!$("#loading").length){
 				var _options = $.extend({
-					text: "Loading...",
-					icon: "fa-spinner",
-					animation:"fa-pulse", // fa-pulse, fa-spin
-					size:"fa-2x"
+					text:		"Loading...",
+					color:		"dark", // primary, secondary, success, danger, warning, info, light, dark
+					bgcolor:	"rgba(255,255,255,.5)",
+					icon:		"border", // border, grow
+					size:		2
 				},options);
 				
-				$("body").append('<div id="loading" class="position-fixed d-flex justify-content-center align-items-center text-center txtcolor-white">'+
-					'<div><i class="fas '+_options.size+' '+_options.icon+' '+_options.animation+'"></i><br/>'+_options.text+'</div>'+
+				$("body").append('<div id="spinner" class="position-fixed d-flex flex-column justify-content-center align-items-center text-'+_options.color+'" style="background-color:'+_options.bgcolor+';">'+
+					'<div class="spinner-'+_options.icon+'" style="width:'+_options.size+'rem;height:'+_options.size+'rem;" role="status">'+
+						'<span class="sr-only">'+_options.text+'</span>'+
+					'</div>'+
+					'<div>'+_options.text+'</div>'+
 				'</div>');
 			}
 		},
 		
 		removeSpinner: function(action) {
-			$("#loading").remove();
+			$("#spinner").fadeOut("fast",function(){
+				$(this).remove();
+			});
 		}
 	});
 	
@@ -323,40 +397,22 @@
 			if(!$("#modal").length){
 				// Modal settings
 				var _settings = $.extend({
-					title: '',
-					body: '',
-					showclose: true,
-					preventclose: true,
-					fadespawn: true,
-					verticalcenter: false,
-					size: 'md', // lg, md, sm
+					title:			'',
+					body:			'',
+					showclose:		true,
+					preventclose:	true,
+					fadespawn:		true,
+					verticalcenter:	false,
+					size:			'md', // lg, md, sm
 					buttons: [{
 						label: 'Cerrar',
 						dismiss: true
-					}],
-					customhtml: false,
-					htmlcode: '<div id="modal" class="modal fade" tabindex="-1" role="dialog">'+
-						'<div class="modal-dialog modal-md" role="document">'+
-							'<div class="modal-content">'+
-								'<div class="modal-header">'+
-									'<h5 class="modal-title"></h5>'+
-									'<button type="button" class="close" data-dismiss="modal" aria-label="Close">'+
-										'<span aria-hidden="true">&times;</span>'+
-									'</button>'+
-								'</div>'+
-								'<div class="modal-body"></div>'+
-								'<div class="modal-footer">'+
-									'<button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>'+
-								'</div>'+
-							'</div>'+
-						'</div>'+
-					'</div>'
+					}]
 				},options);
 				
-				// Modal HTML code
-				var _modal;
-				if(!_settings.customhtml){
-					_modal = '<div id="modal" class="modal'+( (_settings.fadespawn)?' fade':'' )+'" tabindex="-1" role="dialog">'+
+				// Add the modal to the DOM
+				$("body").append(
+					'<div id="modal" class="modal'+( (_settings.fadespawn)?' fade':'' )+'" tabindex="-1" role="dialog">'+
 						'<div class="modal-dialog'+( (_settings.verticalcenter)?' modal-dialog-centered':'' )+' modal-'+_settings.size+'" role="document">'+
 							'<div class="modal-content">'+
 								'<div class="modal-header">'+
@@ -375,13 +431,8 @@
 									)+
 							'</div>'+
 						'</div>'+
-					'</div>';
-				} else {
-					_modal = _settings.htmlcode;
-				}
-				
-				// Add the modal to the DOM
-				$("body").append(_modal);
+					'</div>'
+				);
 				// Remove modal from DOM on close
 				$("#modal").on("hidden.bs.modal",function(){
 					$('#modal').remove();
@@ -390,14 +441,12 @@
 				$.each(_settings.buttons,function(idx,val){
 					// Current button settings
 					var _button = $.extend({
-						label:"",
-						color:"primary", // primary, secondary, success,
-											// danger, warning, info, light,
-											// dark, link
-						outline:false,
-						dismiss:false,
-						size:"md", // lg, md, sm
-						click:function(){}
+						label:		"",
+						color:		"primary", // primary, secondary, success, danger, warning, info, light, dark, link
+						outline:	false,
+						dismiss:	false,
+						size:		"md", // lg, md, sm
+						click:		function(){}
 					},val);
 					
 					// Append buttons to the footer
@@ -422,43 +471,47 @@
 			if(!$("#modal").length){
 				// Remote modal AJAX settings
 				var _settings = $.extend({
-					method: "POST",
-					url: "",
-					data: {},
-					timeout: 10000,
-					verticalcenter:true,
-					size: "md", // lg, md, sm
-					debug: false
+					method:			"POST",
+					url:			"",
+					data:			{},
+					timeout:		10000,
+					// Up: $.ajax() // Down: $.spawnModal()
+					preventclose:	true,
+					fadespawn:		true,
+					verticalcenter:	true,
+					size:			'md', // lg, md, sm
+					buttons:		[],
+					spawnSpinner:	true,
+					debug:			false
 				},options);
 				
 				// AJAX call
 				$.ajax({
-					method: _settings.method,
-					url: _settings.url,
-					data: _settings.data,
-					timeout: _settings.timeout,
-					beforeSend: function(jqXHR, settings) {
-						if(_settings.debug)
+					method:			_settings.method,
+					url:			_settings.url,
+					data:			_settings.data,
+					timeout:		_settings.timeout,
+					beforeSend:		function(jqXHR, settings) {
+						if (_settings.debug)
 							console.log(settings);
+						if (_settings.spawnSpinner)
+							$.spawnSpinner();
 					},
-					success: function (data, textStatus, jqXHR) {
+					success:		function(data) {
 						// Spawn a modal and replace contents.
-						$.spawnModal({
-							verticalcenter:_settings.verticalcenter,
-							size: _settings.size
-						});
+						$.spawnModal(_settings);
 						$("#modal div.modal-content").html(data);
-						if(_settings.debug)
-							console.log(data);
 					},
-					error: function(jqXHR, textStatus, errorThrown) {
-						$.spawnAlert({body:"Communication error: "+jqXHR.responseText,color:"danger"});
-						if(_settings.debug)
-							console.log(jqXHR.responseText);
+					error:			function(jqXHR, textStatus, errorThrown) {
+						if (_settings.debug)
+							console.log(jqXHR);
+						handleNetworkError(jqXHR);
 					},
-					complete: function(jqXHR, textStatus) {
-						if(_settings.debug)
+					complete:		function(jqXHR, textStatus) {
+						if (_settings.debug)
 							console.log(textStatus);
+						if (_settings.spawnSpinner)
+							$.removeSpinner();
 					}
 				});
 			}
@@ -474,49 +527,59 @@
 	// Top alerts
 	$.extend({
 		spawnAlert: function(options) {
-			// Alert settings
+			// Alert/Toast settings
 			var _settings = $.extend({
-				title: "",
-				body: "",
-				color: "info", // primary, secondary, success, danger, warning,
-								// info, light, dark
-				showclose: true,
-				closetimeout: 5000,
-				opentimeout: 700,
-				alertId: $.now()
+				title:			"",
+				subtitle:		"",
+				body:			"",
+				color:			"info",
+				showclose:		true,
+				closetimeout:	5000,
+				toastId:		$.randomInt()
 			},options);
 			
-			// Alert HTML
-			var _alert = '<div id="alert'+_settings.alertId+'" class="alert alert-'+_settings.color+' alert-dismissible fade show position-fixed alert-custom" role="alert">'+
-				( (_settings.title!="") ?
-					'<h4 class="alert-heading">'+_settings.title+'</h4>'
-				:
-					''
-				)+
-				_settings.body+
-				( (_settings.showclose) ?
-					'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
-				:
-					''
-				)+
-			'</div>';
+			// Add toast container
+			if(!$("#toaster").length){
+				$("body").append('<div aria-live="polite" aria-atomic="true" id="toaster" class="position-fixed"></div>');
+			}
 			
-			// Append
-			$("body").append(_alert);
+			// Add alert/toast to the DOM
+			$("#toaster").append(
+				'<div id="toast-'+_settings.toastId+'" class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="'+_settings.closetimeout+'">'+
+					'<div class="toast-header">'+
+						'<div class="rounded mr-2" style="width:20px;height:20px;background-color:var(--'+_settings.color+');"></div>'+
+						'<strong class="mr-auto">'+_settings.title+'</strong>'+
+						'<small>'+_settings.subtitle+'</small>'+
+						( (_settings.showclose) ?
+								'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span aria-hidden="true">&times;</span></button>'
+							:
+								''
+						)+
+					'</div>'+
+					( (_settings.body!="") ?
+							'<div class="toast-body">'+_settings.body+'</div>'
+						:
+							''
+					)+
+				'</div>'
+			);
 			
-			// Effects
-			$("#alert"+_settings.alertId).hide().slideDown(_settings.opentimeout);
+			// Remove toast from DOM on close
+			$("#toast-"+_settings.toastId).on("hidden.bs.toast",function(){
+				$('#toast-'+_settings.toastId).remove();
+			});
 			
-			// Remove it
-			$.removeAlert(_settings.alertId,_settings.closetimeout);
+			// Summon the toast
+			$("#toast-"+_settings.toastId).toast('show');
 		},
 		
-		removeAlert: function(alertId,closetimeout) {
-			// Removes an alert after a timeout
-			setTimeout(function(){
-				//$('#alert'+alertId).alert("close");
-				$('#alert'+alertId).remove();
-			},(closetimeout!=undefined)?closetimeout:5000);
+		removeAlert: function(options) {
+			var _settings = $.extend({
+				toastId:	0
+			},options);
+			
+			// Hides the toast and the hide event removes it from the DOM
+			$("#toast-"+_settings.toastId).toast('hide');
 		}
 		
 	});
@@ -534,13 +597,13 @@
 	// Runs a number
 	$.fn.runNumber = function(options){
 		var _settings = $.extend({
-			duration: 1000,
-			decimalPos: 0,
-			fromVal: 0,
-			toVal: 100,
-			delayStart: 0,
-			prefix: '',
-			suffix: ''
+			duration:	1000,
+			decimalPos:	0,
+			fromVal:	0,
+			toVal:		100,
+			delayStart:	0,
+			prefix:		'',
+			suffix:		''
 		},options);
 		var container = this;
 		
