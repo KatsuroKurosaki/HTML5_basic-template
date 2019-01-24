@@ -545,7 +545,7 @@
 			
 			// Add alert/toast to the DOM
 			$("#toaster").append(
-				'<div id="toast-'+_settings.toastId+'" class="toast shadow" role="alert" aria-live="assertive" aria-atomic="true" data-delay="'+_settings.closetimeout+'">'+
+				'<div id="toast-'+_settings.toastId+'" class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="'+_settings.closetimeout+'">'+
 					'<div class="toast-header">'+
 						'<div class="rounded mr-2" style="width:20px;height:20px;background-color:var(--'+_settings.color+');"></div>'+
 						'<strong class="mr-auto">'+_settings.title+'</strong>'+
