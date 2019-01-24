@@ -19,12 +19,17 @@
 		
 		bytes2humanReadable: function(a,b,c,d,e) {
 			// Divide by 1024
-			return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'KMGTPEZY'[--e]+'iB':'Bytes');
+			return (b=Math,c=b.log,d=1024,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'KMGTPEZY'[--e]+'B':'Bytes');
 		},
 		
 		bits2humanReadable: function(a,b,c,d,e) {
 			// Divide by 1000
-			return (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'B':'Bytes');
+			return (b=Math,c=b.log,d=1e3,e=c(a)/c(d)|0,a/b.pow(d,e)).toFixed(2)+' '+(e?'kMGTPEZY'[--e]+'b':'bits');
+		},
+		
+		round: function(value, precision) {
+			var multiplier = Math.pow(10, precision || 0);
+			return Math.round(value * multiplier) / multiplier;
 		},
 		
 		uts2dt: function(ts) {
@@ -214,10 +219,6 @@
 				dataType:		'json',
 				timeout:		10000,
 				contentType:	'application/json; charset=UTF-8',
-				progress:		function(e){
-					if(e.lengthComputable)
-						console.log( e.loaded+"/"+e.total+" - "+Math.round(e.loaded*100/e.total)+"%" );
-				},
 				beforeSend:		function(){},
 				success:		function(data){},
 				error:			function(jqXHR){},
@@ -233,14 +234,6 @@
 				dataType:		_settings.dataType,
 				timeout:		_settings.timeout,
 				contentType:	_settings.contentType,
-				xhr:			function() {
-					var ajXhr = $.ajaxSettings.xhr();
-					if (ajXhr.upload)
-						ajXhr.upload.addEventListener('progress',_settings.progress, false);
-					else
-						console.warn("No upload progress support.");
-					return ajXhr;
-				},
 				beforeSend:		function(jqXHR, settings) {
 					if (_settings.debug)
 						console.log(settings);
@@ -273,15 +266,16 @@
 		},
 		
 		upload: function(options) {
+			var _startTime = Date.now();
+			
 			var _settings = $.extend({
 				method:			'POST',
 				url:			($.qs("s")!=null)?'api_post.php?s='+$.qs("s"):'api_post.php',
 				data:			new FormData($("form").get(0)),
 				dataType:		'json',
 				timeout:		0,
-				progress:		function(e){
-					if(e.lengthComputable)
-						console.log( e.loaded+"/"+e.total+" - "+Math.round(e.loaded*100/e.total)+"%" );
+				progress:		function(data){
+					console.log( data );
 				},
 				beforeSend:		function(){},
 				success:		function(data){},
@@ -304,9 +298,26 @@
 				xhr: function() {
 					var ajXhr = $.ajaxSettings.xhr();
 					if (ajXhr.upload)
-						ajXhr.upload.addEventListener('progress',_settings.progress, false);
-					else
-						console.warn("No upload progress support.");
+						ajXhr.upload.addEventListener('progress',function(e){
+							if(e.lengthComputable){
+								var data = {
+									length_computable:e.lengthComputable,
+									bytes_loaded: e.loaded,
+									bytes_total: e.total,
+									bytes_remaining: e.total - e.loaded,
+									bytes_per_second: 0,
+									seconds_elapsed: $.round((Date.now()-_startTime)/1000,1),
+									seconds_remaining: ''
+								};
+								
+								data.bytes_per_second = data.seconds_elapsed ? $.round(e.loaded/data.seconds_elapsed) : 0;
+								data.seconds_remaining = data.seconds_elapsed ? $.round(data.bytes_remaining/data.bytes_per_second,1) : '';
+								
+								_settings.progress(data);
+							} else {
+								_settings.progress({length_computable:e.lengthComputable});
+							}
+						},false);
 					return ajXhr;
 				},
 				beforeSend: function(jqXHR, settings) {
@@ -540,7 +551,7 @@
 			
 			// Add toast container
 			if(!$("#toaster").length){
-				$("body").append('<div aria-live="polite" aria-atomic="true" id="toaster" class="position-fixed"></div>');
+				$("body").append('<div id="toaster" aria-live="polite" aria-atomic="true" class="position-fixed"></div>');
 			}
 			
 			// Add alert/toast to the DOM

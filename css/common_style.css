@@ -1,21 +1,20 @@
 @charset "UTF-8";
 
 /* Fullscreen loading spinner */
-#loading {
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 1111;
+#spinner {
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	z-index:1111;
 }
 
 
-/* Alerts */
-div.alert.alert-custom {
-	top: 2rem;
-	left: 2rem;
-	right: 2rem;
-	z-index: 1100;
+/* Alerts/Toasts */
+#toaster {
+	right:.5rem;
+	top:.5rem;
+	z-index:1111;
 }
 
 

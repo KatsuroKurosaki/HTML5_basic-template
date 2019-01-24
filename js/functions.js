@@ -22,5 +22,39 @@ function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
 }
 
 function uploadAjax(){
-	$.upload();
+	$.upload({
+		progress: function(data){
+			if(data.length_computable){
+				$("#divProgress").html(
+					'<p>'+
+						'Uploaded: '+$.bytes2humanReadable(data.bytes_loaded)+'<br/>'+
+						'Total: '+$.bytes2humanReadable(data.bytes_total)+'<br/>'+
+						'Remaining: '+$.bytes2humanReadable(data.bytes_remaining)+'<br/>'+
+						'Speed: '+$.bytes2humanReadable(data.bytes_per_second)+'/s<br/>'+
+						'Elapsed seconds: '+data.seconds_elapsed+'<br/>'+
+						'Remaining seconds: '+data.seconds_remaining+'<br/>'+
+					'</p>'
+				);
+				$("progress").attr({value:data.bytes_loaded,max:data.bytes_total});
+			} else {
+				$.spawnAlert({
+					body:"No progress support,<br/>file upload still happening.",
+					color:"danger"
+				});
+			}
+		},
+		success: function(){
+			$.spawnAlert({
+				title:"Upload OK",
+				body:"File uploaded successfully",
+				color:"success"
+			});
+		},
+		complete: function(){
+			$("#divProgress").text("Waiting...");
+			$("progress").attr({value:"",max:""});
+			$("#formUpload").get(0).reset();
+			$(".custom-file-label").text("Choose file...");
+		}
+	});
 }
