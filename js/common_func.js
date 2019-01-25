@@ -546,6 +546,7 @@
 				color:			"info",
 				showclose:		true,
 				closetimeout:	5000,
+				css_animate:	"fadeInRight", // If animateCss jQuery plugin exists, will perform an extra spawn animation. Change default animation here
 				toastId:		$.randomInt()
 			},options);
 			
@@ -574,6 +575,15 @@
 					)+
 				'</div>'
 			);
+			
+			// Animate toast on creation
+			if(typeof $.fn.animateCss !== 'undefined'){
+				$("#toast-"+_settings.toastId).on("show.bs.toast",function(){
+					$('#toast-'+_settings.toastId).animateCss({
+						effect: _settings.css_animate
+					});
+				});
+			}
 			
 			// Remove toast from DOM on close
 			$("#toast-"+_settings.toastId).on("hidden.bs.toast",function(){
