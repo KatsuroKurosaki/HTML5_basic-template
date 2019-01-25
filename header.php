@@ -8,6 +8,6 @@
 <meta name="author" content="Katsuro Kurosaki" />
 <meta name="theme-color" content="#000000">
 
-<link rel="icon" type="image/png" href="favicon.png" sizes="32x32" />
+<link href="favicon.png" type="image/png" rel="icon" sizes="32x32" />
 
 <title>Basic Bootstrap template</title>
