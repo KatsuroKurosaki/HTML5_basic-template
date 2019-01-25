@@ -8,43 +8,43 @@ header('Content-Type: application/json; charset=utf-8');
 require __DIR__ . '/api/autoload.php';
 
 $_in = json_decode(file_get_contents("php://input"), true);
-$_out = array();
+$_out = [];
 
 if ($_in !== null) {
 	if (isset($_in['op'])) {
 		switch ($_in['op']) {
 			case 'HELLO':
-				$_out = \GlobalFunctions::returnOut(array(
+				$_out = \GlobalFunctions::returnOut([
 					"status" => "ok",
 					"msg" => "Hello World!",
 					"color" => "success",
 					"code" => 0
-				));
+				]);
 				break;
 
 			default:
-				$_out = \GlobalFunctions::returnOut(array(
+				$_out = \GlobalFunctions::returnOut([
 					"status" => "no",
 					"msg" => "Received operation is invalid.",
 					"color" => "warning",
 					"code" => - 1
-				));
+				]);
 		}
 	} else {
-		$_out = \GlobalFunctions::returnOut(array(
+		$_out = \GlobalFunctions::returnOut([
 			"status" => "ko",
 			"msg" => "NO operation received.",
 			"color" => "danger",
 			"code" => - 1
-		));
+		]);
 	}
 } else {
-	$_out = \GlobalFunctions::returnOut(array(
+	$_out = \GlobalFunctions::returnOut([
 		"status" => "ko",
 		"msg" => "Input JSON is invalid.",
 		"color" => "warning",
 		"code" => - 1
-	));
+	]);
 }
 
 if (\GlobalConf::API_DEBUG) {

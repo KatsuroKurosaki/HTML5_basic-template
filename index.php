@@ -3,15 +3,15 @@
 	<head>
 		<?php require 'header.php'; ?>
 		<?php require 'headercss.php'; ?>
-		<link rel="stylesheet" type="text/css" href="./css/main_style.css" />
+		<link href="css/main_style.css?_=<?=filemtime('css/main_style.css');?>" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
 		<?php define("_FILE",basename(__FILE__,'.php')); require 'navbar.php'; ?>
 		
-		<div class="container"></div>
+		<main role="main" class="container pt-2 pb-5"></main>
 		
 		<?php require 'footer.php'; ?>
 		<?php require 'footerjs.php'; ?>
-		<script type="text/javascript" src="./js/functions.js" charset="UTF-8"></script>
+		<script src="js/functions.js?_=<?=filemtime('js/functions.js');?>" type="text/javascript" charset="UTF-8"></script>
 	</body>
 </html>

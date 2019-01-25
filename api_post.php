@@ -7,7 +7,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 require __DIR__ . '/api/autoload.php';
 
-$_out = array();
+$_out = [];
 
 if (! empty($_POST)) {
 	if (isset($_POST['op'])) {
@@ -15,41 +15,41 @@ if (! empty($_POST)) {
 			case 'UPLOAD_FILE':
 				if (!empty($_FILES)) {
 					move_uploaded_file($_FILES['file']['tmp_name'], './upload/' . $_FILES['file']['name']);
-					$_out = \GlobalFunctions::returnOut(array(
+					$_out = \GlobalFunctions::returnOut([
 						"msg" => "File uploaded."
-					));
+					]);
 				} else {
-					$_out = \GlobalFunctions::returnOut(array(
+					$_out = \GlobalFunctions::returnOut([
 						"status" => "ko",
 						"msg" => "No file received.",
 						"color" => "warning"
-					));
+					]);
 				}
 				break;
 
 			default:
-				$_out = \GlobalFunctions::returnOut(array(
+				$_out = \GlobalFunctions::returnOut([
 					"status" => "no",
 					"msg" => "Received operation is invalid.",
 					"color" => "warning",
 					"code" => - 1
-				));
+				]);
 		}
 	} else {
-		$_out = \GlobalFunctions::returnOut(array(
+		$_out = \GlobalFunctions::returnOut([
 			"status" => "ko",
 			"msg" => "NO operation received.",
 			"color" => "danger",
 			"code" => - 1
-		));
+		]);
 	}
 } else {
-	$_out = \GlobalFunctions::returnOut(array(
+	$_out = \GlobalFunctions::returnOut([
 		"status" => "ko",
 		"msg" => "Input form data is invalid.",
 		"color" => "warning",
 		"code" => - 1
-	));
+	]);
 }
 
 if (\GlobalConf::API_DEBUG) {
