@@ -16,8 +16,7 @@
  * http://wiki.mikrotik.com/wiki/API_PHP_class
  *
  ******************************/
-class RouterosAPI
-{
+class RouterosAPI{
 
 	var $debug = false;
 
@@ -54,8 +53,7 @@ class RouterosAPI
 	// Variable for storing connection error text, if any
 
 	/* Check, can be var used in foreach */
-	public function isIterable($var)
-	{
+	public function isIterable($var){
 		return $var !== null && (is_array($var) || $var instanceof Traversable || $var instanceof Iterator || $var instanceof IteratorAggregate);
 	}
 
@@ -67,8 +65,7 @@ class RouterosAPI
 	 *        	
 	 * @return void
 	 */
-	public function debug($text)
-	{
+	public function debug($text){
 		if ($this->debug) {
 			echo $text . "\n";
 		} else {
@@ -82,8 +79,7 @@ class RouterosAPI
 	 *
 	 * @return void
 	 */
-	public function encodeLength($length)
-	{
+	public function encodeLength($length){
 		if ($length < 0x80) {
 			$length = chr($length);
 		} elseif ($length < 0x4000) {
@@ -114,8 +110,7 @@ class RouterosAPI
 	 *        	
 	 * @return boolean If we are connected or not
 	 */
-	public function connect($ip, $login, $password)
-	{
+	public function connect($ip, $login, $password){
 		for ($ATTEMPT = 1; $ATTEMPT <= $this->attempts; $ATTEMPT ++) {
 			$this->connected = false;
 			$PROTOCOL = ($this->ssl ? 'ssl://' : '');
@@ -165,8 +160,7 @@ class RouterosAPI
 	 *
 	 * @return void
 	 */
-	public function disconnect()
-	{
+	public function disconnect(){
 		// let's make sure this socket is still valid. it may have been closed by something else
 		if (is_resource($this->socket)) {
 			fclose($this->socket);
@@ -183,8 +177,7 @@ class RouterosAPI
 	 *        	
 	 * @return array Array with parsed data
 	 */
-	public function parseResponse($response)
-	{
+	public function parseResponse($response){
 		if (is_array($response)) {
 			$PARSED = array();
 			$CURRENT = null;
@@ -229,8 +222,7 @@ class RouterosAPI
 	 *        	
 	 * @return array Array with parsed data
 	 */
-	public function parseResponse4Smarty($response)
-	{
+	public function parseResponse4Smarty($response){
 		if (is_array($response)) {
 			$PARSED = array();
 			$CURRENT = null;
@@ -276,8 +268,7 @@ class RouterosAPI
 	 *        	
 	 * @return array Array with changed key names
 	 */
-	public function arrayChangeKeyName(&$array)
-	{
+	public function arrayChangeKeyName(&$array){
 		if (is_array($array)) {
 			foreach ($array as $k => $v) {
 				$tmp = str_replace("-", "_", $k);
@@ -302,8 +293,7 @@ class RouterosAPI
 	 *        	
 	 * @return array Array with parsed or unparsed data
 	 */
-	public function read($parse = true)
-	{
+	public function read($parse = true){
 		$RESPONSE = array();
 		$receiveddone = false;
 		while (true) {
@@ -390,8 +380,7 @@ class RouterosAPI
 	 *        	
 	 * @return boolean Return false if no command especified
 	 */
-	public function write($command, $param2 = true)
-	{
+	public function write($command, $param2 = true){
 		if ($command) {
 			$data = explode("\n", $command);
 			foreach ($data as $com) {
@@ -423,8 +412,7 @@ class RouterosAPI
 	 *        	
 	 * @return array Array with parsed
 	 */
-	public function comm($com, $arr = array())
-	{
+	public function comm($com, $arr = array()){
 		$count = count($arr);
 		$this->write($com, ! $arr);
 		$i = 0;
@@ -455,8 +443,7 @@ class RouterosAPI
 	 *
 	 * @return void
 	 */
-	public function __destruct()
-	{
+	public function __destruct(){
 		$this->disconnect();
 	}
 }

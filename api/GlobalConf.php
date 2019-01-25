@@ -1,7 +1,6 @@
 <?php
 
-class GlobalConf
-{
+class GlobalConf{
 
 	const API_DEBUG = true;
 }

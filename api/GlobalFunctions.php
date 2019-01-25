@@ -1,21 +1,18 @@
 <?php
 
-class GlobalFunctions
-{
+class GlobalFunctions{
 
-	public static function trimSeveral(string $str)
-	{
+	public static function trimSeveral(string $str){
 		return trim(preg_replace('/(?:\s\s+|\n|\t)/', ' ', $str));
 	}
 
-	public static function returnOut($options = array())
-	{
-		$_settings = array_replace_recursive(array(
+	public static function returnOut($options = []){
+		$_settings = array_replace_recursive([
 			"status" => "ok",
 			"msg" => "",
 			"color" => "info",
 			"code" => 0
-		), $options);
+		], $options);
 
 		return $_settings;
 	}

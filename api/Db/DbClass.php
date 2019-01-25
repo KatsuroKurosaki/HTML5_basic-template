@@ -1,11 +1,9 @@
 <?php
 namespace Db;
 
-class DbClass
-{
+class DbClass{
 
-	public static function createDataFromBindableParams(\mysqli_stmt $stmt, string $param_type, array $a_bind_params)
-	{
+	public static function createDataFromBindableParams(\mysqli_stmt $stmt, string $param_type, array $a_bind_params){
 		$a_params = array();
 		$a_params[] = & $param_type;
 
@@ -19,8 +17,7 @@ class DbClass
 		), $a_params);
 	}
 
-	public static function executeSql(\Mysqli $conn, String $sql, $param_type = "", array $a_bind_params = [])
-	{
+	public static function executeSql(\Mysqli $conn, String $sql, $param_type = "", array $a_bind_params = []){
 		$result = new DbResult();
 
 		$stmt = $conn->prepare($sql);
@@ -47,8 +44,7 @@ class DbClass
 		return $result;
 	}
 
-	public static function executeSqlBulk(\Mysqli $conn, String $sql, $param_type = "", array $list = [])
-	{
+	public static function executeSqlBulk(\Mysqli $conn, String $sql, $param_type = "", array $list = []){
 		$stmt = $conn->prepare($sql);
 		if (! $stmt) {
 			print_r($conn);
@@ -68,8 +64,7 @@ class DbClass
 		return true;
 	}
 
-	public static function executeSqlLongdata(\Mysqli $conn, String $sql, $param_type = "", array $a_bind_params = [], String $file_path)
-	{
+	public static function executeSqlLongdata(\Mysqli $conn, String $sql, $param_type = "", array $a_bind_params = [], String $file_path){
 		$result = new DbResult();
 
 		$stmt = $conn->prepare($sql);
