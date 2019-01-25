@@ -20,7 +20,7 @@ class Manage{
 
 	public static function check(){
 		if (empty($_SESSION)) {
-			header("HTTP/1.1 401 Unauthorized");
+			//header("HTTP/1.1 401 Unauthorized");
 			Manage::destroy();
 			return false;
 		}
