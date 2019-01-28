@@ -59,6 +59,14 @@
 		
 		htmlEntities: function(str) {
 			return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/ /g, '&nbsp;');
+		},
+		
+		calculateAspectRatio: function(srcWidth, srcHeight, maxWidth, maxHeight) {
+			var ratio = Math.min(maxWidth / srcWidth, maxHeight / srcHeight);
+			return {
+				width: srcWidth*ratio,
+				height: srcHeight*ratio
+			};
 		}
 	});
 	
@@ -639,5 +647,45 @@
 			}
 		});
 	};
+	
+	// Generates a thumbnail
+	$.fn.imageThumbnailer = function(options){
+		var _settings = $.extend({
+			width:		800,
+			height:		600,
+			imgFile:	null
+		},options);
+		var container = this;
+		
+		var image = new Image();
+		image.src = URL.createObjectURL(_settings.imgFile);
+		image.onload = function() {
+			var newSize = $.calculateAspectRatio(image.width,image.height,_settings.width,_settings.height)
+			var canvas = document.createElement("canvas");
+			canvas.width = newSize.width;
+			canvas.height = newSize.height;
+			canvas.getContext("2d").drawImage(image,0,0,newSize.width,newSize.height);
+			switch(_settings.imgFile.type){
+				case "image/jpeg":
+					container.trigger("thumbnailGenerated",[{
+						type: "image/jpeg",
+						image: canvas.toDataURL("image/jpeg")}
+					]);
+					break;
+				
+				case "image/png": case "image/svg+xml":
+					container.trigger("thumbnailGenerated",[{
+						type: "image/png",
+						image: canvas.toDataURL("image/png")}
+					]);
+					break;
+				
+				default:
+					console.warn("Can't process: "+_settings.imgFile.type);
+			}
+			
+			
+		}
+	}
 
 }(jQuery));
