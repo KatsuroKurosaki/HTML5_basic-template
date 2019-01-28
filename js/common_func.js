@@ -500,7 +500,7 @@
 					verticalcenter:	true,
 					size:			'md', // lg, md, sm
 					buttons:		[],
-					spawnSpinner:	true,
+					spawnSpinner:	false,
 					debug:			false
 				},options);
 				
