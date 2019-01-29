@@ -179,6 +179,17 @@
 				return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
 			};
 			return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+		},
+		randomHex: function(length){
+			if(length==undefined)
+				length=1;
+			var text = [];
+			var validChars = "0123456789ABCDEF";
+
+			for (var i=0; i<length; i++)
+				text.push( validChars.charAt(Math.floor(Math.random() * validChars.length)) );
+			return text.join("");
+			
 		}
 	});
 	
