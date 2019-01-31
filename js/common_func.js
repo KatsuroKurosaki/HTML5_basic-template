@@ -734,5 +734,12 @@
 		begin:		function(){},	// Function to execute before the effect starts. Doesn't care about delay.
 		end:		function(){}	// Function to execute when the effect ends. Won't run if infinite:true!
 	}
+	
+	// I am surprised jQuery doesn't have a $(selector).renameAttr() method.
+	$.fn.renameAttr = function(oldName,newName){
+		return this.each(function(){
+			$(this).attr(newName,$(this).attr(oldName)).removeAttr(oldName);
+		})
+	};
 
 }(jQuery));
