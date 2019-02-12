@@ -18,6 +18,13 @@
 }
 
 
+/* Bootstrap 4 Flexbox, you failed me */
+.align-content-evenly {
+	-ms-flex-line-pack: space-evenly!important;
+	align-content: space-evenly!important;
+}
+
+
 /* Pointer forms */
 .cursor-auto { cursor:auto; }
 .cursor-crosshair { cursor:crosshair; }
