@@ -741,5 +741,20 @@
 			$(this).attr(newName,$(this).attr(oldName)).removeAttr(oldName);
 		})
 	};
+	
+	// Transforms a <img src="*.svg"/> tag into the inline version
+	$.fn.SVGinliner = function() {
+		// https://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
+		this.each(function(){
+			var $img = $(this);
+			$.get(
+				$(this).attr('src'),
+				function(data) {
+					$img.replaceWith( $(data).find('svg') );
+				},
+				'xml'
+			);
+		});
+	};
 
 }(jQuery));
