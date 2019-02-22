@@ -52,6 +52,6 @@ if (\GlobalConf::API_DEBUG) {
 	$_out['mem']['system_curr'] = memory_get_usage(true);
 	$_out['mem']['engine_peak'] = memory_get_peak_usage(false);
 	$_out['mem']['system_peak'] = memory_get_peak_usage(true);
-	$_out['time'] = round(microtime(TRUE) - $start_time, 5);
+	$_out['time'] = round(microtime(TRUE) - $start_time, 6);
 }
 echo json_encode($_out);

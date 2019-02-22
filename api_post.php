@@ -9,12 +9,12 @@ require __DIR__ . '/api/autoload.php';
 
 $_out = [];
 
-if (! empty($_POST)) {
+if (!empty($_POST)) {
 	if (isset($_POST['op'])) {
 		switch ($_POST['op']) {
 			case 'UPLOAD_FILE':
 				if (!empty($_FILES)) {
-					move_uploaded_file($_FILES['file']['tmp_name'], './upload/' . $_FILES['file']['name']);
+					move_uploaded_file($_FILES['file']['tmp_name'], './upload/'.$_FILES['file']['name']);
 					$_out = \GlobalFunctions::returnOut([
 						"msg" => "File uploaded."
 					]);
