@@ -52,6 +52,20 @@
 				+ _date.getFullYear() ;
 		},
 		
+		ip2num: function(dot){
+			var d = dot.split('.');
+			return ((((((+d[0])*256)+(+d[1]))*256)+(+d[2]))*256)+(+d[3]);
+		},
+		
+		num2ip: function(num){
+			var d = num%256;
+			for (var i = 3; i > 0; i--){ 
+				num = Math.floor(num/256);
+				d = num%256 + '.' + d;
+			}
+			return d;
+		},
+		
 		isValidDate: function(d,m,y) {
 			var _date = new Date(y,m-1,d);
 			return (_date.getFullYear() == y && (_date.getMonth() + 1) == m && _date.getDate() == d);
@@ -405,7 +419,7 @@
 					size:		2
 				},options);
 				
-				$("body").append('<div id="spinner" class="position-fixed d-flex flex-column justify-content-center align-items-center text-'+_options.color+'" style="background-color:'+_options.bgcolor+';">'+
+				$("body").append('<div id="spinner" class="fixed-top d-flex flex-column align-items-center justify-content-center text-'+_options.color+'" style="background-color:'+_options.bgcolor+';bottom:0;">'+
 					'<div class="spinner-'+_options.icon+'" style="width:'+_options.size+'rem;height:'+_options.size+'rem;" role="status">'+
 						'<span class="sr-only">'+_options.text+'</span>'+
 					'</div>'+
@@ -415,9 +429,7 @@
 		},
 		
 		removeSpinner: function(action) {
-			$("#spinner").fadeOut("fast",function(){
-				$(this).remove();
-			});
+			$("#spinner").remove();
 		}
 	});
 	
@@ -511,7 +523,7 @@
 					verticalcenter:	true,
 					size:			'md', // lg, md, sm
 					buttons:		[],
-					spawnSpinner:	false,
+					spawnSpinner:	true,
 					debug:			false
 				},options);
 				
@@ -569,9 +581,9 @@
 				toastId:		$.randomInt()
 			},options);
 			
-			// Add toast container
+			// Toast container
 			if(!$("#toaster").length){
-				$("body").append('<div id="toaster" aria-live="polite" aria-atomic="true" class="position-fixed"></div>');
+				$("body").append('<div id="toaster" aria-live="polite" aria-atomic="true" class="fixed-top p-2" style="left:unset;"></div>');
 			}
 			
 			// Add alert/toast to the DOM

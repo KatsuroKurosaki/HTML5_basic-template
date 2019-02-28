@@ -1,24 +1,6 @@
 @charset "UTF-8";
 
-/* Fullscreen loading spinner */
-#spinner {
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	z-index:1111;
-}
-
-
-/* Alerts/Toasts */
-#toaster {
-	right:.5rem;
-	top:.5rem;
-	z-index:1111;
-}
-
-
-/* Bootstrap 4 Flexbox, you failed me */
+/* Bootstrap 4 Flexbox, you forgot this */
 .align-content-evenly {
 	-ms-flex-line-pack: space-evenly!important;
 	align-content: space-evenly!important;
