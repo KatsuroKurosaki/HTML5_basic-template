@@ -7,31 +7,19 @@ html, body {
 body {
 	/* Thank you https://www.pexels.com/photo/background-black-blackboard-board-159770/ */
 	background-attachment: fixed;
-	background-blend-mode: overlay;
-	background-clip: border-box;
-	background-color: #444;
 	background-image: url(../img/login_bg.jpg);
-	background-origin: padding-box;
 	background-position-x: center;
 	background-position-y: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	/*background-blend-mode: overlay;
+	background-clip: border-box;
+	background-color: #444;
+	background-origin: padding-box;*/
 }
 
 .form-signin {
-	max-width: 330px;
+	max-width: 310px;
 	background-color: rgba(255, 255, 255, .2);
 	border-radius: .2em;
-	padding: 2em;
-}
-
-.form-signin input[name='username'] {
-	margin-bottom: -1px;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
-.form-signin input[name='password'] {
-	border-top-left-radius: 0;
-	border-top-right-radius: 0;
 }
