@@ -6,7 +6,7 @@
 <meta name="msapplication-config" content="none" />
 <meta name="description" content="" />
 <meta name="author" content="Katsuro Kurosaki" />
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#000000" />
 
 <link href="favicon.png" type="image/png" rel="icon" sizes="32x32" />
 
