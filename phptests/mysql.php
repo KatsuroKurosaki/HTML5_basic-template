@@ -19,4 +19,3 @@ $stmt->affected_rows; // Get number of affected rows in INSERT, UPDATE or DELETE
 $stmt->close();
 
 $conn->close();
-?>

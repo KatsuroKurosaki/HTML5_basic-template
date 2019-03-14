@@ -29,4 +29,3 @@ echo "</pre>";
  */
 
 $db->close();
-?>

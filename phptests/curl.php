@@ -44,4 +44,3 @@ if (curl_errno($curl['curl'])) {
 curl_close($curl['curl']);
 unset($curl['curl']);
 $out['data'] = $curl;
-?>

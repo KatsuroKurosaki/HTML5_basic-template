@@ -1,4 +1,4 @@
-<pre><?php
+<?php
 
 // Connect
 $manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
@@ -54,5 +54,3 @@ unset($query, $cursor);
 
 // Disconnect?
 unset($manager);
-
-?></pre>

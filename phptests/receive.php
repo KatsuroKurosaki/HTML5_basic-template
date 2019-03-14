@@ -5,4 +5,3 @@ if (! empty($_FILES)) {
 } else {
 	echo "NO FILE";
 }
-?>

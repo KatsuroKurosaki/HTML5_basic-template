@@ -34,4 +34,3 @@ function resizeImage($img_file, $filename, $ext = "jpg")
 
 	imagejpeg($tmp, $img_file . "/" . $filename . "_t." . $ext, $quality);
 }
-?>

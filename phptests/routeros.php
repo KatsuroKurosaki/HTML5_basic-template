@@ -17,4 +17,3 @@ if ($mktapi->connect("192.168.144.120", "admin", "admin")) {
 
 	$mktapi->disconnect();
 }
-?>

@@ -3,7 +3,7 @@
 	<head>
 		<?php require 'header.php'; ?>
 		<?php require 'headercss.php'; ?>
-		<link href="css/login_style.css?_=<?=filemtime('css/login_style.css');?>" type="text/css" rel="stylesheet" />
+		<link href="css/login_style.css?_=<?=filemtime('css/login_style.css')?>" type="text/css" rel="stylesheet" />
 	</head>
 	<body class="d-flex justify-content-center align-items-center">
 		<form class="form-row form-signin text-light px-3 py-4 invisible">
@@ -26,11 +26,11 @@
 				</button>
 			</div>
 			<div class="col-12">
-				<p class="small text-center">&copy; <?=date('Y');?> - Company</p>
+				<p class="small text-center">&copy; <?=date('Y')?> - Company</p>
 			</div>
 		</form>
 		<?php require 'footerjs.php'; ?>
-		<script src="js/functions.js?_=<?=filemtime('js/functions.js');?>" type="text/javascript" charset="UTF-8"></script>
+		<script src="js/functions.js?_=<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
 			$(window).on("load",function(){
 				$("form").removeClass("invisible").on("submit",function(e){
