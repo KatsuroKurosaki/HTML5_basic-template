@@ -410,7 +410,7 @@
 	// Spinners
 	$.extend({
 		spawnSpinner: function(options) {
-			if(!$("#loading").length){
+			if(!$("#spinner").length){
 				var _options = $.extend({
 					text:		"Loading...",
 					color:		"dark", // primary, secondary, success, danger, warning, info, light, dark
