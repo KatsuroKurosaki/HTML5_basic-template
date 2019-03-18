@@ -419,7 +419,7 @@
 					size:		2
 				},options);
 				
-				$("body").append('<div id="spinner" class="fixed-top d-flex flex-column align-items-center justify-content-center text-'+_options.color+'" style="background-color:'+_options.bgcolor+';bottom:0;">'+
+				$("body").append('<div id="spinner" class="fixed-top d-flex flex-column align-items-center justify-content-center text-'+_options.color+'" style="background-color:'+_options.bgcolor+';bottom:0;z-index:1111;">'+
 					'<div class="spinner-'+_options.icon+'" style="width:'+_options.size+'rem;height:'+_options.size+'rem;" role="status">'+
 						'<span class="sr-only">'+_options.text+'</span>'+
 					'</div>'+
