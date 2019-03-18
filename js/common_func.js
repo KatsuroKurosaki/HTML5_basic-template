@@ -583,7 +583,7 @@
 			
 			// Toast container
 			if(!$("#toaster").length){
-				$("body").append('<div id="toaster" aria-live="polite" aria-atomic="true" class="fixed-top p-2" style="left:unset;"></div>');
+				$("body").append('<div id="toaster" aria-live="polite" aria-atomic="true" class="fixed-top p-2" style="left:unset;z-index:1111;"></div>');
 			}
 			
 			// Add alert/toast to the DOM
