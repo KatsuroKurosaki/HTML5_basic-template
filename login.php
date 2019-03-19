@@ -6,7 +6,7 @@
 		<link href="css/login_style.css?_=<?=filemtime('css/login_style.css')?>" type="text/css" rel="stylesheet" />
 	</head>
 	<body class="d-flex justify-content-center align-items-center">
-		<form class="form-row form-signin text-light px-3 py-4 invisible">
+		<form class="form-row form-signin text-light px-3 py-4" style="display:none;">
 			<div class="col-12 mb-3">
 				<h3 class="text-center">
 					<i class="fas fa-lock"></i> Restricted area
@@ -33,7 +33,7 @@
 		<script src="js/functions.js?_=<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
 			$(window).on("load",function(){
-				$("form").removeClass("invisible").on("submit",function(e){
+				$("form").css("display","").on("submit",function(e){
 					e.preventDefault();
 					ajaxRequest();
 				}).animateCss({
