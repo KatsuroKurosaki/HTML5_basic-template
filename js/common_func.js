@@ -330,7 +330,7 @@
 				enctype:		'multipart/form-data',
 				xhr: function() {
 					var ajXhr = $.ajaxSettings.xhr();
-					if (ajXhr.upload)
+					if (ajXhr.upload) {
 						ajXhr.upload.addEventListener('progress',function(e){
 							if(e.lengthComputable){
 								var data = {
@@ -351,6 +351,7 @@
 								_settings.progress({length_computable:e.lengthComputable});
 							}
 						},false);
+					}
 					return ajXhr;
 				},
 				beforeSend: function(jqXHR, settings) {
@@ -701,25 +702,33 @@
 			switch(_settings.imgFile.type){
 				case "image/jpeg":
 					container.trigger("thumbnailGenerated",[{
+						success: true,
+						file: _settings.imgFile,
 						type: "image/jpeg",
-						image: canvas.toDataURL("image/jpeg")}
-					]);
+						image: canvas.toDataURL("image/jpeg")
+					}]);
 					break;
 				
 				case "image/png": case "image/svg+xml":
 					container.trigger("thumbnailGenerated",[{
+						success: true,
+						file: _settings.imgFile,
 						type: "image/png",
-						image: canvas.toDataURL("image/png")}
-					]);
+						image: canvas.toDataURL("image/png")
+					}]);
 					break;
 				
 				default:
 					console.warn("Can't process: "+_settings.imgFile.type);
+					container.trigger("thumbnailGenerated",[{
+						success: false,
+						file: _settings.imgFile
+					}]);
 			}
 			
 			
 		}
-	}
+	};
 	
 	// Animate.css jQuery plugin
 	$.fn.animateCss = function(options) {
@@ -745,7 +754,7 @@
 		infinite:	false,			// Will the effect run infinitely?
 		begin:		function(){},	// Function to execute before the effect starts. Doesn't care about delay.
 		end:		function(){}	// Function to execute when the effect ends. Won't run if infinite:true!
-	}
+	};
 	
 	// I am surprised jQuery doesn't have a $(selector).renameAttr() method.
 	$.fn.renameAttr = function(oldName,newName){
@@ -755,18 +764,75 @@
 	};
 	
 	// Transforms a <img src="*.svg"/> tag into the inline version
-	$.fn.SVGinliner = function() {
-		// https://stackoverflow.com/questions/11978995/how-to-change-color-of-svg-image-using-css-jquery-svg-image-replacement
+	$.fn.SVGinliner = function(options) {
+		var _settings = $.extend({
+			fillColor:	''
+		},options);
+		
 		this.each(function(){
-			var $img = $(this);
+			var _img = $(this);
 			$.get(
 				$(this).attr('src'),
 				function(data) {
-					$img.replaceWith( $(data).find('svg') );
+					var _svg = $(data).find('svg');
+					
+					if(_img.attr("id") != undefined)
+						_svg.attr("id",_img.attr("id"));
+					
+					if(_img.attr("class") != undefined)
+						_svg.attr("class",_img.attr("class"));
+					
+					if(_img.attr("style") != undefined)
+						_svg.attr("style",_img.attr("style"));
+					
+					_svg.css("fill",_settings.fillColor);
+					
+					// Remove any invalid XML tags as per http://validator.w3.org
+					_img.replaceWith( _svg.removeAttr('xmlns:a') );
 				},
 				'xml'
-			);
+			).fail(function(){
+				console.log("Error retrieving the SVG file.");
+			});
 		});
+	};
+	
+	// Reads and returns all data-* attributes
+	$.fn.attrToObject = function(options){
+		var _settings = $.extend({
+			prefix:	'data-'
+		},options);
+		
+		var data = new Object();
+		$.each(this.get(0).attributes, function(idx,val){
+			if(val.name.startsWith(_settings.prefix)){
+				switch( val.name.substring(val.name.indexOf("-")+1,val.name.lastIndexOf("-")) ){
+					case "str":
+						data[val.name.substring(val.name.lastIndexOf("-")+1)] = val.value;
+						break;
+					
+					case "int":
+						data[val.name.substring(val.name.lastIndexOf("-")+1)] = parseInt(val.value);
+						break;
+					
+					case "flt":
+						data[val.name.substring(val.name.lastIndexOf("-")+1)] = parseFloat(val.value);
+						break;
+					
+					case "bol":
+						data[val.name.substring(val.name.lastIndexOf("-")+1)] = (val.value=='true');
+						break;
+					
+					default:
+						console.warn("Data type '"+val.name+"' not processed.");
+				}
+			}
+		});
+		if(this.length>1){
+			console.warn("Selector includes multiple items. Only first was processed.");
+		}
+		
+		return data;
 	};
 
 }(jQuery));
