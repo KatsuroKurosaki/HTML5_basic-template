@@ -521,7 +521,7 @@
 					// Up: $.ajax() // Down: $.spawnModal()
 					preventclose:	true,
 					fadespawn:		true,
-					verticalcenter:	true,
+					verticalcenter:	false,
 					size:			'md', // lg, md, sm
 					buttons:		[],
 					spawnSpinner:	true,
