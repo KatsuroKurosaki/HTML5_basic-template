@@ -18,9 +18,10 @@ class Manage{
 		}
 	}
 
-	public static function check(){
+	public static function isValid($headUnauth = false){
 		if (empty($_SESSION)) {
-			//header("HTTP/1.1 401 Unauthorized");
+			if($headUnauth)
+				header("HTTP/1.1 401 Unauthorized");
 			Manage::destroy();
 			return false;
 		}
