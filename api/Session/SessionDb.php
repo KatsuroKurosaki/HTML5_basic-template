@@ -74,7 +74,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function read($session_id){
 		try {
 			$data = \Db\DbConnection::execute(
-				"SELECT `data`
+				"SELECT `session_data`
 				FROM `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "`
 				WHERE `id` = ? AND `expires` > UNIX_TIMESTAMP(NOW());",
 				's',
@@ -89,7 +89,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 					's',
 					[ $session_id ]
 				);
-				return $data['data'];
+				return $data['session_data'];
 			}
 		} catch (\Db\DbErrorConnection $e) {
 			if ($this->_sessionConf['debug']) {
@@ -103,9 +103,9 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function write($session_id, $session_data){
 		try {
 			\Db\DbConnection::execute(
-				"INSERT INTO `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "` (`id`, `data`, `expires`,`ip_address`,`user_agent`)
+				"INSERT INTO `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "` (`id`, `session_data`, `expires`,`ip_address`,`user_agent`)
 				VALUES (?,?,UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL " . $this->_sessionConf['expires'] . ")),INET_ATON(?),SUBSTRING(?,1,255))
-				ON DUPLICATE KEY UPDATE `data` = ?, `expires` = UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL " . $this->_sessionConf['expires'] . "));",
+				ON DUPLICATE KEY UPDATE `session_data` = ?, `expires` = UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL " . $this->_sessionConf['expires'] . "));",
 				'sssss',
 				[ $session_id, $session_data, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $session_data ]
 			);
