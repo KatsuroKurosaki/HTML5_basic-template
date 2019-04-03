@@ -1,13 +1,33 @@
 @charset "UTF-8";
 
 /* Bootstrap 4 improvements */
+.opacity-100 {
+	opacity: 1!important;
+}
+
+.opacity-75 {
+	opacity: .75!important;
+}
+
+.opacity-50 {
+	opacity: .5!important;
+}
+
+.opacity-25 {
+	opacity: .25!important;
+}
+
+.opacity-0 {
+	opacity: 0!important;
+}
+
 .align-content-evenly {
 	-ms-flex-line-pack: space-evenly!important;
 	align-content: space-evenly!important;
 }
 
 .display-5 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 300;
     line-height: 1.2;
 }
