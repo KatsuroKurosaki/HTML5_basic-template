@@ -650,7 +650,7 @@
 	// Creates an arrayAdds the unchecked checkboxes to the serializeArray funcion
 	$.fn.serializeForm = function() {
 		var data = this.serializeArrayFull();
-		var serialized = {};
+		var serialized = new Object();
 		for( var idx in data ){
 			serialized[data[idx].name] = data[idx].value;
 		}
