@@ -9,6 +9,6 @@
 <meta name="theme-color" content="#000000" />
 
 <link href="favicon.png" rel="icon" type="image/png" sizes="32x32" />
-<link href="/manifest.json" rel="manifest" />
+<link href="manifest.json" rel="manifest" />
 
 <title>Basic Bootstrap template</title>

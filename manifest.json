@@ -1,0 +1,8 @@
+{
+  "name": "Hello World",
+  "description": "This is a basic HTML template to start from scratch.",
+  "icons": [{
+    "src": "img/icon.png",
+    "sizes": "192x192"
+  }]
+}
