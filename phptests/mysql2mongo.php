@@ -16,7 +16,8 @@ $_mongodb = [
 	"host" => "127.0.0.1:27017",
 	"user" => "",
 	"pass" => "",
-	"ddbb" => "database"
+	"ddbb" => "database",
+	"auth" => "admin"
 ];
 
 
@@ -29,8 +30,12 @@ if ($conn->connect_errno) { die($conn->connect_error); }
 
 // MongoDB
 $manager = new MongoDB\Driver\Manager(
-	"mongodb://".$_mongodb['host'],
-	[ "username" => $_mongodb['user'], "password" => $_mongodb['pass'] ]
+	"mongodb://".$_mongodb['host']."/".$_mongodb['auth'],
+	[
+		"username" => $_mongodb['user'],
+		"password" => $_mongodb['pass'],
+		"connectTimeoutMS" => 3000
+	]
 );
 
 // Current table read
