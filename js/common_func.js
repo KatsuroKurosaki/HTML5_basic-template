@@ -42,11 +42,27 @@
 				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) ;
 		},
 		
+		uts2dtm: function(ts){
+			var _date = new Date(ts*1000);
+			return $.uts2dt(ts) + '.' + _date.getMilliseconds().toString().padEnd(3,'0');
+		},
+		
 		uts2td: function(ts) {
 			var _date = new Date(ts*1000);
 			return ((_date.getHours()<10)	?	"0"+_date.getHours()	:	_date.getHours()) + ":"
 				+ ((_date.getMinutes()<10)	?	"0"+_date.getMinutes()	:	_date.getMinutes()) + ":"
 				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) + " "
+				+ ((_date.getDate()<10)		?	"0"+_date.getDate()		:	_date.getDate()) + "/"
+				+ (((_date.getMonth()+1)<10)?	"0"+(_date.getMonth()+1):	(_date.getMonth()+1)) + "/"
+				+ _date.getFullYear() ;
+		},
+		
+		uts2tmd: function(ts) {
+			var _date = new Date(ts*1000);
+			return ((_date.getHours()<10)	?	"0"+_date.getHours()	:	_date.getHours()) + ":"
+				+ ((_date.getMinutes()<10)	?	"0"+_date.getMinutes()	:	_date.getMinutes()) + ":"
+				+ ((_date.getSeconds()<10)	?	"0"+_date.getSeconds()	:	_date.getSeconds()) + "."
+				+ _date.getMilliseconds().toString().padEnd(3,'0') + " "
 				+ ((_date.getDate()<10)		?	"0"+_date.getDate()		:	_date.getDate()) + "/"
 				+ (((_date.getMonth()+1)<10)?	"0"+(_date.getMonth()+1):	(_date.getMonth()+1)) + "/"
 				+ _date.getFullYear() ;
