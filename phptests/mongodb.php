@@ -1,7 +1,22 @@
 <?php
+// Connection details
+$_mongodb = [
+	"host" => "127.0.0.1:27017",
+	"user" => "",
+	"pass" => "",
+	"ddbb" => "database",
+	"auth" => "admin"
+];
 
 // Connect
-$manager = new MongoDB\Driver\Manager("mongodb://localhost:27017");
+$manager = new MongoDB\Driver\Manager(
+	"mongodb://".$_mongodb['host']."/".$_mongodb['auth'],
+	[
+		"username" => $_mongodb['user'],
+		"password" => $_mongodb['pass'],
+		"connectTimeoutMS" => 3000
+	]
+);
 
 // Insert
 $bulk = new MongoDB\Driver\BulkWrite();
@@ -14,11 +29,11 @@ $bulk->insert([
 $bulk->insert([
 	'x' => random_int(0, 999999999)
 ]);
-$manager->executeBulkWrite('hello_db.hello_collection', $bulk);
+$manager->executeBulkWrite($_mongodb['ddbb'].'.hello_collection', $bulk);
 
 // Select
 $query = new MongoDB\Driver\Query([]);
-$cursor = $manager->executeQuery('hello_db.hello_collection', $query);
+$cursor = $manager->executeQuery($_mongodb['ddbb'].'.hello_collection', $query);
 
 foreach ($cursor as $document) {
 	var_dump((array) $document);
@@ -31,7 +46,7 @@ $query = new MongoDB\Driver\Query([
 		'$gt' => 779695397
 	]
 ]);
-$cursor = $manager->executeQuery('hello_db.hello_collection', $query);
+$cursor = $manager->executeQuery($_mongodb['ddbb'].'.hello_collection', $query);
 
 foreach ($cursor as $document) {
 	var_dump((array) $document);
@@ -45,7 +60,7 @@ $query = new MongoDB\Driver\Query([
 ], [
 	'maxTimeMS' => 1000
 ]);
-$cursor = $manager->executeQuery('hello_db.hello_collection', $query);
+$cursor = $manager->executeQuery($_mongodb['ddbb'].'.hello_collection', $query);
 
 foreach ($cursor as $document) {
 	var_dump((array) $document);
