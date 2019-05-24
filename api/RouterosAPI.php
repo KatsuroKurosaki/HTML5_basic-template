@@ -19,7 +19,7 @@
 class RouterosAPI
 {
     var $debug     = false; //  Show debug information
-    var $debugLog = "";		//  If $debug is disabled, I need the log stored here.
+    var $debugLog  = '';    //  If $debug is disabled, I need the log stored here.
     var $connected = false; //  Connection state
     var $port      = 8728;  //  Port to connect to (default 8729 for ssl)
     var $ssl       = false; //  Connect using SSL (must enable api-ssl in IP/Services)
@@ -54,8 +54,8 @@ class RouterosAPI
         if ($this->debug) {
             echo $text . "\n";
         } else {
-			$this->debugLog .= $text . "\n";
-		}
+            $this->debugLog .= $text . "\n";
+        }
     }
 
 
