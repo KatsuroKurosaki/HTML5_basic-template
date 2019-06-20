@@ -7,13 +7,13 @@ $mktapi->port = 8728;
 $mktapi->ssl = true;
 if ($mktapi->connect("192.168.144.120", "admin", "admin")) {
 
-	$response = $mktapi->comm('/interface/print');
+    $response = $mktapi->comm('/interface/print');
 
-	// $mktapi->write('/interface/print');
-	// $response = $mktapi->read(false);
-	// $data = $mktapi->parseResponse($response);
+    // $mktapi->write('/interface/print');
+    // $response = $mktapi->read(false);
+    // $data = $mktapi->parseResponse($response);
 
-	print_r($response);
+    print_r($response);
 
-	$mktapi->disconnect();
+    $mktapi->disconnect();
 }

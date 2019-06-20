@@ -1,6 +1,7 @@
 <?php
+namespace Crypt;
 
-class Criptography{
+class StringEncoder{
 
 	// SSL encription
 	const OPEN_SSL_METHOD = "aes-256-cbc";
@@ -21,15 +22,5 @@ class Criptography{
 		return openssl_decrypt($encrypted_data, self::OPEN_SSL_METHOD, $encryption_key, 0, $iv);
 	}
 
-	public static function hashPassword($password){
-		return password_hash($password, PASSWORD_DEFAULT);
-	}
-
-	public static function checkPassword($password, $hash){
-		return password_verify($password, $hash);
-	}
-
-	public static function passwordRehash($hash){
-		return password_needs_rehash($hash, PASSWORD_DEFAULT);
-	}
+	
 }

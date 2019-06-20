@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-		<?php require 'header.php'; ?>
-		<?php require 'headercss.php'; ?>
+		<?php require 'header.php';?>
+		<?php require 'headercss.php';?>
 	</head>
     <body>
 		<form id="formUpload" enctype="multipart/form-data" action="receive.php" method="post" class="container mt-2">
@@ -17,8 +17,8 @@
 			</div>
 			<input type="hidden" name="op" value="UPLOAD_FILE"/>
 		</form>
-		<?php require 'footer.php'; ?>
-		<?php require 'footerjs.php'; ?>
+		<?php require 'footer.php';?>
+		<?php require 'footerjs.php';?>
 		<script src="js/functions.js?_=<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
 			function fileChange(e){

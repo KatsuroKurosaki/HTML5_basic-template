@@ -6,7 +6,7 @@
 
 	<div class="collapse navbar-collapse" id="navbar">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item<?=(_FILE=="index")?' active':''?>">
+			<li class="nav-item<?=(_FILE == "index") ? ' active' : ''?>">
 				<a class="nav-link" href="#">Home</a>
 			</li>
 			<li class="nav-item">

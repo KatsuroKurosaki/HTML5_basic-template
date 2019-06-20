@@ -18,28 +18,28 @@
 
 class RouterosAPI
 {
-    var $debug     = false; //  Show debug information
-    var $debugLog  = '';    //  If $debug is disabled, I need the log stored here.
-    var $connected = false; //  Connection state
-    var $port      = 8728;  //  Port to connect to (default 8729 for ssl)
-    var $ssl       = false; //  Connect using SSL (must enable api-ssl in IP/Services)
-    var $timeout   = 3;     //  Connection attempt timeout and data read timeout
-    var $attempts  = 5;     //  Connection attempt count
-    var $delay     = 3;     //  Delay between connection attempts in seconds
+    public $debug = false; //  Show debug information
+    public $debugLog = ''; //  If $debug is disabled, I need the log stored here.
+    public $connected = false; //  Connection state
+    public $port = 8728; //  Port to connect to (default 8729 for ssl)
+    public $ssl = false; //  Connect using SSL (must enable api-ssl in IP/Services)
+    public $timeout = 3; //  Connection attempt timeout and data read timeout
+    public $attempts = 5; //  Connection attempt count
+    public $delay = 3; //  Delay between connection attempts in seconds
 
-    var $socket;            //  Variable for storing socket resource
-    var $error_no;          //  Variable for storing connection error number, if any
-    var $error_str;         //  Variable for storing connection error text, if any
+    public $socket; //  Variable for storing socket resource
+    public $error_no; //  Variable for storing connection error number, if any
+    public $error_str; //  Variable for storing connection error text, if any
 
     /* Check, can be var used in foreach  */
     public function isIterable($var)
     {
         return $var !== null
-                && (is_array($var)
-                || $var instanceof Traversable
-                || $var instanceof Iterator
-                || $var instanceof IteratorAggregate
-                );
+            && (is_array($var)
+            || $var instanceof Traversable
+            || $var instanceof Iterator
+            || $var instanceof IteratorAggregate
+        );
     }
 
     /**
@@ -57,7 +57,6 @@ class RouterosAPI
             $this->debugLog .= $text . "\n";
         }
     }
-
 
     /**
      *
@@ -86,7 +85,6 @@ class RouterosAPI
         return $length;
     }
 
-
     /**
      * Login to RouterOS
      *
@@ -100,10 +98,10 @@ class RouterosAPI
     {
         for ($ATTEMPT = 1; $ATTEMPT <= $this->attempts; $ATTEMPT++) {
             $this->connected = false;
-            $PROTOCOL = ($this->ssl ? 'ssl://' : '' );
+            $PROTOCOL = ($this->ssl ? 'ssl://' : '');
             $context = stream_context_create(array('ssl' => array('ciphers' => 'ADH:ALL', 'verify_peer' => false, 'verify_peer_name' => false)));
             $this->debug('Connection attempt #' . $ATTEMPT . ' to ' . $PROTOCOL . $ip . ':' . $this->port . '...');
-            $this->socket = @stream_socket_client($PROTOCOL . $ip.':'. $this->port, $this->error_no, $this->error_str, $this->timeout, STREAM_CLIENT_CONNECT,$context);
+            $this->socket = @stream_socket_client($PROTOCOL . $ip . ':' . $this->port, $this->error_no, $this->error_str, $this->timeout, STREAM_CLIENT_CONNECT, $context);
             if ($this->socket) {
                 socket_set_timeout($this->socket, $this->timeout);
                 $this->write('/login', false);
@@ -147,7 +145,6 @@ class RouterosAPI
         return $this->connected;
     }
 
-
     /**
      * Disconnect from RouterOS
      *
@@ -156,13 +153,12 @@ class RouterosAPI
     public function disconnect()
     {
         // let's make sure this socket is still valid.  it may have been closed by something else
-        if( is_resource($this->socket) ) {
+        if (is_resource($this->socket)) {
             fclose($this->socket);
         }
         $this->connected = false;
         $this->debug('Disconnected...');
     }
-
 
     /**
      * Parse response from Router OS
@@ -174,15 +170,15 @@ class RouterosAPI
     public function parseResponse($response)
     {
         if (is_array($response)) {
-            $PARSED      = array();
-            $CURRENT     = null;
+            $PARSED = array();
+            $CURRENT = null;
             $singlevalue = null;
             foreach ($response as $x) {
-                if (in_array($x, array('!fatal','!re','!trap'))) {
+                if (in_array($x, array('!fatal', '!re', '!trap'))) {
                     if ($x == '!re') {
-                        $CURRENT =& $PARSED[];
+                        $CURRENT = &$PARSED[];
                     } else {
-                        $CURRENT =& $PARSED[$x][];
+                        $CURRENT = &$PARSED[$x][];
                     }
                 } elseif ($x != '!done') {
                     $MATCHES = array();
@@ -205,7 +201,6 @@ class RouterosAPI
         }
     }
 
-
     /**
      * Parse response from Router OS
      *
@@ -216,15 +211,15 @@ class RouterosAPI
     public function parseResponse4Smarty($response)
     {
         if (is_array($response)) {
-            $PARSED      = array();
-            $CURRENT     = null;
+            $PARSED = array();
+            $CURRENT = null;
             $singlevalue = null;
             foreach ($response as $x) {
-                if (in_array($x, array('!fatal','!re','!trap'))) {
+                if (in_array($x, array('!fatal', '!re', '!trap'))) {
                     if ($x == '!re') {
-                        $CURRENT =& $PARSED[];
+                        $CURRENT = &$PARSED[];
                     } else {
-                        $CURRENT =& $PARSED[$x][];
+                        $CURRENT = &$PARSED[$x][];
                     }
                 } elseif ($x != '!done') {
                     $MATCHES = array();
@@ -247,7 +242,6 @@ class RouterosAPI
             return array();
         }
     }
-
 
     /**
      * Change "-" and "/" from array key to "_"
@@ -274,7 +268,6 @@ class RouterosAPI
         }
     }
 
-
     /**
      * Read data from Router OS
      *
@@ -284,12 +277,12 @@ class RouterosAPI
      */
     public function read($parse = true)
     {
-        $RESPONSE     = array();
+        $RESPONSE = array();
         $receiveddone = false;
         while (true) {
             // Read the first byte of input which gives us some or all of the length
             // of the remaining reply.
-            $BYTE   = ord(fread($this->socket, 1));
+            $BYTE = ord(fread($this->socket, 1));
             $LENGTH = 0;
             // If the first bit is set then we need to remove the first four bits, shift left 8
             // and then read another byte in.
@@ -324,7 +317,7 @@ class RouterosAPI
 
             // If we have got more characters to read, read them in.
             if ($LENGTH > 0) {
-                $_      = "";
+                $_ = "";
                 $retlen = 0;
                 while ($retlen < $LENGTH) {
                     $toread = $LENGTH - $retlen;
@@ -356,7 +349,6 @@ class RouterosAPI
 
         return $RESPONSE;
     }
-
 
     /**
      * Write (send) data to Router OS
@@ -391,7 +383,6 @@ class RouterosAPI
             return false;
         }
     }
-
 
     /**
      * Write (send) data to Router OS

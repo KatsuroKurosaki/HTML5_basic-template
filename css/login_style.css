@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-html, body {
+html,
+body {
 	height: 100%;
 }
 
@@ -11,7 +12,10 @@ body {
 	background-position-x: center;
 	background-position-y: center;
 	background-repeat: no-repeat;
-	background-size: cover;
+	-webkit-background-size: cover;
+	   -moz-background-size: cover;
+	     -o-background-size: cover;
+	        background-size: cover;
 	/*background-blend-mode: overlay;
 	background-clip: border-box;
 	background-color: #444;
@@ -21,5 +25,7 @@ body {
 .form-signin {
 	max-width: 310px;
 	background-color: rgba(255, 255, 255, .25);
-	border-radius: .2em;
+	-webkit-border-radius: .2em;
+	   -moz-border-radius: .2em;
+	        border-radius: .2em;
 }

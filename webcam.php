@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php require 'header.php'; ?>
-		<?php require 'headercss.php'; ?>
+		<?php require 'header.php';?>
+		<?php require 'headercss.php';?>
 		<link href="css/main_style.css?_=<?=filemtime('css/main_style.css')?>" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
-		<?php define("_FILE",basename(__FILE__,'.php')); require 'navbar.php'; ?>
-		
+		<?php define("_FILE", basename(__FILE__, '.php'));require 'navbar.php';?>
+
 		<main role="main" class="container pt-2 pb-5">
-			
+
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-primary" onclick="javascript:detectWebcams();">Detect webcams</button>
 				<button type="button" class="btn btn-primary" onclick="javascript:previewWebcam();">Preview camera</button>
@@ -28,15 +28,15 @@
 				<video id="videoPreview" class="w-100"></video>
 			</div>
 		</main>
-		
-		<?php require 'footer.php'; ?>
-		<?php require 'footerjs.php'; ?>
+
+		<?php require 'footer.php';?>
+		<?php require 'footerjs.php';?>
 		<script src="js/functions.js?_=<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
-			
+
 			function detectWebcams(){
 				$("select[name='cameras'] option").remove();
-				
+
 				navigator.mediaDevices.enumerateDevices().then((devices)=>{
 					devices.forEach((device)=>{
 						if(device.kind == "videoinput"){
@@ -47,12 +47,12 @@
 					$.spawnAlert({title:"Error",body:err,color:"danger"});
 				});
 			}
-			
+
 			function previewWebcam(){
 				if($("select[name='cameras'] option").length>0){
 					// Stop previews
 					stopPreview();
-					
+
 					// Video restrictions
 					var constraints = {
 						audio: false,
@@ -76,7 +76,7 @@
 							}
 						}
 					};
-					
+
 					// Preview
 					navigator.mediaDevices.getUserMedia(constraints).then((stream)=>{
 						var video = $("#videoPreview").get(0);
@@ -89,7 +89,7 @@
 					$.spawnAlert({title:"Error",body:"No cameras detected.",color:"warning"});
 				}
 			}
-			
+
 			function stopPreview(){
 				var video = $("#videoPreview").get(0);
 				if( video.srcObject != null ){
@@ -100,15 +100,15 @@
 					video.srcObject = null;
 				}
 			}
-			
+
 			function takePicture(){
 				var c = document.createElement("canvas");
 				c.width = $("#videoPreview").width();
 				c.height = $("#videoPreview").height();
-				
+
 				var ctx = c.getContext("2d");
 				ctx.drawImage($("#videoPreview").get(0), 0, 0, c.width, c.height);
-				
+
 				var dlLink = document.createElement('a');
 				//dlLink.target = '_blank';
 				dlLink.download = $.randomUUID()+".jpg";
@@ -118,8 +118,8 @@
 				dlLink.click();
 				document.body.removeChild(dlLink);
 			}
-			
+
 		</script>
-		
+
 	</body>
 </html>

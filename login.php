@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<?php require 'header.php'; ?>
-		<?php require 'headercss.php'; ?>
+		<?php require 'header.php';?>
+		<?php require 'headercss.php';?>
 		<link href="css/login_style.css?_=<?=filemtime('css/login_style.css')?>" type="text/css" rel="stylesheet" />
 	</head>
 	<body class="d-flex justify-content-center align-items-center">
@@ -29,7 +29,7 @@
 				<p class="small text-center">&copy; <?=date('Y')?> - Company</p>
 			</div>
 		</form>
-		<?php require 'footerjs.php'; ?>
+		<?php require 'footerjs.php';?>
 		<script src="js/functions.js?_=<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
 			$(window).on("load",function(){
