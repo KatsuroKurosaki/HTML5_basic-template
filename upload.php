@@ -19,7 +19,7 @@
 		</form>
 		<?php require 'footer.php';?>
 		<?php require 'footerjs.php';?>
-		<script src="js/functions.js?<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
+		<script src="js/functions.min.js?<?=filemtime('js/functions.min.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
 			function fileChange(e){
 				if(e.target.files.length>0){

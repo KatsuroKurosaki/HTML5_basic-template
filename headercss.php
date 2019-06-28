@@ -6,4 +6,4 @@
 <link href="css/animate.min-3.7.2.css" type="text/css" rel="stylesheet" />
 
 <!-- Global styles -->
-<link href="css/common_style.css?<?=filemtime('css/common_style.css')?>" type="text/css" rel="stylesheet" />
+<link href="css/common_style.min.css?<?=filemtime('css/common_style.min.css')?>" type="text/css" rel="stylesheet" />

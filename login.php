@@ -3,7 +3,7 @@
 	<head>
 		<?php require 'header.php';?>
 		<?php require 'headercss.php';?>
-		<link href="css/login_style.css?<?=filemtime('css/login_style.css')?>" type="text/css" rel="stylesheet" />
+		<link href="css/login_style.min.css?<?=filemtime('css/login_style.min.css')?>" type="text/css" rel="stylesheet" />
 	</head>
 	<body class="d-flex justify-content-center align-items-center">
 		<form class="form-row form-signin text-light px-3 py-4" style="display:none;">
@@ -30,7 +30,7 @@
 			</div>
 		</form>
 		<?php require 'footerjs.php';?>
-		<script src="js/functions.js?<?=filemtime('js/functions.js')?>" type="text/javascript" charset="UTF-8"></script>
+		<script src="js/functions.min.js?<?=filemtime('js/functions.min.js')?>" type="text/javascript" charset="UTF-8"></script>
 		<script type="text/javascript">
 			$(window).on("load",function(){
 				$("form").css("display","").on("submit",function(e){
