@@ -101,4 +101,40 @@ class MongoDB
         return true;
     }
 
+    public static function bulkInsert(String $collection, array $data)
+    {
+        try {
+            $bulk = new \MongoDB\Driver\BulkWrite();
+            foreach ($data as $k => $v) {
+                $bulk->insert($v);
+            }
+            self::getInstance()->getConnection()->executeBulkWrite(MongoConf::DB_DDBB . '.' . $collection, $bulk);
+            unset($bulk);
+        } catch (\Exception $e) {
+            //var_dump($e);
+            return false;
+        }
+        return true;
+    }
+
+    public static function query(String $collection, array $filter, array $queryOptions = array())
+    {
+        /*
+        Loop example
+        foreach ($cursor as $document) {
+        var_dump($document);
+        var_dump((array) $document);
+        }
+         */
+        try {
+            $query = new \MongoDB\Driver\Query($filter, $queryOptions);
+            $cursor = $manager->executeQuery(MongoConf::DB_DDBB . '.' . $collection, $query);
+            unset($query);
+            return $cursor;
+        } catch (\Exception $e) {
+            //var_dump($e);
+            return null;
+        }
+    }
+
 }
