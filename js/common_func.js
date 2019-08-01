@@ -520,7 +520,7 @@
 					preventclose: true,
 					fadespawn: true,
 					verticalcenter: false,
-					size: 'md', // lg, md, sm
+					size: 'md', // lg, md, sm, full
 					buttons: [{
 						label: 'Cerrar',
 						dismiss: true
@@ -594,7 +594,7 @@
 					preventclose: true,
 					fadespawn: true,
 					verticalcenter: false,
-					size: 'md', // lg, md, sm
+					size: 'md', // lg, md, sm, full
 					buttons: [],
 					spawnSpinner: true,
 					debug: false
