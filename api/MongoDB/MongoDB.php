@@ -130,7 +130,7 @@ class MongoDB
             $query = new \MongoDB\Driver\Query($filter, $queryOptions);
             $cursor = $manager->executeQuery(MongoConf::DB_DDBB . '.' . $collection, $query);
             unset($query);
-            return $cursor;
+            return $cursor->toArray();
         } catch (\Exception $e) {
             //var_dump($e);
             return null;
