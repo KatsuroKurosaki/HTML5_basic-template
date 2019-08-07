@@ -1,5 +1,5 @@
 <?php
-namespace Db;
+namespace MySQLDb;
 
 class DbErrorStatement extends \Exception
 {

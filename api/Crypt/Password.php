@@ -1,4 +1,5 @@
 <?php
+namespace Crypt;
 
 class Password
 {

@@ -44,7 +44,7 @@ class CurlWrapper
     public function __destruct()
     {
         curl_close($this->_curl);
-        if (file($this->_cookieJar)) {
+        if (isset($this->_cookieJar) && file($this->_cookieJar)) {
             unlink($this->_cookieJar);
         }
     }

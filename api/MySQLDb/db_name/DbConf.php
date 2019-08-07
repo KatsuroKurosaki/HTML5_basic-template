@@ -1,5 +1,5 @@
 <?php
-namespace Db\db_name;
+namespace MySQLDb\db_name;
 
 class DbConf
 {

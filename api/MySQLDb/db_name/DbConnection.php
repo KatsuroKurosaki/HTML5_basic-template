@@ -1,7 +1,7 @@
 <?php
-namespace Db\db_name;
+namespace MySQLDb\db_name;
 
-class DbConnection extends \Db\DbClass
+class DbConnection extends \MySQLDb\DbClass
 {
 
     static $_instance;

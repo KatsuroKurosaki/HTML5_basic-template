@@ -1,6 +1,6 @@
 <?php
 
-namespace Db;
+namespace MongoDB;
 
 class MongoConf
 {
