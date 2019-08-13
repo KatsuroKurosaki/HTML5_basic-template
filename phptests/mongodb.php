@@ -18,6 +18,20 @@ $manager = new MongoDB\Driver\Manager(
     ]
 );
 
+// List databases and collections
+$listdatabases = new MongoDB\Driver\Command(["listDatabases" => 1]);
+$result = $manager->executeCommand("admin", $listdatabases);
+$databases = $result->toArray()[0];
+foreach ($databases->databases as $database) {
+    echo $database->name, "\n";
+    $listcollections = new MongoDB\Driver\Command(["listCollections" => 1]);
+    $result = $manager->executeCommand($database->name, $listcollections);
+    $collections = $result->toArray();
+    foreach ($collections as $collection) {
+        echo "\t* ", $collection->name, "\n";
+    }
+}
+
 // Insert
 $bulk = new MongoDB\Driver\BulkWrite();
 $bulk->insert([
