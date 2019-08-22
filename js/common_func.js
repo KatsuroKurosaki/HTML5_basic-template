@@ -488,18 +488,24 @@
 			if (!$("#spinner").length) {
 				var _options = $.extend({
 					text: "Loading...",
-					color: "dark", // primary, secondary, success, danger, warning, info, light, dark
-					bgcolor: "rgba(255,255,255,.5)",
-					icon: "border", // border, grow
+					textcolor: "dark", // primary, secondary, success, danger, warning, info, light, dark
+					bgcolor: "rgba(0,0,0,.33)",
+					innerbgcolor: "rgba(255,255,255,.9);",
+					innerborder: "1px solid rgba(128,128,128,.9);",
+					icon: "grow", // border, grow
 					size: 2
 				}, options);
 
-				$("body").append('<div id="spinner" class="fixed-top d-flex flex-column align-items-center justify-content-center text-' + _options.color + '" style="background-color:' + _options.bgcolor + ';bottom:0;z-index:1111;">' +
+				$("body").append(
+					'<div id="spinner" class="fixed-top d-flex flex-column align-items-center justify-content-center" style="background-color:' + _options.bgcolor + ';bottom:0;z-index:1111;">' +
+					'<div class="p-3 text-' + _options.textcolor + ' text-center rounded-lg" style="background-color:' + _options.innerbgcolor + ';border:' + _options.innerborder + ';max-width:75%;">' +
 					'<div class="spinner-' + _options.icon + '" style="width:' + _options.size + 'rem;height:' + _options.size + 'rem;" role="status">' +
 					'<span class="sr-only">' + _options.text + '</span>' +
 					'</div>' +
 					'<div>' + _options.text + '</div>' +
-					'</div>');
+					'</div>' +
+					'</div>'
+				);
 			}
 		},
 
