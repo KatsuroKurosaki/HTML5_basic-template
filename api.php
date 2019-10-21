@@ -24,7 +24,7 @@ register_shutdown_function(function () {
 
 header('Content-Type: application/json; charset=utf-8');
 require __DIR__ . '/api/autoload.php';
-$_in = json_decode(file_get_contents("php://input"), true);
+$_in = (empty($_POST) && empty($_FILES)) ? json_decode(file_get_contents("php://input"), true) : $_POST;
 $_out = [];
 
 if ($_in !== null) {
@@ -37,6 +37,21 @@ if ($_in !== null) {
                     "color" => "success",
                     "code" => 0,
                 ]);
+                break;
+
+            case 'UPLOAD_FILE':
+                if (!empty($_FILES)) {
+                    move_uploaded_file($_FILES['file']['tmp_name'], './upload/' . $_FILES['file']['name']);
+                    $_out = \GlobalFunctions::returnOut([
+                        "msg" => "File uploaded.",
+                    ]);
+                } else {
+                    $_out = \GlobalFunctions::returnOut([
+                        "status" => "ko",
+                        "msg" => "No file received.",
+                        "color" => "warning",
+                    ]);
+                }
                 break;
 
             default:
