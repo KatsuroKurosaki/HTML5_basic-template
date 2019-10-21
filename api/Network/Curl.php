@@ -1,7 +1,7 @@
 <?php
 namespace Network;
 
-class CurlWrapper
+class Curl
 {
 
     const HTTP_REQUEST_GET = "GET";
@@ -55,10 +55,16 @@ class CurlWrapper
         return curl_setopt($this->_curl, $option, $value);
     }
 
-    public function setUrl($url)
+    public function setUrl(string $url)
     {
         $this->_url = $url;
         $this->setParam(CURLOPT_URL, $this->_url);
+    }
+
+    public function setUserAgent(string $userAgent)
+    {
+        $this->_useragent = $userAgent;
+        $this->setParam(CURLOPT_USERAGENT, $this->_useragent);
     }
 
     public function setSslCheck($value)
