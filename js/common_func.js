@@ -270,6 +270,12 @@
 				contentType: 'application/json; charset=UTF-8',
 				beforeSend: function () {},
 				success: function (data) {},
+				failure: function (data) {
+					$.spawnAlert({
+						body: data.msg,
+						color: data.color
+					});
+				},
 				error: function (jqXHR) {},
 				complete: function () {},
 				spawnSpinner: true,
@@ -296,10 +302,7 @@
 					if (data.status === 'ok')
 						_settings.success(data);
 					else
-						$.spawnAlert({
-							body: data.msg,
-							color: data.color
-						});
+						_settings.failure(data);
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
@@ -331,6 +334,12 @@
 				},
 				beforeSend: function () {},
 				success: function (data) {},
+				failure: function (data) {
+					$.spawnAlert({
+						body: data.msg,
+						color: data.color
+					});
+				},
 				error: function (jqXHR) {},
 				complete: function () {},
 				spawnSpinner: true,
@@ -388,10 +397,7 @@
 					if (data.status === 'ok')
 						_settings.success(data);
 					else
-						$.spawnAlert({
-							body: data.msg,
-							color: data.color
-						});
+						_settings.failure(data);
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
