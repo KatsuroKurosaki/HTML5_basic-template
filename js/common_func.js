@@ -539,10 +539,17 @@
 					color: "danger"
 				});
 				break;
+			case 405:
+				$.spawnAlert({
+					title: "Error 405",
+					"body": "Method not allowed for the requested resource.",
+					color: "danger"
+				});
+				break;
 			case 404:
 				$.spawnAlert({
 					title: "Error 404",
-					"body": "The requested resource coould not be found.",
+					"body": "The requested resource could not be found.",
 					color: "danger"
 				});
 				break;
@@ -704,7 +711,7 @@
 			if (!$("#modal").length) {
 				// Remote modal AJAX settings
 				var _settings = $.extend({
-					method: "POST",
+					method: "GET",
 					url: "",
 					data: {},
 					timeout: 10000,
