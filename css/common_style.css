@@ -43,6 +43,26 @@
     min-height: 100vh;
 }
 
+/* Very custom file input control */
+.file-input {
+    position: relative;
+    overflow: hidden;
+}
+
+.file-input .file-input-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    opacity: 0;
+}
+
+.file-input .file-input-label {
+    z-index: 1;
+}
+
 
 /* Pointer forms */
 

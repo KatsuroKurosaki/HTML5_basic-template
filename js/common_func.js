@@ -935,8 +935,6 @@
 						file: _settings.imgFile
 					}]);
 			}
-
-
 		}
 	};
 
