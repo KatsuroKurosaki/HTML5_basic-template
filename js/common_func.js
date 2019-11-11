@@ -764,8 +764,18 @@
 			}
 		},
 
-		removeModal: function () {
-			// Hides modal and the hide event removes it from DOM
+		removeModal: function (options) {
+			var _settings = $.extend({
+				hidden: function () {},
+				delayhidden: 100,
+			}, options);
+
+			$('#modal').on('hidden.bs.modal', function () {
+				setTimeout(
+					_settings.hidden,
+					_settings.delayhidden
+				);
+			});
 			$('#modal').modal('hide');
 		},
 
