@@ -200,7 +200,7 @@
 	<?php require 'footerjs.htm'; ?>
 	<script src="js/functions.min.js?<?= filemtime('js/functions.min.js') ?>" type="text/javascript" charset="UTF-8"></script>
 	<script type="text/javascript">
-		generateSideMenu()
+		generateSideMenu();
 	</script>
 </body>
 

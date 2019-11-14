@@ -40,7 +40,7 @@
 				</section>
 
 				<section id="sec2dhms">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.autoappear</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Bootstrap colorpicker</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -57,7 +57,7 @@
 				</section>
 
 				<section id="bytes2humanReadable">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.align-content-evenly</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Bootswatch</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -74,7 +74,7 @@
 				</section>
 
 				<section id="bits2humanReadable">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.display-5</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">DataTables</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -91,7 +91,7 @@
 				</section>
 
 				<section id="round">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.modal-full</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Filesizejs</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -108,7 +108,7 @@
 				</section>
 
 				<section id="uts2dt">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.file-input</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">FontAwesome</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -125,7 +125,7 @@
 				</section>
 
 				<section id="uts2dtm">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.txt-unselectable</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Fullcalendar</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -142,7 +142,7 @@
 				</section>
 
 				<section id="uts2td">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.cursor-(auto|pointer|...)</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Highcharts</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -159,7 +159,7 @@
 				</section>
 
 				<section id="uts2tmd">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.txtcolor-(...)</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">jQuery masked input</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -176,7 +176,160 @@
 				</section>
 
 				<section id="uts2tmd">
-					<h2 class="font-weight-bold border-bottom overflow-hidden">.bgcolor-(...)</h2>
+					<h2 class="font-weight-bold border-bottom overflow-hidden">jQuery UI datepicker</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">jQuery UI interactions</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">jQuery validation</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Moment</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Moment duration format</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Moment timezone</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Reconnecting websocket</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Select2</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Simple pagination</h2>
+					<div class="row">
+						<div class="col-12 col-sm-6">
+							<p>Useful function to retrieve values from the URL quesrystring.</p>
+						</div>
+						<div class="col-12 col-sm-6">
+							<kbd class="d-block">$.uts2tmd(<i>key</i>);</kbd>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item">
+									<h4>key</h4>
+									<label>Returns the specified value from querystring. Returns null if not found.</label>
+								</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="uts2tmd">
+					<h2 class="font-weight-bold border-bottom overflow-hidden">Trumbowyg</h2>
 					<div class="row">
 						<div class="col-12 col-sm-6">
 							<p>Useful function to retrieve values from the URL quesrystring.</p>
@@ -200,7 +353,7 @@
 	<?php require 'footerjs.htm'; ?>
 	<script src="js/functions.min.js?<?= filemtime('js/functions.min.js') ?>" type="text/javascript" charset="UTF-8"></script>
 	<script type="text/javascript">
-		generateSideMenu()
+		generateSideMenu();
 	</script>
 </body>
 

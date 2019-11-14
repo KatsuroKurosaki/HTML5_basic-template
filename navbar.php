@@ -16,14 +16,32 @@
 				<a class="nav-link" href="phosphorphp_css.php">phosphorphp-ui.css</a>
 			</li>
 			<li class="nav-item dropdown autoappear">
-				<a class="nav-link dropdown-toggle<?= (_FILE == 'phosphor_jslibs') ? ' active' : '' ?>" href="#" id="jscsslibs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Extra JS/CSS
+				<a class="nav-link dropdown-toggle<?= (_FILE == 'phosphor_jscsslibs') ? ' active' : '' ?>" href="#" id="jscsslibs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Extra resources
 				</a>
 				<div class="dropdown-menu" aria-labelledby="jscsslibs">
-					<a class="dropdown-item" href="phosphor_jslibs.php#animatecss">AnimateCSS</a>
-					<a class="dropdown-item" href="phosphor_jslibs.php#animatecss">Font Awesome</a>
-					<a class="dropdown-item" href="phosphor_jslibs.php#animatecss">MomentJS</a>
-					<a class="dropdown-item" href="phosphor_jslibs.php#animatecss">Select2</a>
+					<a class="dropdown-item" href="info.php">PHP info</a>
+					<a class="dropdown-item" href="login.php">Login page</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#animatecss">AnimateCSS</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Bootstrap colorpicker</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Bootswatch</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">DataTables</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Filesizejs</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">FontAwesome</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Fullcalendar</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Highcharts</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">jQuery masked input</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">jQuery UI datepicker</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">jQuery UI interactions</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">jQuery validation</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Moment</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Moment duration format</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Moment timezone</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Reconnecting websocket</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Select2</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Simple pagination</a>
+					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Trumbowyg</a>
 				</div>
 			</li>
 			<li class="nav-item">
