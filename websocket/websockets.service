@@ -1,0 +1,13 @@
+[Unit]
+Description=websockets
+
+[Service]
+User=admin
+Group=admin
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/mnt/xvdf1/nodews/websockets.sh start
+ExecStop=/mnt/xvdf1/nodews/websockets.sh stop
+
+[Install]
+WantedBy=multi-user.target
