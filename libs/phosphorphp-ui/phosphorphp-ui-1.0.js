@@ -791,7 +791,7 @@
 				body: "",
 				color: "info",
 				showclose: true,
-				closetimeout: 5000,
+				delay: 5000,
 				css_animate: "fadeInRight", // If animateCss jQuery plugin exists, will perform an extra spawn animation. Change default animation here
 				toastId: $.randomInt()
 			}, options);
@@ -803,7 +803,7 @@
 
 			// Add alert/toast to the DOM
 			$("#toaster").append(
-				'<div id="toast-' + _settings.toastId + '" class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="' + _settings.closetimeout + '">' +
+				'<div id="toast-' + _settings.toastId + '" class="toast shadow-lg" role="alert" aria-live="assertive" aria-atomic="true" data-delay="' + _settings.delay + '">' +
 				'<div class="toast-header">' +
 				'<div class="rounded mr-2" style="width:20px;height:20px;background-color:var(--' + _settings.color + ');"></div>' +
 				'<strong class="mr-auto">' + _settings.title + '</strong>' +
@@ -849,10 +849,9 @@
 
 	});
 
-
-	// Adds the unchecked checkboxes to the serializeArray funcion
-	$.fn.serializeArrayFull = function () {
-		return this.serializeArray().concat(
+	// Creates an arrayAdds the unchecked checkboxes to the serializeArray funcion
+	$.fn.serializeForm = function () {
+		var data = this.serializeArray().concat(
 			this.find("input[type='checkbox']:not(:checked)").map(function () {
 				return {
 					"name": this.name,
@@ -860,11 +859,6 @@
 				}
 			}).get()
 		);
-	};
-
-	// Creates an arrayAdds the unchecked checkboxes to the serializeArray funcion
-	$.fn.serializeForm = function () {
-		var data = this.serializeArrayFull();
 		var serialized = new Object();
 		for (var idx in data) {
 			serialized[data[idx].name] = data[idx].value;
@@ -946,32 +940,6 @@
 					}]);
 			}
 		}
-	};
-
-	// Animate.css jQuery plugin
-	$.fn.animateCss = function (options) {
-		var _settings = $.extend({}, $.fn.animateCss.defaults, options);
-
-		_settings.begin.call(this);
-		this.addClass("animated " + _settings.effect + ((_settings.infinite) ? " infinite" : ""));
-		this.css("animation-duration", _settings.duration);
-		this.css("animation-delay", _settings.delay);
-		this.one("webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend", function () {
-			$(this).removeClass("animated " + _settings.effect);
-			$(this).css("animation-duration", "");
-			$(this).css("animation-delay", "");
-			_settings.end.call(this);
-		});
-
-		return this;
-	};
-	$.fn.animateCss.defaults = {
-		effect: "bounce", // One of the effects available.
-		duration: "1s", // Amount of seconds that the effect will be active.
-		delay: "0s", // Amount of seconds before the effect begins.
-		infinite: false, // Will the effect run infinitely?
-		begin: function () {}, // Function to execute before the effect starts. Doesn't care about delay.
-		end: function () {} // Function to execute when the effect ends. Won't run if infinite:true!
 	};
 
 	// I am surprised jQuery doesn't have a $(selector).renameAttr() method.
