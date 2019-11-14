@@ -6,7 +6,7 @@
 <meta name="author" content="Katsuro Kurosaki" />
 <meta name="generator" content="PhosphorPHP" />
 <meta name="description" content="Basic PhosphorPHP project to start from scratch." />
-<meta name="theme-color" content="#000000" />
+<meta name="theme-color" content="#800080" />
 
 <link rel="icon" sizes="192x192" href="favicon.png">
 <link rel="apple-touch-icon" href="favicon.png">
