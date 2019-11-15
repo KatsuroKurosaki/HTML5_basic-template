@@ -22,10 +22,3 @@
 		return this;
 	};
 }(jQuery));
-
-/*
- TO DO:
- - Check if an effect exists: https://stackoverflow.com/questions/983586/how-can-you-determine-if-a-css-class-exists-with-javascript
- - Delay classes: delay-1s delay-2s delay-3s delay-4s delay-5s
- - Animation classes: slow(2s) slower(3s) fast(800ms) faster(500ms)
-*/
