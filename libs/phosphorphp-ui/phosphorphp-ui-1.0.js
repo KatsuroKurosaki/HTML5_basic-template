@@ -475,7 +475,7 @@
 				});
 			} else if ('WebSocket' in window) {
 				_ws = new WebSocket(_settings.url);
-				console.warn("ReconnectingWebSocket not found, using standard WebSocket.");
+				console.warn("ReconnectingWebSocket library not found, using standard WebSocket.");
 			} else {
 				console.error("No WebSocket modules found, exiting.");
 				return;
