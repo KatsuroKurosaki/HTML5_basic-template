@@ -1,19 +1,29 @@
 <?php
-require __DIR__ . "/routeros_api.class.php";
+require __DIR__ . "/../class/autoload.php";
 
-$mktapi = new RouterosAPI();
+$mktapi = new \RouterosAPI();
 $mktapi->debug = true;
-$mktapi->port = 8728;
 $mktapi->ssl = true;
-if ($mktapi->connect("192.168.144.120", "admin", "admin")) {
+$mktapi->port = 8728;
+$mktapi->attempts = 1;
+$mktapi->delay = 0;
+$mktapi->timeout = 9;
 
-	$response = $mktapi->comm('/interface/print');
+if ($mktapi->connect('192.168.144.120', 'admin', 'admin')) {
 
-	// $mktapi->write('/interface/print');
-	// $response = $mktapi->read(false);
-	// $data = $mktapi->parseResponse($response);
+	// Read
+	$comm = $mikrotik->comm(
+		'"/system/resource/print'
+	);
+	print_r($comm);
 
-	print_r($response);
-
-	$mktapi->disconnect();
+	// Write
+	$comm = $mikrotik->comm(
+		'/system/package/update/set',
+		array(
+			'channel' => 'long-term'
+		)
+	);
+	var_dump($comm);
 }
+$mktapi->disconnect();
