@@ -1,5 +1,7 @@
 <?php
 
+namespace Network;
+
 /*****************************
  *
  * RouterOS PHP API class v1.7
