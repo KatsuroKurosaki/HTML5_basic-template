@@ -17,11 +17,15 @@ if ($stmt->errno) {
 } // Return 1 error
 // if($stmt->error){$out['status']="ko"; $out['msg']=$stmt->error_list; die(json_encode($out));} // Return all errors
 $out['data'] = $stmt->get_result()->fetch_all(MYSQLI_ASSOC); // Get all rows
-if (count($out['data']) == 0) { } // Check if we have 0 rows
+if (count($out['data']) == 0) {
+} // Check if we have 0 rows
 $out['data'] = $stmt->get_result()->fetch_assoc(); // Get 1 row because SQL query returned 1 row and we know it
-if ($out['data'] == null) { } // Check if we have 0 rows
+if ($out['data'] == null) {
+} // Check if we have 0 rows
 $insert_id = $stmt->insert_id; // Get inserted AUTO_INCREMENT
 $stmt->affected_rows; // Get number of affected rows in INSERT, UPDATE or DELETE
 $stmt->close();
 
 $conn->close();
+
+var_dump($out);
