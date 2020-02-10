@@ -87,18 +87,12 @@ function stopPreview() {
 		});
 		videoPreview.pause();
 		videoPreview.srcObject = null;
-	} else {
-		$.spawnAlert({
-			title: "Error",
-			body: "No video playback is active",
-			color: "warning"
-		});
 	}
 }
 
 function takePicture() {
 	var videoPreview = $("#videoPreview");
-	if (videoPreview.srcObject != null) {
+	if (videoPreview.get(0).srcObject != null) {
 		var c = document.createElement("canvas");
 		c.width = videoPreview.width();
 		c.height = videoPreview.height();
