@@ -23,7 +23,7 @@ register_shutdown_function(function () {
 });
 
 header('Content-Type: application/json; charset=utf-8');
-require __DIR__ . '/api/autoload.php';
+require __DIR__ . '/class/autoload.php';
 $_in = (empty($_POST) && empty($_FILES)) ? json_decode(file_get_contents("php://input"), true) : $_POST;
 $_out = [];
 
@@ -41,7 +41,7 @@ if ($_in !== null) {
 
 			case 'UPLOAD_FILE':
 				if (!empty($_FILES)) {
-					move_uploaded_file($_FILES['file']['tmp_name'], './upload/' . $_FILES['file']['name']);
+					move_uploaded_file($_FILES['file']['tmp_name'], __DIR__ . '/upload/' . time() . '_' . $_FILES['file']['name']);
 					$_out = \GlobalFunctions::returnOut([
 						"msg" => "File uploaded.",
 					]);
@@ -57,7 +57,7 @@ if ($_in !== null) {
 			default:
 				$_out = \GlobalFunctions::returnOut([
 					"status" => "no",
-					"msg" => "Received operation is invalid.",
+					"msg" => "Received operation not found.",
 					"color" => "warning",
 					"code" => -1,
 				]);
