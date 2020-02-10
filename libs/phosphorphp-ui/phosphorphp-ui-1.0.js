@@ -147,6 +147,7 @@
 				console.log(localStorage.key(i) + " = " + $.bytes2humanReadable(amount));
 			}
 			console.log("--\nTotal: " + $.bytes2humanReadable(total));
+			return total;
 		},
 		setSessionData: function (id, data) {
 			if (typeof (Storage) !== "undefined") {
@@ -193,6 +194,7 @@
 				console.log(sessionStorage.key(i) + " = " + $.bytes2humanReadable(amount));
 			}
 			console.log("--\nTotal: " + $.bytes2humanReadable(total));
+			return total;
 		}
 	});
 
@@ -528,42 +530,42 @@
 			case 504:
 				$.spawnAlert({
 					title: "Error 504",
-					"body": "Server timeout on a remote request.",
+					body: "Server timeout on a remote request.",
 					color: "danger"
 				});
 				break;
 			case 500:
 				$.spawnAlert({
 					title: "Error 500",
-					"body": "Server error when processing your request.",
+					body: "Server error when processing your request.",
 					color: "danger"
 				});
 				break;
 			case 405:
 				$.spawnAlert({
 					title: "Error 405",
-					"body": "Method not allowed for the requested resource.",
+					body: "Method not allowed for the requested resource.",
 					color: "danger"
 				});
 				break;
 			case 404:
 				$.spawnAlert({
 					title: "Error 404",
-					"body": "The requested resource could not be found.",
+					body: "The requested resource could not be found.",
 					color: "danger"
 				});
 				break;
 			case 403:
 				$.spawnAlert({
 					title: "Error 403",
-					"body": "Access denied to the requested resource.",
+					body: "Access denied to the requested resource.",
 					color: "danger"
 				});
 				break;
 			case 401:
 				$.spawnAlert({
 					title: "Error 401",
-					"body": "No permissions for the requested resource.",
+					body: "No permissions for the requested resource.",
 					color: "danger"
 				});
 				break;
@@ -792,7 +794,7 @@
 				color: "info",
 				showclose: true,
 				delay: 5000,
-				css_animate: "fadeInRight", // If animateCss jQuery plugin exists, will perform an extra spawn animation. Change default animation here
+				animateCssEffect: "fadeInRight", // If animateCss jQuery plugin exists, will perform an extra spawn animation. Change default animation here
 				toastId: $.randomInt()
 			}, options);
 
@@ -824,7 +826,7 @@
 			if (typeof $.fn.animateCss !== 'undefined') {
 				$("#toast-" + _settings.toastId).on("show.bs.toast", function () {
 					$('#toast-' + _settings.toastId).animateCss({
-						effect: _settings.css_animate
+						effect: _settings.animateCssEffect
 					});
 				});
 			}
