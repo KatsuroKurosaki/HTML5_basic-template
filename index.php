@@ -4,7 +4,7 @@
 <head>
 	<?php require 'header.php'; ?>
 	<?php require 'headercss.htm'; ?>
-	<link href="css/main_style.min.css?<?= filemtime('css/main_style.min.css') ?>" type="text/css" rel="stylesheet" />
+	<link rel="stylesheet" href="css/main_style.min.css?<?= filemtime('css/main_style.min.css') ?>" />
 </head>
 
 <body>
@@ -22,7 +22,7 @@
 
 	<?php require 'footer.php'; ?>
 	<?php require 'footerjs.htm'; ?>
-	<script src="js/functions.min.js?<?= filemtime('js/functions.min.js') ?>" type="text/javascript" charset="UTF-8"></script>
+	<script src="js/functions.min.js?<?= filemtime('js/functions.min.js') ?>"></script>
 </body>
 
 </html>
