@@ -3,8 +3,8 @@
 
 <head>
 	<?php require 'header.php'; ?>
-	<?php require 'headercss.php'; ?>
-	<link href="css/login_style.min.css?<?= filemtime('css/login_style.min.css') ?>" type="text/css" rel="stylesheet" />
+	<?php require 'headercss.htm'; ?>
+	<link rel="stylesheet" href="css/login_style.min.css?<?= filemtime('css/login_style.min.css') ?>" />
 </head>
 
 <body class="d-flex justify-content-center align-items-center">
@@ -31,30 +31,8 @@
 			<p class="small text-center">&copy; <?= date('Y') ?> - Company</p>
 		</div>
 	</form>
-	<?php require 'footerjs.php'; ?>
-	<script src="js/functions.min.js?<?= filemtime('js/functions.min.js') ?>" type="text/javascript" charset="UTF-8"></script>
-	<script type="text/javascript">
-		$(window).on("load", function() {
-			$("form").css("display", "").on("submit", function(e) {
-				e.preventDefault();
-				$.api({
-					data: {
-						op: 'HELLO'
-					},
-					success: function(data) {
-						$.spawnAlert({
-							body: data.msg
-						});
-					}
-				});
-			}).animateCss({
-				effect: "zoomIn",
-				end: function() {
-					$("form input:first").focus();
-				}
-			});
-		});
-	</script>
+	<?php require 'footerjs.htm'; ?>
+	<script src="js/login.min.js?<?= filemtime('js/login.min.js') ?>"></script>
 </body>
 
 </html>
