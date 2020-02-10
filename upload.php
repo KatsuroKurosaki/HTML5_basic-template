@@ -3,7 +3,7 @@
 
 <head>
 	<?php require 'header.php'; ?>
-	<?php require 'headercss.php'; ?>
+	<?php require 'headercss.htm'; ?>
 </head>
 
 <body>
@@ -12,25 +12,23 @@
 			<input type="file" class="custom-file-input" name="file" onchange="javascript:fileChange(event);" /> <!-- Filter file type: accept="image/*" -->
 			<label class="custom-file-label">Choose file...</label>
 		</div>
-		<div id="divProgress" class="mb-2">Waiting...</div>
-		<div class="mb-2"><progress class="progress w-100"></progress></div>
+		<div class="my-2">
+			<pre id="divProgress">Waiting...</pre>
+		</div>
+		<div class="mb-2">
+			<progress class="progress w-100"></progress>
+		</div>
 		<div class="text-center">
 			<button type="button" class="btn btn-lg btn-success mb-2" onclick="javascript:uploadAjax();">Upload</button>
+		</div>
+		<div class="text-center">
+			<img src="" class="img-thumbnail" style="display:none;" />
 		</div>
 		<input type="hidden" name="op" value="UPLOAD_FILE" />
 	</form>
 	<?php require 'footer.php'; ?>
-	<?php require 'footerjs.php'; ?>
-	<script src="js/functions.min.js?<?= filemtime('js/functions.min.js') ?>" type="text/javascript" charset="UTF-8"></script>
-	<script type="text/javascript">
-		function fileChange(e) {
-			if (e.target.files.length > 0) {
-				$(".custom-file-label").text(e.target.files[0].name);
-			} else {
-				$(".custom-file-label").text("No file selected.");
-			}
-		}
-	</script>
+	<?php require 'footerjs.htm'; ?>
+	<script src="js/upload.min.js?<?= filemtime('js/upload.min.js') ?>"></script>
 </body>
 
 </html>
