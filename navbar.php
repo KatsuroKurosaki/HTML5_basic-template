@@ -22,6 +22,8 @@
 				<div class="dropdown-menu" aria-labelledby="jscsslibs">
 					<a class="dropdown-item" href="info.php">PHP info</a>
 					<a class="dropdown-item" href="login.php">Login page</a>
+					<a class="dropdown-item" href="upload.php">Upload files</a>
+					<a class="dropdown-item" href="webcam.php">Webcam tools</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="phosphor_jscsslibs.php#animatecss">AnimateCSS</a>
 					<a class="dropdown-item" href="phosphor_jscsslibs.php#">Bootstrap colorpicker</a>
