@@ -225,6 +225,145 @@
 		}
 	});
 
+	// Object
+	$.extend({
+		filterObject: function (array, key, value) {
+
+			function __regExpFilter(pattern, text) {
+				//const regex = '/casa/gi';
+				var regex = new RegExp(value, "gi");
+				const str = text;
+				let m;
+
+				while ((m = regex.exec(str)) !== null) {
+					// This is necessary to avoid infinite loops with zero-width matches
+					if (m.index === regex.lastIndex) {
+						regex.lastIndex++;
+					}
+
+					// The result can be accessed through the `m`-variable.
+					/*m.forEach((match, groupIndex) => {
+						//console.log(`Found match, group ${groupIndex}: ${match}`);
+						return true;
+					});*/
+					if (m != undefined) return true;
+				}
+
+			}
+
+			var tmp = new Array();
+			$.grep($.objectToArray(array), function (e) {
+				if (__regExpFilter(value, e[key])) {
+					tmp.push(e);
+				}
+			});
+			return tmp;
+		},
+
+		attrToObject: function (object, tagName, prefix) {
+			prefix = (prefix == undefined) ? "data" : prefix;
+
+			function _createObjectFromData(target, prefix) {
+				var data = new Object();
+				var prefixA = prefix + "-int-";
+				var prefixB = prefix + "-str-";
+
+				target.each(function () {
+					$.each(this.attributes, function () {
+						if (this.name.indexOf(prefixA) != -1) {
+							data[this.name.replace(prefixA, "")] = parseInt(this.value);
+						} else if (this.name.indexOf(prefixB) != -1) {
+							data[this.name.replace(prefixB, "")] = this.value;
+						} else if (this.name.indexOf(prefix) != -1) {
+							data[this.name.replace(prefix + '-', "")] = this.value;
+						}
+
+					});
+				});
+				return data;
+			}
+
+			if (object.tagName == undefined && typeof (object) == "object") {
+				return _createObjectFromData(object, prefix);
+			} else if (object.tagName.toLowerCase() == tagName.toLowerCase()) {
+				return _createObjectFromData($(object), prefix);
+			} else {
+				return _createObjectFromData($(object).parent(), prefix);
+			}
+		},
+
+		objectSize: function (object) {
+			var size = 0,
+				key;
+			for (key in object) {
+				if (object.hasOwnProperty(key)) size++;
+			}
+			return size;
+		},
+
+		objectToArray: function (object) {
+			var _clon = jQuery.extend(true, {}, object);
+			var _array = new Array();
+			for (var item in _clon) {
+				_array.push(_clon[item]);
+			}
+			return _array;
+		},
+
+		arrayToObject: function (array) {
+			return array.reduce(function (o, val) {
+				o[val] = val;
+				return o;
+			}, {});
+		},
+
+		objectFindItem: function (array, key, value) {
+			var obj = $.grep($.objectToArray(array), function (e) {
+				return e[key] == value;
+			});
+			if (obj != null)
+				return obj[0];
+			return obj;
+		},
+
+		objectSortBy: function (object, args) {
+
+			function _dynamicSortMultiple(attr) {
+				var props = args;
+				return function (obj1, obj2) {
+					var i = 0,
+						result = 0,
+						numberOfProperties = props.length;
+					/* try getting a different result from 0 (equal)
+					 * as long as we have extra properties to compare
+					 */
+					while (result === 0 && i < numberOfProperties) {
+						result = _dynamicSort(props[i])(obj1, obj2);
+						i++;
+					}
+					return result;
+				}
+			}
+
+			function _dynamicSort(property) {
+				var sortOrder = 1;
+				if (property[0] === "-") {
+					sortOrder = -1;
+					property = property.substr(1, property.length - 1);
+				}
+				return function (a, b) {
+					var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+					return result * sortOrder;
+				}
+			}
+
+			var _tmp = $.objectToArray(object);
+			return _tmp.sort(_dynamicSortMultiple.apply(null, args));
+		}
+
+
+	});
+
 	// Printing module
 	$.extend({
 		spawnPrinter: function (options, elem, head, finishFunction) {
@@ -907,7 +1046,11 @@
 		var container = this;
 
 		var image = new Image();
-		image.src = URL.createObjectURL(_settings.imgFile);
+		try {
+			image.src = URL.createObjectURL(_settings.imgFile);
+		} catch (err) {
+			alert(err);
+		}
 		image.onload = function () {
 			var newSize = $.calculateAspectRatio(image.width, image.height, _settings.width, _settings.height)
 			var canvas = document.createElement("canvas");
@@ -941,6 +1084,14 @@
 						file: _settings.imgFile
 					}]);
 			}
+		}
+
+		image.onerror = function () {
+			console.error("Not an image: " + _settings.imgFile.name);
+			container.trigger("thumbnailGenerated", [{
+				success: false,
+				file: _settings.imgFile
+			}]);
 		}
 	};
 
