@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="format-detection" content="telephone=no" />
 <meta name="msapplication-config" content="none" />
+<meta name="google" content="notranslate" />
 <meta name="author" content="Katsuro Kurosaki" />
 <meta name="generator" content="PhosphorPHP" />
 <meta name="description" content="Basic PhosphorPHP project to start from scratch." />
