@@ -1,29 +1,8 @@
 <?php
 $start_time = microtime(true);
-ini_set('display_errors', false);
-ini_set('log_errors', true);
-ini_set('error_log', __DIR__ . '/errors.log');
-error_reporting(-1);
 
-set_error_handler(function ($code, $string, $file, $line) {
-	throw new \ErrorException($string, null, $code, $file, $line);
-});
-register_shutdown_function(function () {
-	$error = error_get_last();
-	if ($error !== null) {
-		echo json_encode(\GlobalFunctions::returnOut([
-			"status" => "ko",
-			"msg" => $error['message'],
-			"file" => $error['file'],
-			"line" => $error['line'],
-			"color" => "danger",
-			"code" => -1,
-		]));
-	}
-});
+require 'api_header.php';
 
-header('Content-Type: application/json; charset=utf-8');
-require __DIR__ . '/class/autoload.php';
 $_in = (empty($_POST) && empty($_FILES)) ? json_decode(file_get_contents("php://input"), true) : $_POST;
 $_out = [];
 
