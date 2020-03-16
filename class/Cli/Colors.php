@@ -34,7 +34,7 @@ class Colors
 	);
 
 	// Returns colored string
-	public static function colorStr($string, $foreground_color = null, $background_color = null)
+	public static function colorize($string, $foreground_color = null, $background_color = null)
 	{
 		$colored_string = "";
 

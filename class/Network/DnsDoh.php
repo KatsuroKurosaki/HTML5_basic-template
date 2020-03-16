@@ -2,18 +2,22 @@
 
 namespace Network;
 
-class TelnetClient
+class DnsDoh
 {
 
-	private $_host;
-	private $_port;
-	private $_socket;
-	private $_log;
+	private const RESOLVERS = array(
+		'cloudflare' => 'https://1.1.1.1/dns-query',
+		'google' => 'https://8.8.8.8/resolve'
+	);
+	private const QUERYTYPE = array(
+		'A', // IPv4 address
+		'AAAA', // IPv6 address
+		'MX', // Mail exchange
+		'TXT' // Text record
+	);
 
-	public function getLog()
-	{
-		return $this->_log;
-	}
+	// https://developers.cloudflare.com/1.1.1.1/dns-over-https/json-format/
+	// https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml#dns-parameters-6
 
 	public function __construct($host, $port)
 	{

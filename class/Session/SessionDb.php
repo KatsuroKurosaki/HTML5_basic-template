@@ -27,14 +27,14 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function destroy($session_id)
 	{
 		try {
-			\Db\DbConnection::execute(
+			\MysqlDb\DbConnection::execute(
 				"DELETE FROM `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "`
 				WHERE `id` = ?;",
 				's',
 				[$session_id]
 			);
 			return true;
-		} catch (\Db\DbErrorConnection $e) {
+		} catch (\MysqlDb\DbErrorConnection $e) {
 			if ($this->_sessionConf['debug']) {
 				var_dump($e);
 			}
@@ -46,12 +46,12 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function gc($maxlifetime)
 	{
 		try {
-			\Db\DbConnection::execute(
+			\MysqlDb\DbConnection::execute(
 				"DELETE FROM `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "`
 				WHERE `expires` < UNIX_TIMESTAMP(NOW());"
 			);
 			return true;
-		} catch (\Db\DbErrorConnection $e) {
+		} catch (\MysqlDb\DbErrorConnection $e) {
 			if ($this->_sessionConf['debug']) {
 				var_dump($e);
 			}
@@ -63,13 +63,13 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function open($save_path, $session_name)
 	{
 		try {
-			\Db\DbConnection::execute(
+			\MysqlDb\DbConnection::execute(
 				"SELECT true
 				FROM `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "`
 				LIMIT 1;"
 			);
 			return true;
-		} catch (\Db\DbErrorConnection $e) {
+		} catch (\MysqlDb\DbErrorConnection $e) {
 			if ($this->_sessionConf['debug']) {
 				var_dump($e);
 			}
@@ -81,7 +81,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function read($session_id)
 	{
 		try {
-			$data = \Db\DbConnection::execute(
+			$data = \MysqlDb\DbConnection::execute(
 				"SELECT `session_data`
 				FROM `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "`
 				WHERE `id` = ? AND `expires` > UNIX_TIMESTAMP(NOW());",
@@ -90,7 +90,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 			)->getSingleData();
 
 			if ($data != null) {
-				\Db\DbConnection::execute(
+				\MysqlDb\DbConnection::execute(
 					"UPDATE `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "`
 					SET `expires` = UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL " . $this->_sessionConf['expires'] . "))
 					WHERE `id` = ?;",
@@ -99,7 +99,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 				);
 				return $data['session_data'];
 			}
-		} catch (\Db\DbErrorConnection $e) {
+		} catch (\MysqlDb\DbErrorConnection $e) {
 			if ($this->_sessionConf['debug']) {
 				var_dump($e);
 			}
@@ -111,7 +111,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 	public function write($session_id, $session_data)
 	{
 		try {
-			\Db\DbConnection::execute(
+			\MysqlDb\DbConnection::execute(
 				"INSERT INTO `" . $this->_sessionConf['db'] . "`.`" . $this->_sessionConf['dbtable'] . "` (`id`, `session_data`, `expires`,`ip_address`,`user_agent`)
 				VALUES (?,?,UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL " . $this->_sessionConf['expires'] . ")),INET_ATON(?),SUBSTRING(?,1,255))
 				ON DUPLICATE KEY UPDATE `session_data` = ?, `expires` = UNIX_TIMESTAMP(DATE_ADD(NOW(),INTERVAL " . $this->_sessionConf['expires'] . "));",
@@ -119,7 +119,7 @@ class SessionDb implements \SessionHandlerInterface, \SessionUpdateTimestampHand
 				[$session_id, $session_data, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $session_data]
 			);
 			return true;
-		} catch (\Db\DbErrorStatement $e) {
+		} catch (\MysqlDb\DbErrorStatement $e) {
 			if ($this->_sessionConf['debug']) {
 				var_dump($e);
 			}
