@@ -103,7 +103,7 @@
 			return result
 		},
 
-		hexDecode = function () {
+		hexDecode: function () {
 			var j;
 			var hexes = this.match(/.{1,4}/g) || [];
 			var back = "";
