@@ -93,13 +93,11 @@
 
 		hexEncode: function () {
 			var hex, i;
-
 			var result = "";
 			for (i = 0; i < this.length; i++) {
 				hex = this.charCodeAt(i).toString(16);
 				result += ("000" + hex).slice(-4);
 			}
-
 			return result
 		},
 
@@ -110,7 +108,6 @@
 			for (j = 0; j < hexes.length; j++) {
 				back += String.fromCharCode(parseInt(hexes[j], 16));
 			}
-
 			return back;
 		},
 
