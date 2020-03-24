@@ -218,6 +218,30 @@
 		}
 	});
 
+	// Sharing mobile API
+	$.extend({
+		canShare: function () {
+			return (navigator.share);
+		},
+		share: function (options) {
+			var _settings = $.extend({
+				title: '',
+				text: '',
+				url: window.location.href,
+				complete: function () {},
+				error: function (error) {}
+			}, options);
+
+			navigator.share({
+					title: _settings.title,
+					text: _settings.text,
+					url: _settings.url,
+				})
+				.then(_settings.complete())
+				.catch(_settings.error(error));
+		}
+	});
+
 	// Randomizers
 	$.extend({
 		randomInt: function () {
@@ -386,7 +410,7 @@
 
 	// Printing module
 	$.extend({
-		spawnPrinter: function (options, elem, head, finishFunction) {
+		spawnPrinter: function (options) {
 			var _settings = $.extend({
 				windowWidth: 800,
 				windowHeight: 600,
