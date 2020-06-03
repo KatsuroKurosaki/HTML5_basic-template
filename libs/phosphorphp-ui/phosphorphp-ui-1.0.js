@@ -221,7 +221,7 @@
 	// Sharing mobile API
 	$.extend({
 		canShare: function () {
-			return (navigator.share);
+			return (navigator.share !== undefined);
 		},
 		share: function (options) {
 			var _settings = $.extend({
