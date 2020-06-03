@@ -121,6 +121,10 @@
 	cursor: n-resize;
 }
 
+.cursor-ns-resize {
+	cursor: ns-resize;
+}
+
 .cursor-ne-resize {
 	cursor: ne-resize;
 }
