@@ -24,6 +24,6 @@ if ($mktapi->connect('192.168.144.120', 'admin', 'admin')) {
 			'channel' => 'long-term'
 		)
 	);
-	var_dump($comm);
+	print_r($comm);
 }
 $mktapi->disconnect();
