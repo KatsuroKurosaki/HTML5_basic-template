@@ -18,13 +18,13 @@
 							<p class="h3 font-weight-bolder text-center txtcolor-gray">BIENVENIDO</p>
 						</div>
 						<div class="col-12 mt-3 mb-3 position-relative usericon">
-							<input type="text" name="username" class="form-control form-control pl-5" placeholder="Usuario" maxlength="64" autofocus>
+							<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0" placeholder="Usuario" maxlength="64" autofocus>
 						</div>
 						<div class="col-12 mb-3 position-relative passicon">
-							<input type="password" name="password" class="form-control form-control pl-5" placeholder="Contraseña" maxlength="72">
+							<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0" placeholder="Contraseña" maxlength="72">
 						</div>
 						<div class="col-12 mb-3 text-center">
-							<button type="button" class="btn btn-info w-50 shadow" onclick="javascript:submitLogin();">
+							<button type="button" class="btn btn-info w-50 shadow rounded-pill" onclick="javascript:submitLogin();">
 								ENTRAR
 							</button>
 						</div>
