@@ -17,11 +17,17 @@
 							<img src="img/logo-login.png" class="d-block d-md-none mx-auto w-25" />
 							<p class="h3 font-weight-bolder text-center txtcolor-gray">BIENVENIDO</p>
 						</div>
-						<div class="col-12 mt-3 mb-3 position-relative usericon">
-							<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0" placeholder="Usuario" maxlength="64" autofocus>
+						<div class="col-12 mt-3 mb-3">
+							<div class="position-relative form-label-group usericon">
+								<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Usuario" maxlength="64" autofocus>
+								<label class="pl-5">Usuario</label>
+							</div>
 						</div>
-						<div class="col-12 mb-3 position-relative passicon">
-							<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0" placeholder="Contraseña" maxlength="72">
+						<div class="col-12 mb-3">
+							<div class="position-relative form-label-group passicon">
+								<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Contraseña" maxlength="72">
+								<label class="pl-5">Contraseña</label>
+							</div>
 						</div>
 						<div class="col-12 mb-3 text-center">
 							<button type="button" class="btn btn-info w-50 shadow rounded-pill" onclick="javascript:submitLogin();">
