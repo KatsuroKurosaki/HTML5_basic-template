@@ -13,10 +13,10 @@ body {
 	content: "";
 	position: absolute;
 	top: 5px;
-	bottom: 5px;
 	left: 10px;
 	width: 23px;
-	background: url(../img/user-icon.png);
+	height: 23px;
+	background: url(../img/user-icon.svg);
 	-webkit-background-size: contain;
 	-moz-background-size: contain;
 	-o-background-size: contain;
@@ -27,10 +27,10 @@ body {
 	content: "";
 	position: absolute;
 	top: 5px;
-	bottom: 5px;
 	left: 10px;
 	width: 23px;
-	background: url(../img/pass-icon.png);
+	height: 23px;
+	background: url(../img/pass-icon.svg);
 	-webkit-background-size: contain;
 	-moz-background-size: contain;
 	-o-background-size: contain;
