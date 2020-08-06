@@ -12,7 +12,7 @@
 		<div class="col-12 col-md-5">
 			<div class="d-flex flex-column h-100">
 				<div class="flex-fill w-75 mx-auto p-3 d-flex justify-content-center align-items-center">
-					<form class="form-row form-signin">
+					<form class="form-row form-signin" autocomplete="off">
 						<div class="col-12 mb-3">
 							<img src="img/logo-login.png" class="d-block d-md-none mx-auto w-25" />
 							<p class="h3 font-weight-bolder text-center txtcolor-gray">BIENVENIDO</p>
