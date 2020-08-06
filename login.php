@@ -19,13 +19,13 @@
 						</div>
 						<div class="col-12 mt-3 mb-3">
 							<div class="position-relative form-label-group usericon">
-								<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Usuario" maxlength="64" autofocus>
+								<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Usuario" maxlength="64" autofocus autocomplete="new-password" />
 								<label class="pl-5">Usuario</label>
 							</div>
 						</div>
 						<div class="col-12 mb-3">
 							<div class="position-relative form-label-group passicon">
-								<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Contraseña" maxlength="72">
+								<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Contraseña" maxlength="72" autocomplete="new-password" />
 								<label class="pl-5">Contraseña</label>
 							</div>
 						</div>
