@@ -3,12 +3,12 @@
 
 <head>
 	<?php require 'header.php'; ?>
-	<?php require 'headercss.htm'; ?>
+	<?php require 'headercss.php'; ?>
 	<link rel="stylesheet" href="css/login_style.min.css?<?= filemtime('css/login_style.min.css') ?>" />
 </head>
 
 <body class="h-100 d-flex justify-content-center align-items-center">
-	<div class="row no-gutters signin bgcolor-white rounded">
+	<div class="row no-gutters signin bg-white rounded">
 		<div class="col-12 col-md-5">
 			<div class="d-flex flex-column h-100">
 				<div class="flex-fill w-75 mx-auto p-3 d-flex justify-content-center align-items-center">
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
-	<?php require 'footerjs.htm'; ?>
+	<?php require 'footerjs.php'; ?>
 	<script src="js/login.min.js?<?= filemtime('js/login.min.js') ?>"></script>
 </body>
 

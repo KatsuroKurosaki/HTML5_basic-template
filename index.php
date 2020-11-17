@@ -3,7 +3,7 @@
 
 <head>
 	<?php require 'header.php'; ?>
-	<?php require 'headercss.htm'; ?>
+	<?php require 'headercss.php'; ?>
 	<link rel="stylesheet" href="css/main_style.min.css?<?= filemtime('css/main_style.min.css') ?>" />
 </head>
 
@@ -21,7 +21,7 @@
 	</main>
 
 	<?php require 'footer.php'; ?>
-	<?php require 'footerjs.htm'; ?>
+	<?php require 'footerjs.php'; ?>
 </body>
 
 </html>

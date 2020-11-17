@@ -3,7 +3,7 @@
 
 <head>
 	<?php require 'header.php'; ?>
-	<?php require 'headercss.htm'; ?>
+	<?php require 'headercss.php'; ?>
 	<link href="css/main_style.css?<?= filemtime('css/main_style.css') ?>" type="text/css" rel="stylesheet" />
 </head>
 
@@ -33,7 +33,7 @@
 	</main>
 
 	<?php require 'footer.php'; ?>
-	<?php require 'footerjs.htm'; ?>
+	<?php require 'footerjs.php'; ?>
 	<script src="js/webcam.min.js?<?= filemtime('js/webcam.min.js') ?>"></script>
 
 </body>

@@ -3,7 +3,7 @@
 
 <head>
 	<?php require 'header.php'; ?>
-	<?php require 'headercss.htm'; ?>
+	<?php require 'headercss.php'; ?>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
 		<label>Coming soon: Multiple file upload</label>
 	</main>
 	<?php require 'footer.php'; ?>
-	<?php require 'footerjs.htm'; ?>
+	<?php require 'footerjs.php'; ?>
 	<script src="js/upload.min.js?<?= filemtime('js/upload.min.js') ?>"></script>
 </body>
 
