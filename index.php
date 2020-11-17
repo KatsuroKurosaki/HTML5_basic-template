@@ -14,9 +14,9 @@
 	<main role="main" class="container pt-2 pb-5">
 		<div class="jumbotron">
 			<h1 class="display-4">Phosphor PHP UI</h1>
-			<!--<p class="lead">Demo page showcasing the UI features.</p>
+			<p class="lead">Demo page with examples.</p>
 			<hr class="my-4">
-			<p>Feel free to browse everything</p>-->
+			<p>Feel free to browse everything</p>
 		</div>
 	</main>
 
