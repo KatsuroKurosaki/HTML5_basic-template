@@ -1,10 +1,9 @@
-@charset "UTF-8";
-
+/* CSS variables */
 :root {
 	--phosphor: #800080;
 }
 
-/* Bootstrap 4 improvements */
+/* Opacity classess */
 .opacity-100 {
 	opacity: 1 !important;
 }
@@ -25,6 +24,7 @@
 	opacity: 0 !important;
 }
 
+/* Autoappear dropdown on mouse over */
 .dropdown.autoappear>.dropdown-menu {
 	margin: -0.125rem 0 0;
 }
@@ -33,18 +33,14 @@
 	display: block;
 }
 
+/* Felx align content missing value */
 .align-content-evenly {
 	-webkit-align-content: space-evenly !important;
 	-ms-flex-line-pack: space-evenly !important;
 	align-content: space-evenly !important;
 }
 
-.display-5 {
-	font-size: 3rem;
-	font-weight: 300;
-	line-height: 1.2;
-}
-
+/* Full viewport modals */
 .modal-full {
 	min-width: 100%;
 	margin: 0;
@@ -72,16 +68,6 @@
 
 .file-input .file-input-label {
 	z-index: 1;
-}
-
-/* Text classes */
-
-.text-unselectable {
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 
