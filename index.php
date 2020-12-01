@@ -22,6 +22,7 @@
 
 	<?php require 'footer.php'; ?>
 	<?php require 'footerjs.php'; ?>
+	<script src="js/index.min.js?<?= filemtime('js/index.min.js') ?>"></script>
 </body>
 
 </html>
