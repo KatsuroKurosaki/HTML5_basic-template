@@ -1,6 +1,6 @@
 <?php
 
-namespace MySQLDb;
+namespace MysqlDb;
 
 class DbConnection extends DbClass
 {
@@ -38,9 +38,9 @@ class DbConnection extends DbClass
 		try {
 			$this->conn->real_connect(DbConf::DB_SERVER, DbConf::DB_USER, DbConf::DB_PASS, null, DbConf::DB_PORT);
 		} catch (\Error $e) {
-			throw new \Db\DbErrorConnection($this->conn, "");
+			throw new \MysqlDb\DbErrorConnection($this->conn, "");
 		} catch (\Exception $e) {
-			throw new \Db\DbErrorConnection($this->conn, "");
+			throw new \MysqlDb\DbErrorConnection($this->conn, "");
 		}
 
 		if (!isset($this->conn) or $this->conn == null) {

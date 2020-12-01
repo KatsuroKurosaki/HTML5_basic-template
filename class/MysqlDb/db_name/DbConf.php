@@ -1,6 +1,6 @@
 <?php
 
-namespace MySQLDb\db_name;
+namespace MysqlDb\db_name;
 
 class DbConf
 {
