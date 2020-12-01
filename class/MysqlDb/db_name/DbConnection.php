@@ -1,8 +1,8 @@
 <?php
 
-namespace MySQLDb\db_name;
+namespace MysqlDb\db_name;
 
-class DbConnection extends \MySQLDb\DbClass
+class DbConnection extends \MysqlDb\DbClass
 {
 
 	static $_instance;
@@ -38,9 +38,9 @@ class DbConnection extends \MySQLDb\DbClass
 		try {
 			$this->conn->real_connect(DbConf::DB_SERVER, DbConf::DB_USER, DbConf::DB_PASS, DbConf::DB_BD, DbConf::DB_PORT);
 		} catch (\Error $e) {
-			throw new \Db\DbErrorConnection($this->conn, "");
+			throw new \MysqlDb\DbErrorConnection($this->conn, "");
 		} catch (\Exception $e) {
-			throw new \Db\DbErrorConnection($this->conn, "");
+			throw new \MysqlDb\DbErrorConnection($this->conn, "");
 		}
 
 		if (!isset($this->conn) or $this->conn == null) {
