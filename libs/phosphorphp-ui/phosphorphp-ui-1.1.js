@@ -531,6 +531,8 @@ $.ajaxSetup({
 				success: function (data, textStatus, jqXHR) {
 					if (_settings.debug)
 						console.log(data);
+					if (_settings.spawnSpinner)
+						$.removeSpinner();
 					if (data.status === 'ok')
 						_settings.success(data);
 					else
@@ -539,6 +541,8 @@ $.ajaxSetup({
 				error: function (jqXHR, textStatus, errorThrown) {
 					if (_settings.debug)
 						console.log(jqXHR);
+					if (_settings.spawnSpinner)
+						$.removeSpinner();
 					if (_settings.handleNetworkError)
 						handleNetworkError(jqXHR);
 					_settings.error(jqXHR);
@@ -546,8 +550,6 @@ $.ajaxSetup({
 				complete: function (jqXHR, textStatus) {
 					if (_settings.debug)
 						console.log(textStatus);
-					if (_settings.spawnSpinner)
-						$.removeSpinner();
 					_settings.complete();
 				}
 			});
