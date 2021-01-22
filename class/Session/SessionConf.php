@@ -22,4 +22,12 @@ class SessionConf
 		"name" => "s", // Name of the $_GET parameter
 		"trans_sid_tags" => "", // No autoreplace any HTML tags
 	];
+
+	// Session initialization for cookied session
+	const SESSION_COOKIE_OPTS = [
+		"use_cookies" => 1, // Use cookies
+		"name" => "s", // Name of the cookie
+		"trans_sid_tags" => "", // No autoreplace any HTML tags
+		"cookie_secure" => true, // SameSite parameter for cookies
+	];
 }
