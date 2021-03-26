@@ -55,11 +55,5 @@ if ($_in !== null) {
 	]);
 }
 
-
-$_out['mem']['engine_curr'] = memory_get_usage(false);
-$_out['mem']['system_curr'] = memory_get_usage(true);
-$_out['mem']['engine_peak'] = memory_get_peak_usage(false);
-$_out['mem']['system_peak'] = memory_get_peak_usage(true);
-$_out['time'] = round(microtime(true) - $start_time, 6);
-
+header('Server-Timing: time;desc="Execution time ms";dur=' . round(microtime(true) - $start_time, 3) * 1000 . ', memalloc;desc="Memory allocated: ' . memory_get_usage() . ' bytes", mempeak;desc="Peak memory: ' . memory_get_peak_usage() . ' bytes"');
 echo json_encode($_out);
