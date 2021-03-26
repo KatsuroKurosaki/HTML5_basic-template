@@ -1,5 +1,8 @@
 <?php
-class Timers
+
+namespace Utils;
+
+class ServerTimings
 {
 	private $timers = [];
 
