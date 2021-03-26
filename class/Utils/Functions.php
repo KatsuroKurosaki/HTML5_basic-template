@@ -10,7 +10,6 @@ class Functions
 			'status' => 'ok',
 			'msg' => '',
 			'color' => 'info',
-			'code' => 0,
 		], $options);
 
 		return $_settings;
