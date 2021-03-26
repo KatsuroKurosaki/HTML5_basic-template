@@ -24,7 +24,6 @@ set_exception_handler(function ($ex) {
 			'file' => $ex->getFile(),
 			'line' => $ex->getLine(),
 			'trace' => $ex->getTrace(),
-			'severity' => $ex->getSeverity(),
 		],
 		'color' => 'danger',
 	]));
