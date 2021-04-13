@@ -8,7 +8,7 @@ ini_set('log_errors', true);
 ini_set('error_log', __DIR__ . '/errors.log');
 error_reporting(E_ALL);
 
-require '/mnt/xvdf1/clasesphp/surf_mail/autoload.php';
+require __DIR__ . '/class/autoload.php';
 
 set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) {
 	throw new \ErrorException($errstr, $errno, E_ERROR, $errfile, $errline);
