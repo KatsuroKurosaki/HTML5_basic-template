@@ -32,6 +32,19 @@
 			return Math.round(value * multiplier) / multiplier;
 		},
 
+		formatMoney: function (number, currency = "") {
+			let price = new Intl.NumberFormat("de-DE", {
+				style: "currency",
+				currency: "EUR"
+			}).format(number);
+			//console.log("price:" + price);
+
+			/*if(price.toString().indexOf(",")==-1)
+			price += ",00";
+			*/
+			return price; //  + "" + currency;
+		},
+
 		uts2dt: function (ts) {
 			let _date = new Date(ts * 1000);
 			return _date.getFullYear() + "/" +
@@ -121,6 +134,35 @@
 
 		thousandSeparator: function (num, sep = ',') {
 			//return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, sep);
+			/*
+			var n = 34523453.345
+			n.toLocaleString()
+			"34,523,453.345"
+			
+			number.toLocaleString('en-US', {minimumFractionDigits: 2}); "123,456.00"
+			
+			var nf = new Intl.NumberFormat();
+			nf.format(number); // "1,234,567,890"
+
+			// default behaviour on a machine with a local that uses commas for numbers
+			number.toLocaleString(); // "1,234,567,890"
+
+			// With custom settings, forcing a "US" locale to guarantee commas in output
+			var number2 = 1234.56789; // floating point example
+			number2.toLocaleString('en-US', {maximumFractionDigits:2}) // "1,234.57"
+
+			function formatNumber(num) {
+				return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+			}
+
+			print(formatNumber(2665)); // 2,665
+			print(formatNumber(102665)); // 102,665
+			print(formatNumber(111102665)); // 111,102,665
+			123456789.123456789.toString().replace(/(\d)(?=(\d{3})+\.)/g, '$1,') => 123, 456, 789.12345679
+
+			var number = 3500;
+			console.log(new Intl.NumberFormat().format(number));
+			*/
 			return num;
 		}
 	});
