@@ -5,67 +5,85 @@ namespace Network;
 class Curl
 {
 
-	const HTTP_REQUEST_GET = "GET";
-	const HTTP_REQUEST_POST = "POST";
-	const HTTP_REQUEST_PUT = "PUT";
-	const HTTP_REQUEST_DELETE = "DELETE";
+	const REQUEST_GET = 'GET';
+	const REQUEST_POST = 'POST';
+	const REQUEST_PUT = 'PUT';
+	const REQUEST_DELETE = 'DELETE';
 	const DEFAULT_TIMEOUT = 10;
 
-	private $_useragent;
-	private $_url;
-	private $_timeout;
-	private $_cookieJar;
-	private $_curl;
-	private $_responseInfo;
-	private $_responseHeader;
-	private $_responseBody;
-	private $_responseError;
-	private $_responseErrorMsg;
+	private $userAgent;
+	private $url;
+	private $cookieJar;
+	private $curl;
+	private $responseInfo;
+	private $responseHeader;
+	private $responseBody;
 
-	public function __construct($url = "")
+	public function __construct($url = '')
 	{
+		$this->url = $url;
+		$this->responseHeader = array();
+
 		$curlinfo = curl_version();
-		$this->_useragent = "PHP/" . PHP_VERSION . " (" . PHP_OS . "; " . $curlinfo['host'] . ") cURL/" . $curlinfo['version'] . " " . $curlinfo['ssl_version'];
+		$this->userAgent = 'PHP/' . PHP_VERSION . ' (' . PHP_OS . '; ' . $curlinfo['host'] . ') cURL/' . $curlinfo['version'] . ' ' . $curlinfo['ssl_version'];
 		unset($curlinfo);
 
-		$this->_curl = curl_init();
-		curl_setopt_array($this->_curl, [
+		$this->curl = curl_init();
+		curl_setopt_array($this->curl, [
 			CURLOPT_VERBOSE => true,
 			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_FAILONERROR => true,
-			CURLOPT_URL => $this->_url,
-			CURLOPT_HEADER => true,
+			CURLOPT_URL => $this->url,
+			CURLOPT_HEADERFUNCTION => function ($curl, $header) {
+				$len = strlen($header);
+				$header = explode(':', $header, 2);
+				if (count($header) < 2) {
+					return $len;
+				}
+				$this->responseHeader[strtolower(trim($header[0]))][] = trim($header[1]);
+
+				return $len;
+			},
 			CURLINFO_HEADER_OUT => true,
-			CURLOPT_USERAGENT => $this->_useragent,
+			CURLOPT_USERAGENT => $this->userAgent,
 			CURLOPT_TIMEOUT => self::DEFAULT_TIMEOUT,
 		]);
-		$this->setUrl($url);
 	}
 
 	public function __destruct()
 	{
-		curl_close($this->_curl);
-		if (isset($this->_cookieJar) && file($this->_cookieJar)) {
-			unlink($this->_cookieJar);
+		$this->close();
+		if (isset($this->cookieJar) && file($this->cookieJar)) {
+			unlink($this->cookieJar);
 		}
+	}
+
+	public function close()
+	{
+		if (is_resource($this->curl))
+			curl_close($this->curl);
 	}
 
 	public function setParam($option, $value)
 	{
 		// More info on: http://php.net/manual/en/function.curl-setopt.php
-		return curl_setopt($this->_curl, $option, $value);
+		return curl_setopt($this->curl, $option, $value);
 	}
 
 	public function setUrl(string $url)
 	{
-		$this->_url = $url;
-		$this->setParam(CURLOPT_URL, $this->_url);
+		$this->url = $url;
+		$this->setParam(CURLOPT_URL, $this->url);
 	}
 
 	public function setUserAgent(string $userAgent)
 	{
-		$this->_useragent = $userAgent;
-		$this->setParam(CURLOPT_USERAGENT, $this->_useragent);
+		$this->userAgent = $userAgent;
+		$this->setParam(CURLOPT_USERAGENT, $this->userAgent);
+	}
+
+	public function setTimeout(int $timeout)
+	{
+		$this->setParam(CURLOPT_TIMEOUT, $timeout);
 	}
 
 	public function setSslCheck($value)
@@ -87,8 +105,8 @@ class Curl
 	public function setCookieJar($file)
 	{
 		$this->_cookieJar = $file;
-		$this->setParam(CURLOPT_COOKIEJAR, $this->_cookieJar);
-		$this->setParam(CURLOPT_COOKIEFILE, $this->_cookieJar);
+		$this->setParam(CURLOPT_COOKIEJAR, $this->cookieJar);
+		$this->setParam(CURLOPT_COOKIEFILE, $this->cookieJar);
 	}
 
 	// - $headers: ['Content-Type: application/json']
@@ -109,39 +127,25 @@ class Curl
 		$this->setParam(CURLOPT_PROXYTYPE, $proxyType);
 	}
 
-	public function getInfo()
+	public function getResponseInfo()
 	{
-		return $this->_responseInfo;
+		return $this->responseInfo;
 	}
 
-	public function getHeader()
+	public function getResponseHeaders()
 	{
-		return $this->_responseHeader;
+		return $this->responseHeader;
 	}
 
-	public function getBody()
+	public function getResponseBody()
 	{
-		return $this->_responseBody;
-	}
-
-	public function getError()
-	{
-		return $this->_responseError;
-	}
-
-	public function getErrorMsg()
-	{
-		return $this->_responseErrorMsg;
+		return $this->responseBody;
 	}
 
 	public function execute()
 	{
-		$result = curl_exec($this->_curl);
-		$this->_responseError = curl_errno($this->_curl);
-		$this->_responseErrorMsg = curl_error($this->_curl);
-		$this->_responseInfo = curl_getinfo($this->_curl);
-		$this->_responseHeader = substr($result, 0, $this->_responseInfo['header_size']);
-		$this->_responseBody = substr($result, $this->_responseInfo['header_size']);
-		return $this->_responseError;
+		$result = curl_exec($this->curl);
+		$this->responseInfo = (object) curl_getinfo($this->curl);
+		$this->responseBody = $result;
 	}
 }
