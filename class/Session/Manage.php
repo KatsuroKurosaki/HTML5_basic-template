@@ -9,6 +9,16 @@ class Manage
 	{
 		if (session_status() == PHP_SESSION_NONE) {
 			\session_set_save_handler(new SessionDb($sessionConf), true);
+			/*
+			TO DO: Call class by string name:
+			$str = 'One';
+			$class = 'Class'.$str;
+			$object = new $class();
+			
+			When using namespaces, supply the fully qualified name:
+			$class = '\Foo\Bar\MyClass'; 
+			$instance = new $class();
+			*/
 
 			$_sessionOpts = array_replace_recursive(SessionConf::SESSION_OPTS, $sessionOpts);
 			\session_start($_sessionOpts);
