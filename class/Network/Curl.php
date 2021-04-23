@@ -145,7 +145,7 @@ class Curl
 	public function execute()
 	{
 		$result = curl_exec($this->curl);
-		$this->responseInfo = (object) curl_getinfo($this->curl);
+		$this->responseInfo =  curl_getinfo($this->curl);
 		$this->responseBody = $result;
 	}
 }
