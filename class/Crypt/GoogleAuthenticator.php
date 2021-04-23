@@ -29,14 +29,12 @@ class GoogleAuthenticator
 
 		// Valid secret lengths are 80 to 640 bits
 		if ($secretLength < 16 || $secretLength > 128) {
-			throw new Exception('Bad secret length');
+			throw new \Exception('Bad secret length');
 		}
 		$secret = '';
 		$rnd = false;
 		if (function_exists('random_bytes')) {
 			$rnd = random_bytes($secretLength);
-		} elseif (function_exists('mcrypt_create_iv')) {
-			$rnd = mcrypt_create_iv($secretLength, MCRYPT_DEV_URANDOM);
 		} elseif (function_exists('openssl_random_pseudo_bytes')) {
 			$rnd = openssl_random_pseudo_bytes($secretLength, $cryptoStrong);
 			if (!$cryptoStrong) {
@@ -48,7 +46,7 @@ class GoogleAuthenticator
 				$secret .= $validChars[ord($rnd[$i]) & 31];
 			}
 		} else {
-			throw new Exception('No source of secure random');
+			throw new \Exception('No source of secure random');
 		}
 
 		return $secret;
@@ -91,7 +89,7 @@ class GoogleAuthenticator
 	}
 
 	/**
-	 * Get QR-Code URL for image, from google charts.
+	 * Get QR-Code URL for image
 	 *
 	 * @param string $name
 	 * @param string $secret
@@ -100,7 +98,7 @@ class GoogleAuthenticator
 	 *
 	 * @return string
 	 */
-	public function getQRCodeGoogleUrl($name, $secret, $title = null, $params = array())
+	public function getQRCodeUrl($name, $secret, $title = null, $params = array())
 	{
 		$width = !empty($params['width']) && (int) $params['width'] > 0 ? (int) $params['width'] : 200;
 		$height = !empty($params['height']) && (int) $params['height'] > 0 ? (int) $params['height'] : 200;
