@@ -271,6 +271,24 @@
 			return (navigator.share !== undefined);
 		},
 		share: function (options) {
+
+			/* TO DO: Use native JS for $.extend here
+			Easiest way is to use Object.assign() function
+			Syntax - Object.assign(target, ...sources)
+
+			So you can code in following way -
+			var obj1 = {
+				a: 1,
+				c: 4
+			};
+			var obj2 = {
+				a: 2,
+				b: 3
+			};
+			var copy = Object.assign(obj1, obj2);
+			console.log(copy); // { a: 2, c: 4, b: 3 }
+			*/
+
 			let _settings = $.extend({
 				title: '',
 				text: '',
