@@ -1180,6 +1180,7 @@ $.ajaxSetup({
 				}
 			}).get()
 		);
+		// TO DO: Select multiple!
 		let serialized = new Object();
 		for (let idx in data) {
 			serialized[data[idx].name] = data[idx].value;
