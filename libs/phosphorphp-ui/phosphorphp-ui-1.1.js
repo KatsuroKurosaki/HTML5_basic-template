@@ -575,6 +575,7 @@ $.ajaxSetup({
 			}, options);
 
 			$.ajax({
+				async: true,
 				method: _settings.method,
 				url: _settings.url,
 				data: JSON.stringify(_settings.data),
