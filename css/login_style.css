@@ -46,6 +46,14 @@ body {
 	background-size: cover;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	-webkit-box-shadow: 0 0 0 30px white inset !important;
+	box-shadow: 0 0 0 30px white inset !important;
+}
+
 .form-label-group>label {
 	padding: .45rem .75rem;
 }

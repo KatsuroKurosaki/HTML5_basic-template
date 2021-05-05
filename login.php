@@ -12,20 +12,20 @@
 		<div class="col-12 col-md-5">
 			<div class="d-flex flex-column h-100">
 				<div class="flex-fill w-75 mx-auto p-3 d-flex justify-content-center align-items-center">
-					<form class="form-row form-signin" autocomplete="off">
+					<form class="form-row form-signin">
 						<div class="col-12 mb-3">
 							<img src="img/logo-login.png" class="d-block d-md-none mx-auto w-25" />
 							<p class="h3 font-weight-bolder text-center txtcolor-gray">BIENVENIDO</p>
 						</div>
 						<div class="col-12 mt-3 mb-3">
 							<div class="position-relative form-label-group usericon">
-								<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Usuario" maxlength="64" autofocus autocomplete="new-password" />
+								<input type="text" name="username" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Usuario" maxlength="64" autofocus />
 								<label class="pl-5">Usuario</label>
 							</div>
 						</div>
 						<div class="col-12 mb-3">
 							<div class="position-relative form-label-group passicon">
-								<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Contraseña" maxlength="72" autocomplete="new-password" />
+								<input type="password" name="password" class="form-control form-control pl-5 border-secondary border-top-0 border-left-0 border-right-0 rounded-0 shadow-none" placeholder="Contraseña" maxlength="72" />
 								<label class="pl-5">Contraseña</label>
 							</div>
 						</div>
