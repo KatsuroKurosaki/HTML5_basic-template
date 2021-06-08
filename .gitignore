@@ -1,3 +1,4 @@
 /errors.log
 /upload
 /phptests/test.db
+/websocket/node_modules
