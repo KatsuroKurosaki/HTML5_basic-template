@@ -1180,10 +1180,13 @@ $.ajaxSetup({
 				}
 			}).get()
 		);
-		// TO DO: Select multiple!
-		let serialized = new Object();
-		for (let idx in data) {
-			serialized[data[idx].name] = data[idx].value;
+		var serialized = new Object();
+		for (var idx in data) {
+			if (serialized[data[idx].name] == undefined) {
+				serialized[data[idx].name] = data[idx].value;
+			} else {
+				serialized[data[idx].name] = serialized[data[idx].name] + ',' + data[idx].value;
+			}
 		}
 		return serialized;
 	};
